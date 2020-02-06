@@ -111,7 +111,9 @@ namespace Opsive.UltimateCharacterController.Demo.AI
         /// <returns>True if the agent is at the destination.</returns>
         private bool IsAtDestination()
         {
-            return (m_Destination - m_Transform.position).sqrMagnitude < m_StoppingDistance * m_StoppingDistance;
+            return Vector3.Distance(m_Destination, m_Transform.position) < 7;
+
+            //return (m_Destination - m_Transform.position).sqrMagnitude < m_StoppingDistance * m_StoppingDistance;
         }
     }
 }
