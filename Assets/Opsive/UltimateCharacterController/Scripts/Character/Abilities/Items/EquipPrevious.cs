@@ -25,8 +25,14 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// <param name="itemSetIndex">The updated active ItemSet index value.</param>
         protected override void OnItemSetIndexChange(int itemSetIndex)
         {
+            var size = m_ItemSetManager.CategoryItemSets[m_ItemSetCategoryIndex].ItemSetList.Count;
+
+            if (itemSetIndex >= size)
+                return;
+
             if (itemSetIndex == -1 ||
-                (m_ItemSetIndex != -1 && itemSetIndex == m_ItemSetManager.GetDefaultItemSetIndex(m_ItemSetCategoryIndex) && !m_ItemSetManager.CategoryItemSets[m_ItemSetCategoryIndex].ItemSetList[itemSetIndex].CanSwitchTo)) {
+                (m_ItemSetIndex != -1 && 
+                itemSetIndex == m_ItemSetManager.GetDefaultItemSetIndex(m_ItemSetCategoryIndex) && !m_ItemSetManager.CategoryItemSets[m_ItemSetCategoryIndex].ItemSetList[itemSetIndex].CanSwitchTo)) {
                 return;
             }
 
