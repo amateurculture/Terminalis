@@ -70,9 +70,9 @@ public class AgentFix : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // todo BAD FIONA BAD! *hits herself with a rolled up newspaper*
         if (canAttack && meleeAgent != null && meleeAgent.enabled == false)
             meleeAgent.enabled = true;
 

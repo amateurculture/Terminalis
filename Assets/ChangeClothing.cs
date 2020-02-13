@@ -1,40 +1,67 @@
-﻿using UMA;
+﻿
+using UMA;
 using UMA.CharacterSystem;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChangeClothing : MonoBehaviour
 {
-    public DynamicCharacterAvatar avatar;
+    DynamicCharacterAvatar avatar;
     public UMATextRecipe recipe;
-
-    public void Add()
-    {
-        avatar.ClearSlot(recipe.wardrobeSlot);
-        avatar.SetSlot(recipe);
-        avatar.BuildCharacter();
-    }
+    Button button;
+    bool isSelected;
 
     public void Toggle()
     {
-        // TODO lol... it never does what I need it to do... 
+        if (button.colors.normalColor == Color.blue) Remove(); else Add();
     }
 
-    /*
-    void AddClothing(DynamicCharacterAvatar avatar, UMATextRecipe recipe)
+    public void Add()
     {
+        DeselectUnusuableClothingSlots(recipe.wardrobeSlot);
+        SetButtonColor(button, Color.blue);
+
+        avatar.SetSlot(recipe);
+        avatar.BuildCharacter();
+    }   
+
+    void Remove()
+    {
+        SetButtonColor(button, Color.black);
+
         if (recipe != null)
         {
-            avatar.SetSlot(recipe);
+            avatar.ClearSlot(recipe.wardrobeSlot);
             avatar.BuildCharacter();
         }
     }
-    void RemoveClothing(DynamicCharacterAvatar avatar, string recipe)
+
+    void SetButtonColor(Button b, Color color)
     {
-        if (recipe != null)
+        var colors = b.colors;
+        colors.normalColor = color;
+        colors.selectedColor = color;
+        b.colors = colors;
+    }
+
+    public void SetRecipe(UMATextRecipe recipe)
+    {
+        transform.Find("Label").GetComponent<Text>().text = recipe.DisplayValue;
+        this.recipe = recipe;
+        this.button = GetComponent<Button>();
+        avatar = GameObject.FindGameObjectWithTag("Player").GetComponent<DynamicCharacterAvatar>();
+    }
+
+    private void DeselectUnusuableClothingSlots(string slotName)
+    {
+        var buttons = transform.parent.GetComponent<MirrorController>().buttonList;
+
+        foreach (var b in buttons)
         {
-            avatar.ClearSlot(recipe);
-            avatar.BuildCharacter();
+            if (slotName.Equals(b.GetComponent<ChangeClothing>().recipe.wardrobeSlot))
+            {
+                SetButtonColor(b, Color.black);
+            }
         }
     }
-    */
 }
