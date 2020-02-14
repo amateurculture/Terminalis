@@ -9,7 +9,7 @@ public class MirrorController : MonoBehaviour
     public GameObject prefab;
     public List<Button> buttonList;
     int selectionIndex = 0;
-    Color currentColor = Color.black;
+    Color actualColor = Color.black;
     ColorBlock colors;
     int oldIndex = -1;
     public ScrollRect scrollRect;
@@ -32,27 +32,22 @@ public class MirrorController : MonoBehaviour
         }
     }
 
-    public void SnapTo(RectTransform target)
+    public void CenterToItem(RectTransform obj)
     {
-        Canvas.ForceUpdateCanvases();
-
-        Vector3 targetAdjusted = target.position;
-        targetAdjusted.x += 50;
-
-        Vector3 contentPanelAdjusted = contentPanel.position;
-        contentPanelAdjusted.y -= 50;
-
-        contentPanel.anchoredPosition =
-            (Vector2)scrollRect.transform.InverseTransformPoint(contentPanelAdjusted)
-            - (Vector2)scrollRect.transform.InverseTransformPoint(targetAdjusted);
+        float normalizePosition = contentPanel.anchorMin.y - obj.anchoredPosition.y - 25;
+        normalizePosition += (float)obj.transform.GetSiblingIndex() / (float)scrollRect.content.transform.childCount;
+        normalizePosition /= 1000f;
+        normalizePosition = Mathf.Clamp01(1 - normalizePosition);
+        scrollRect.verticalNormalizedPosition = normalizePosition;
+        Debug.Log(normalizePosition);
     }
-    
+
     private void LateUpdate()
     {
         if (oldIndex == -1)
         {
             colors = buttonList[selectionIndex].colors;
-            currentColor = colors.normalColor;
+            actualColor = colors.normalColor;
             colors.normalColor = colors.highlightedColor;
             buttonList[selectionIndex].colors = colors;
         }
@@ -61,11 +56,12 @@ public class MirrorController : MonoBehaviour
 
         if (Input.GetKeyDown("joystick button 1"))
         {
-            buttonList[selectionIndex].GetComponent<ChangeClothing>().Toggle();
-            currentColor = buttonList[selectionIndex].colors.normalColor;
+            buttonList[selectionIndex].GetComponent<ChangeClothing>().Toggle(actualColor);
+            actualColor = buttonList[selectionIndex].colors.normalColor;
             return;
         }
 
+        // TODO add ability for holding DPad buttons to keep scrolling the clothing list automatically
         if (Input.GetAxis("DpadVertical") == 0)
         {
             dPadPressed = false;
@@ -88,14 +84,14 @@ public class MirrorController : MonoBehaviour
             selectionIndex = 0;
 
         colors = buttonList[oldIndex].colors;
-        colors.normalColor = currentColor;
+        colors.normalColor = actualColor;
         buttonList[oldIndex].colors = colors;
         
         colors = buttonList[selectionIndex].colors;
-        currentColor = colors.normalColor;
+        actualColor = colors.normalColor;
         colors.normalColor = colors.highlightedColor;
         buttonList[selectionIndex].colors = colors;
 
-        //SnapTo(buttonList[selectionIndex].GetComponent<RectTransform>());
+        CenterToItem(buttonList[selectionIndex].GetComponent<RectTransform>());
     }
 }

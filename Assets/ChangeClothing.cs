@@ -9,18 +9,19 @@ public class ChangeClothing : MonoBehaviour
     DynamicCharacterAvatar avatar;
     public UMATextRecipe recipe;
     Button button;
-    bool isSelected;
 
-    public void Toggle()
+    public void Toggle(Color color)
     {
-        if (button.colors.normalColor == Color.blue) Remove(); else Add();
+        if (color == null)
+            return;
+
+        if (color == Color.blue) Remove(); else Add();
     }
 
     public void Add()
     {
         DeselectUnusuableClothingSlots(recipe.wardrobeSlot);
         SetButtonColor(button, Color.blue);
-
         avatar.SetSlot(recipe);
         avatar.BuildCharacter();
     }   
