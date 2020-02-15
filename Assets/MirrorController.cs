@@ -39,7 +39,6 @@ public class MirrorController : MonoBehaviour
         normalizePosition /= 1000f;
         normalizePosition = Mathf.Clamp01(1 - normalizePosition);
         scrollRect.verticalNormalizedPosition = normalizePosition;
-        Debug.Log(normalizePosition);
     }
 
     private void LateUpdate()
@@ -52,7 +51,12 @@ public class MirrorController : MonoBehaviour
             buttonList[selectionIndex].colors = colors;
         }
 
+        //CenterToItem(buttonList[selectionIndex].GetComponent<RectTransform>());
+
         oldIndex = selectionIndex;
+        
+        if (Cursor.lockState != CursorLockMode.Locked)
+            return;
 
         if (Input.GetKeyDown("joystick button 1"))
         {
@@ -77,11 +81,16 @@ public class MirrorController : MonoBehaviour
             dPadPressed = true;
         }
 
+        if (selectionIndex >= buttonList.Count)
+            selectionIndex = 0;
+        if (selectionIndex < 0)
+            selectionIndex = buttonList.Count - 1;
+
+        
+        CenterToItem(buttonList[selectionIndex].GetComponent<RectTransform>());
+
         if (dPadPressed == false)
             return;
-
-        if (selectionIndex < 0)
-            selectionIndex = 0;
 
         colors = buttonList[oldIndex].colors;
         colors.normalColor = actualColor;
@@ -92,6 +101,5 @@ public class MirrorController : MonoBehaviour
         colors.normalColor = colors.highlightedColor;
         buttonList[selectionIndex].colors = colors;
 
-        CenterToItem(buttonList[selectionIndex].GetComponent<RectTransform>());
     }
 }

@@ -9,13 +9,19 @@ public class ChangeClothing : MonoBehaviour
     DynamicCharacterAvatar avatar;
     public UMATextRecipe recipe;
     Button button;
+    Color actualColor;
 
     public void Toggle(Color color)
     {
         if (color == null)
             return;
 
-        if (color == Color.blue) Remove(); else Add();
+        if (color == Color.blue) Remove(); else Add();  
+    }
+
+    public void Toggle()
+    {
+        if (actualColor == Color.blue) Remove(); else Add();
     }
 
     public void Add()
@@ -43,6 +49,9 @@ public class ChangeClothing : MonoBehaviour
         colors.normalColor = color;
         colors.selectedColor = color;
         b.colors = colors;
+
+        b.GetComponent<ChangeClothing>().actualColor = color;
+        //actualColor = color;
     }
 
     public void SetRecipe(UMATextRecipe recipe)
@@ -51,6 +60,7 @@ public class ChangeClothing : MonoBehaviour
         this.recipe = recipe;
         this.button = GetComponent<Button>();
         avatar = GameObject.FindGameObjectWithTag("Player").GetComponent<DynamicCharacterAvatar>();
+        actualColor = Color.black; // todo starting clothing button color should be based on if the player is wearing something, not just set to black
     }
 
     private void DeselectUnusuableClothingSlots(string slotName)
