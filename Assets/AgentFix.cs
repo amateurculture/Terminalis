@@ -66,13 +66,15 @@ public class AgentFix : MonoBehaviour
                 characterLocomotion.TryStopAbility(moveAbility);
                 moveAbility.Enabled = false;
             }
-            
         }
+
+        StartCoroutine(ResetMeleeControls());
     }
 
-    void Update()
+    IEnumerator ResetMeleeControls()
     {
-        // todo BAD FIONA BAD! *hits herself with a rolled up newspaper*
+        yield return new WaitForSeconds(1);
+
         if (canAttack && meleeAgent != null && meleeAgent.enabled == false)
             meleeAgent.enabled = true;
 

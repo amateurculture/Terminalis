@@ -49,9 +49,7 @@ public class ChangeClothing : MonoBehaviour
         colors.normalColor = color;
         colors.selectedColor = color;
         b.colors = colors;
-
         b.GetComponent<ChangeClothing>().actualColor = color;
-        //actualColor = color;
     }
 
     public void SetRecipe(UMATextRecipe recipe)
@@ -65,7 +63,7 @@ public class ChangeClothing : MonoBehaviour
 
     private void DeselectUnusuableClothingSlots(string slotName)
     {
-        var buttons = transform.parent.GetComponent<MirrorController>().buttonList;
+        var buttons = transform.parent.GetComponent<WardrobeMenu>().buttonList;
 
         foreach (var b in buttons)
         {

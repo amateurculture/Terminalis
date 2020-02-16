@@ -12,7 +12,7 @@ public class ContextAwareMenu : MonoBehaviour
 
     public float fadeDistance = 3.5f;
     public float fadeSpeed = 2f;
-   
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -36,9 +36,8 @@ public class ContextAwareMenu : MonoBehaviour
             if (canvasGroup != null)
                 canvasGroup.gameObject.SetActive(true);
         }
-
-        if (isInside && !isFadingOut && !isFadingIn && Vector3.Distance(player.transform.position, transform.position) >= fadeDistance)
-        {   
+        else if (isInside && !isFadingOut && !isFadingIn && Vector3.Distance(player.transform.position, transform.position) >= fadeDistance)
+        {
             isFadingOut = true;
             isFadingIn = false;
             isInside = false;
@@ -56,8 +55,7 @@ public class ContextAwareMenu : MonoBehaviour
                 isFadingIn = false;
             }
         }
-
-        if (isFadingOut)
+        else if (isFadingOut)
         {
             canvasGroup.alpha = Mathf.Lerp(1, 0, t);
             t += Time.deltaTime * fadeSpeed;

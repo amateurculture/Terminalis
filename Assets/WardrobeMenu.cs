@@ -3,7 +3,7 @@ using UMA;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MirrorController : MonoBehaviour
+public class WardrobeMenu : MonoBehaviour
 {
     public UMATextRecipe[] clothingRecipes;
     public GameObject prefab;
