@@ -17,18 +17,18 @@ public class ChangeClothing : MonoBehaviour
         if (color == null)
             return;
 
-        if (color == Color.blue) Remove(); else Add();  
+        if (color == button.colors.selectedColor) Remove(); else Add();  
     }
 
     public void Toggle()
     {
-        if (actualColor == Color.blue) Remove(); else Add();
+        if (actualColor == button.colors.selectedColor) Remove(); else Add();
     }
 
     public void Add()
     {
         DeselectUnusuableClothingSlots(recipe.wardrobeSlot);
-        SetButtonColor(button, Color.blue);
+        SetButtonColor(button, button.colors.selectedColor);
         avatar.SetSlot(recipe);
         avatar.BuildCharacter();
     }   
@@ -48,7 +48,7 @@ public class ChangeClothing : MonoBehaviour
     {
         var colors = b.colors;
         colors.normalColor = color;
-        colors.selectedColor = color;
+        //colors.selectedColor = color;
         b.colors = colors;
         b.GetComponent<ChangeClothing>().actualColor = color;
     }
@@ -60,12 +60,11 @@ public class ChangeClothing : MonoBehaviour
         this.button = GetComponent<Button>();
         avatar = GameObject.FindGameObjectWithTag("Player").GetComponent<DynamicCharacterAvatar>();
 
-        // todo this is not at all performant, but thankfully only gets called at init?
         foreach (KeyValuePair<string, UMATextRecipe> entry in avatar.WardrobeRecipes)
         {
             if (entry.Value == recipe)
             {
-                SetButtonColor(GetComponent<Button>(), Color.blue);
+                SetButtonColor(GetComponent<Button>(), button.colors.selectedColor);
                 break;
             }
         }

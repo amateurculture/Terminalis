@@ -248,7 +248,7 @@ MonoBehaviour:
   directionality: {fileID: 2126252924}
   canvasGroup: {fileID: 1424905312}
   speechInterval: 5
-  typingInterval: 0.1
+  typingInterval: 0.07
   pauseInterval: 2
   fadeSpeed: 2
   expressionPlayer: {fileID: 7605664018462950317}
@@ -4533,17 +4533,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ecc9a6a710c6a84ba22459386687f92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrollRect: {fileID: 7605664019118210483}
+  contentPanel: {fileID: 7605664017180459880}
+  buttonPrefab: {fileID: 1959691981691044453, guid: 4fa7bc1567360d340beb48f62b5d58a2,
+    type: 3}
+  menuInterval: 0.25
   clothingRecipes:
   - {fileID: 11400000, guid: 38345e2b350869342b6edeff9f8d980a, type: 2}
   - {fileID: 11400000, guid: 28ee2ffbf6c74b84a8ee940e1423dbbc, type: 2}
   - {fileID: 11400000, guid: 716a90bff1f1c0e47904b1f8dccfee23, type: 2}
   - {fileID: 11400000, guid: 3360c4a912771b249ab223c28a044e18, type: 2}
   - {fileID: 11400000, guid: 11042c2e62b327e428326dc9b82d04c6, type: 2}
-  prefab: {fileID: 1959691981691044453, guid: 4fa7bc1567360d340beb48f62b5d58a2, type: 3}
   buttonList: []
-  scrollRect: {fileID: 7605664019118210483}
-  contentPanel: {fileID: 7605664017180459880}
-  menuInterval: 0.2
 --- !u!1 &7605664017181964945
 GameObject:
   m_ObjectHideFlags: 0
@@ -57108,7 +57109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.011764706}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

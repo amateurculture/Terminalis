@@ -1,22 +1,31 @@
 ﻿using System.Collections.Generic;
 using UMA;
+using UMA.CharacterSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WardrobeMenu : MonoBehaviour
 {
-    public UMATextRecipe[] clothingRecipes;
-    public GameObject prefab;
-    public List<Button> buttonList;
+    public DynamicCharacterAvatar avatar;
     public ScrollRect scrollRect;
     public RectTransform contentPanel;
-    public float menuInterval = .5f;
+    public GameObject buttonPrefab;
+    public float menuInterval = .25f;
+    public Gradient colorGradient;
+    public float colorIndex = 0;
 
+    public UMATextRecipe[] recipes;
+
+    [HideInInspector]
+    public List<Button> buttonList;
+    
     int selectionIndex = 0;
     Color actualColor = Color.black;
     ColorBlock colors;
     int oldIndex = -1;
     bool dPadPressed = false;
+    float timeToNextButtonPress = 0;
+    float scrollHeight = 200f;
 
     private void OnEnable()
     {
@@ -28,11 +37,11 @@ public class WardrobeMenu : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (var recipe in clothingRecipes)
+        foreach (var recipe in recipes)
         {
             if (recipe != null)
             {
-                newObj = Instantiate(prefab, transform);
+                newObj = Instantiate(buttonPrefab, transform);
                 newObj.GetComponent<ChangeClothing>().SetRecipe(recipe);
                 buttonList.Add(newObj.GetComponent<Button>());
             }
@@ -43,11 +52,10 @@ public class WardrobeMenu : MonoBehaviour
     {
         float normalizePosition = contentPanel.anchorMin.y - obj.anchoredPosition.y - 25;
         normalizePosition += (float)obj.transform.GetSiblingIndex() / (float)scrollRect.content.transform.childCount;
-        normalizePosition /= 1000f;
+        normalizePosition /= scrollHeight;
         normalizePosition = Mathf.Clamp01(1 - normalizePosition);
         scrollRect.verticalNormalizedPosition = normalizePosition;
     }
-    float timeToNextButtonPress = 0;
 
     private void LateUpdate()
     {
@@ -72,26 +80,106 @@ public class WardrobeMenu : MonoBehaviour
             actualColor = buttonList[selectionIndex].colors.normalColor;
             return;
         }
+        var dPadHorizontalInput = Input.GetAxis("DpadHorizontal");
+        var dPadVerticalInput = Input.GetAxis("DpadVertical");
 
-        var dPadInput = Input.GetAxis("DpadVertical");
-
-        if ((dPadInput == 1 || dPadInput == -1) && Time.time > timeToNextButtonPress)
+        if ((dPadVerticalInput == 1 || dPadVerticalInput == -1 || dPadHorizontalInput == 1 || dPadHorizontalInput == -1) && Time.time > timeToNextButtonPress)
         {
             timeToNextButtonPress = Time.time + menuInterval;
             dPadPressed = false;
         }
-
-        if (dPadInput == 0)
+        
+        if (dPadVerticalInput == 0 && dPadHorizontalInput == 0)
         {
             dPadPressed = false;
             timeToNextButtonPress = 0;
         }
-        else if ((dPadInput == 1 || Input.GetKeyDown(KeyCode.DownArrow)) && dPadPressed != true)
+        else if (dPadHorizontalInput == 1 && dPadPressed != true)
+        {
+            dPadPressed = true;
+            colorIndex += .01f;
+            if (colorIndex > 1) colorIndex = 0;
+            if (colorIndex < 0) colorIndex = 1;
+            var color1 = colorGradient.Evaluate(colorIndex);
+            var clothingName = buttonList[selectionIndex].GetComponent<ChangeClothing>().recipe.wardrobeSlot;
+
+            if (clothingName == "Legs")
+            {
+                avatar.characterColors.SetColor("ClothingBottom01", color1);
+                avatar.characterColors.SetColor("Skirt01", color1);
+            }
+            else if (clothingName == "UnderwearLegs")
+            {
+                avatar.characterColors.SetColor("SocksColor01", color1);
+            }
+            else if (clothingName == "UnderwearTop" || clothingName == "UnderwearBottom")
+            {
+                avatar.characterColors.SetColor("UnderwearTop01", color1);  
+                avatar.characterColors.SetColor("Underwear01", color1);
+            }
+            else if (clothingName == "Chest")
+            {
+                avatar.characterColors.SetColor("ClothingTop01", color1);
+                //avatar.characterColors.SetColor("ClothingTop02", color1);
+                //avatar.characterColors.SetColor("ClothingTop03", color1);
+                //avatar.characterColors.SetColor("ClothingTop04", color1);
+            }
+            else if (clothingName == "Hair")
+            {
+                avatar.characterColors.SetColor("Hair", color1);
+            }
+            else if (clothingName == "Feet")
+            {
+                avatar.characterColors.SetColor("Footwear01", color1);
+            }
+            avatar.BuildCharacter();
+        }
+        else if (dPadHorizontalInput == -1 && dPadPressed != true)
+        {
+            dPadPressed = true;
+            colorIndex -= .01f;
+            if (colorIndex > 1) colorIndex = 0;
+            if (colorIndex < 0) colorIndex = 1;
+            var color1 = colorGradient.Evaluate(colorIndex);
+            var clothingName = buttonList[selectionIndex].GetComponent<ChangeClothing>().recipe.wardrobeSlot;
+
+            if (clothingName == "Legs")
+            {
+                avatar.characterColors.SetColor("ClothingBottom01", color1);
+                avatar.characterColors.SetColor("Skirt01", color1);
+            }
+            else if (clothingName == "UnderwearLegs")
+            {
+                avatar.characterColors.SetColor("SocksColor01", color1);
+            }
+            else if (clothingName == "Chest")
+            {
+                avatar.characterColors.SetColor("ClothingTop01", color1);
+                //avatar.characterColors.SetColor("ClothingTop02", color1);
+                //avatar.characterColors.SetColor("ClothingTop03", color1);
+                //avatar.characterColors.SetColor("ClothingTop04", color1);
+            }
+            else if (clothingName == "UnderwearTop" || clothingName == "UnderwearBottom")
+            {
+                avatar.characterColors.SetColor("UnderwearTop01", color1);
+                avatar.characterColors.SetColor("Underwear01", color1);
+            }
+            else if (clothingName == "Hair")
+            {
+                avatar.characterColors.SetColor("Hair", color1);
+            }
+            else if (clothingName == "Feet")
+            {
+                avatar.characterColors.SetColor("Footwear01", color1);
+            }
+            avatar.BuildCharacter();
+        }
+        else if (dPadVerticalInput == 1 && dPadPressed != true)
         {
             selectionIndex--;
             dPadPressed = true;
         } 
-        else if ((dPadInput == -1 || Input.GetKeyDown(KeyCode.DownArrow)) && dPadPressed != true)
+        else if (dPadVerticalInput == -1 && dPadPressed != true)
         {
             selectionIndex++;
             dPadPressed = true;
@@ -105,8 +193,7 @@ public class WardrobeMenu : MonoBehaviour
         
         CenterToItem(buttonList[selectionIndex].GetComponent<RectTransform>());
 
-        if (dPadPressed == false)
-            return;
+        if (dPadPressed == false) return;
 
         colors = buttonList[oldIndex].colors;
         colors.normalColor = actualColor;
@@ -116,6 +203,5 @@ public class WardrobeMenu : MonoBehaviour
         actualColor = colors.normalColor;
         colors.normalColor = colors.highlightedColor;
         buttonList[selectionIndex].colors = colors;
-
     }
 }
