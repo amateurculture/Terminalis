@@ -46,6 +46,7 @@ public class ContextAwareMenu : MonoBehaviour
 
         if (isFadingIn)
         {
+            isFadingOut = false;
             canvasGroup.alpha = Mathf.Lerp(0, 1, t);
             t += Time.deltaTime * fadeSpeed;
 
@@ -57,6 +58,7 @@ public class ContextAwareMenu : MonoBehaviour
         }
         else if (isFadingOut)
         {
+            isFadingIn = false;
             canvasGroup.alpha = Mathf.Lerp(1, 0, t);
             t += Time.deltaTime * fadeSpeed;
 

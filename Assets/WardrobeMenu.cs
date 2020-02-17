@@ -10,7 +10,7 @@ public class WardrobeMenu : MonoBehaviour
     public List<Button> buttonList;
     public ScrollRect scrollRect;
     public RectTransform contentPanel;
-    public float menuInterval = .2f;
+    public float menuInterval = .5f;
 
     int selectionIndex = 0;
     Color actualColor = Color.black;
@@ -81,12 +81,12 @@ public class WardrobeMenu : MonoBehaviour
             dPadPressed = false;
         }
 
-        // TODO add ability for holding DPad buttons to keep scrolling the clothing list automatically
         if (dPadInput == 0)
         {
             dPadPressed = false;
+            timeToNextButtonPress = 0;
         }
-        if ((dPadInput == 1 || Input.GetKeyDown(KeyCode.DownArrow)) && dPadPressed != true)
+        else if ((dPadInput == 1 || Input.GetKeyDown(KeyCode.DownArrow)) && dPadPressed != true)
         {
             selectionIndex--;
             dPadPressed = true;
