@@ -50,8 +50,6 @@ public class BarkRandom : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        yield return new WaitForSeconds(pauseInterval);
-
         while (isFadingIn)
         {
             canvasGroup.alpha = Mathf.Lerp(0, 1, t);

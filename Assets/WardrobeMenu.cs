@@ -8,18 +8,25 @@ public class WardrobeMenu : MonoBehaviour
     public UMATextRecipe[] clothingRecipes;
     public GameObject prefab;
     public List<Button> buttonList;
+    public ScrollRect scrollRect;
+    public RectTransform contentPanel;
+    public float menuInterval = .2f;
+
     int selectionIndex = 0;
     Color actualColor = Color.black;
     ColorBlock colors;
     int oldIndex = -1;
-    public ScrollRect scrollRect;
-    public RectTransform contentPanel;
     bool dPadPressed = false;
 
-    private void Start()
+    private void OnEnable()
     {
         GameObject newObj;
         buttonList = new List<Button>();
+
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
 
         foreach (var recipe in clothingRecipes)
         {
@@ -40,6 +47,7 @@ public class WardrobeMenu : MonoBehaviour
         normalizePosition = Mathf.Clamp01(1 - normalizePosition);
         scrollRect.verticalNormalizedPosition = normalizePosition;
     }
+    float timeToNextButtonPress = 0;
 
     private void LateUpdate()
     {
@@ -65,17 +73,25 @@ public class WardrobeMenu : MonoBehaviour
             return;
         }
 
+        var dPadInput = Input.GetAxis("DpadVertical");
+
+        if ((dPadInput == 1 || dPadInput == -1) && Time.time > timeToNextButtonPress)
+        {
+            timeToNextButtonPress = Time.time + menuInterval;
+            dPadPressed = false;
+        }
+
         // TODO add ability for holding DPad buttons to keep scrolling the clothing list automatically
-        if (Input.GetAxis("DpadVertical") == 0)
+        if (dPadInput == 0)
         {
             dPadPressed = false;
         }
-        if ((Input.GetAxis("DpadVertical") == 1 || Input.GetKeyDown(KeyCode.DownArrow)) && dPadPressed != true)
+        if ((dPadInput == 1 || Input.GetKeyDown(KeyCode.DownArrow)) && dPadPressed != true)
         {
             selectionIndex--;
             dPadPressed = true;
         } 
-        else if ((Input.GetAxis("DpadVertical") == -1 || Input.GetKeyDown(KeyCode.DownArrow)) && dPadPressed != true)
+        else if ((dPadInput == -1 || Input.GetKeyDown(KeyCode.DownArrow)) && dPadPressed != true)
         {
             selectionIndex++;
             dPadPressed = true;

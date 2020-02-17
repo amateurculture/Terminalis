@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using UMA;
 using UMA.CharacterSystem;
 using UnityEngine;
@@ -58,7 +59,16 @@ public class ChangeClothing : MonoBehaviour
         this.recipe = recipe;
         this.button = GetComponent<Button>();
         avatar = GameObject.FindGameObjectWithTag("Player").GetComponent<DynamicCharacterAvatar>();
-        actualColor = Color.black; // todo starting clothing button color should be based on if the player is wearing something, not just set to black
+
+        // todo this is not at all performant, but thankfully only gets called at init?
+        foreach (KeyValuePair<string, UMATextRecipe> entry in avatar.WardrobeRecipes)
+        {
+            if (entry.Value == recipe)
+            {
+                SetButtonColor(GetComponent<Button>(), Color.blue);
+                break;
+            }
+        }
     }
 
     private void DeselectUnusuableClothingSlots(string slotName)
