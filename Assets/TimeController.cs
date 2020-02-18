@@ -13,11 +13,12 @@ public class TimeController : MonoBehaviour
     private bool EndOfDay; //Variable used to isolate the point in time when the next day will start 
     bool nextDay; //A check to see if it's time to move onto the next day.
 
-    public Gradient fogColor;
-    public Gradient ambientLight;
     public Gradient sunLight;
+    public Gradient ambientLight;
+    public Gradient fogColor;
     Light sun;
     public int frameSkip = 50;
+    public ReflectionProbe reflectionProbe;
 
     private void Start()
     {
@@ -55,6 +56,10 @@ public class TimeController : MonoBehaviour
             RenderSettings.fogColor = fogColor.Evaluate(transform.eulerAngles.x / 360);
             RenderSettings.ambientLight = ambientLight.Evaluate(transform.eulerAngles.x / 360);
             sun.intensity = sunLight.Evaluate(transform.eulerAngles.x / 360).grayscale;
+
+            //Update reflection probe
+            //reflectionProbe.backgroundColor = RenderSettings.fogColor;
+            reflectionProbe.RenderProbe();
 
             //Function for increasing the DayCounter Variable
             IncreaseNumberOfDaysSurvived();
