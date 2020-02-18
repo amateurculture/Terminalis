@@ -10,12 +10,14 @@ public class WardrobeMenu : MonoBehaviour
     public ScrollRect scrollRect;
     public RectTransform contentPanel;
     public GameObject buttonPrefab;
-    public float menuInterval = .25f;
     public Gradient colorGradient;
-    public float colorIndex = 0;
-
+    public float gradientInterval = .05f;
+    public float menuInterval = .25f;
     public UMATextRecipe[] recipes;
 
+
+    float colorIndex = 0;
+    
     [HideInInspector]
     public List<Button> buttonList;
     
@@ -97,7 +99,7 @@ public class WardrobeMenu : MonoBehaviour
         else if (dPadHorizontalInput == 1 && dPadPressed != true)
         {
             dPadPressed = true;
-            colorIndex += .01f;
+            colorIndex += gradientInterval;
             if (colorIndex > 1) colorIndex = 0;
             if (colorIndex < 0) colorIndex = 1;
             var color1 = colorGradient.Evaluate(colorIndex);
@@ -120,9 +122,9 @@ public class WardrobeMenu : MonoBehaviour
             else if (clothingName == "Chest")
             {
                 avatar.characterColors.SetColor("ClothingTop01", color1);
-                //avatar.characterColors.SetColor("ClothingTop02", color1);
-                //avatar.characterColors.SetColor("ClothingTop03", color1);
-                //avatar.characterColors.SetColor("ClothingTop04", color1);
+                avatar.characterColors.SetColor("ClothingTop02", Color.white);
+                avatar.characterColors.SetColor("ClothingTop03", Color.white);
+                avatar.characterColors.SetColor("ClothingTop04", Color.white);
             }
             else if (clothingName == "Hair")
             {
@@ -137,7 +139,7 @@ public class WardrobeMenu : MonoBehaviour
         else if (dPadHorizontalInput == -1 && dPadPressed != true)
         {
             dPadPressed = true;
-            colorIndex -= .01f;
+            colorIndex -= gradientInterval;
             if (colorIndex > 1) colorIndex = 0;
             if (colorIndex < 0) colorIndex = 1;
             var color1 = colorGradient.Evaluate(colorIndex);
@@ -155,9 +157,9 @@ public class WardrobeMenu : MonoBehaviour
             else if (clothingName == "Chest")
             {
                 avatar.characterColors.SetColor("ClothingTop01", color1);
-                //avatar.characterColors.SetColor("ClothingTop02", color1);
-                //avatar.characterColors.SetColor("ClothingTop03", color1);
-                //avatar.characterColors.SetColor("ClothingTop04", color1);
+                avatar.characterColors.SetColor("ClothingTop02", Color.white);
+                avatar.characterColors.SetColor("ClothingTop03", Color.white);
+                avatar.characterColors.SetColor("ClothingTop04", Color.white);
             }
             else if (clothingName == "UnderwearTop" || clothingName == "UnderwearBottom")
             {
