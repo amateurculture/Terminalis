@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class CheapWater : MonoBehaviour
 {
-    public float scrollSpeed = 0.025f;
-    public int frameSkip = 2;
+    public float scrollSpeed = 0.25f;
+    public int frameSkip = 5;
     public Renderer rend;
     float adjustedSkip = 0;
     
     void Start()
     {
         rend = GetComponent<Renderer>();
-        adjustedSkip = scrollSpeed * frameSkip; 
+        adjustedSkip = scrollSpeed / (float)frameSkip; 
     }
+
     void Update()
     {
         if (Time.frameCount % frameSkip == 0)
