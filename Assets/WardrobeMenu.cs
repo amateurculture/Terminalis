@@ -15,7 +15,6 @@ public class WardrobeMenu : MonoBehaviour
     public float menuInterval = .25f;
     public UMATextRecipe[] recipes;
 
-
     float colorIndex = 0;
     
     [HideInInspector]
