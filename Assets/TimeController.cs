@@ -121,7 +121,7 @@ public class TimeController : MonoBehaviour
                     t = 0;
                 }
             }
-            else if (!testLight || distance >= testLight.range)
+            else if (testLight == null || distance >= testLight.range)
             {
                 RenderSettings.ambientLight = ambientLight.Evaluate(colorIndex);
             }
