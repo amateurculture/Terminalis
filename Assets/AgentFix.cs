@@ -15,7 +15,7 @@ public class AgentFix : MonoBehaviour
     public bool canMove = true;
     public bool canAttack = true;
 
-    void Awake()
+    void OnEnable()
     {
         var lookSource = GetComponent<LocalLookSource>();
         var characterLocomotion = GetComponent<UltimateCharacterLocomotion>();

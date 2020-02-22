@@ -4,7 +4,8 @@ public class DisableAtRange : MonoBehaviour
 {
     private int interval = 5;
     private GameObject player;
-    public GameObject target;
+    public GameObject[] targets;
+    private GameObject target;
     public float range;
 
     private void Start()
@@ -16,10 +17,13 @@ public class DisableAtRange : MonoBehaviour
     {
         if (Time.frameCount % interval == 0)
         {
-            if (target.activeSelf && Vector3.Distance(player.transform.position, target.transform.position) >= range)
-                target.SetActive(false);
-            else if (!target.activeSelf && Vector3.Distance(player.transform.position, target.transform.position) < range)
-                target.SetActive(true);
+            foreach (var target in targets)
+            {
+                if (target.activeSelf && Vector3.Distance(player.transform.position, target.transform.position) >= range)
+                    target.SetActive(false);
+                else if (!target.activeSelf && Vector3.Distance(player.transform.position, target.transform.position) < range)
+                    target.SetActive(true);
+            }
         }
     }
 }

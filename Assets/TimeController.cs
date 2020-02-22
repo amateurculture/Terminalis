@@ -2,75 +2,118 @@
 
 public class TimeController : MonoBehaviour
 {
+    public Light sun;
     public float day;
-    public float hour = 6;
-    public float minute = 0;
+    public float hour;
+    public float minute;
     public Gradient sunLight;
     public Gradient ambientLight;
     public Gradient fogColor;
-    public float secondsInHour = 60f;
-    public int frameRate = 60;
-    //public float second = 0;
+    public float secondsInHour;
+    public int frameRate;
+    bool didChangeReflectionProbeSetting;
 
     [Header("Global Reflection Probe")]
     public ReflectionProbe reflectionProbe;
-    public int frameSkip = 50;
-
-    float actualHour = 0;
-    bool EndOfDay;
-    bool nextDay;
-    float secondsRemainingInMinute = 0;
-    Light sun;
-    GameObject player;
-
-    bool isLerpingBack = false;
-    bool isLerpingUp = false;
-    float lightLerpTime = 0;
-    float prev = 0;
-    bool inRange = false;
-    float t = 0;
-    float adjustedSecondsInHour = 0;
+    public int frameSkip;
+    public bool enableReflections;
 
     [Header("Experimental")]
-    public Light testLight;
-    public int lightIndex = 0;
+    Light testLight;
+
+    GameObject player;
+    bool EndOfDay;
+    bool nextDay;
+    bool isLerpingBack;
+    bool isLerpingUp;
+    bool inRange;
+    float lightLerpTime;
+    float adjustedSecondsInHour; 
+    float actualHour;
+    float secondsRemainingInMinute;
+    float prev;
+    float t;
+
+    private void Reset()
+    {
+        didChangeReflectionProbeSetting = false;
+        enableReflections = false;
+        isLerpingBack = false;
+        isLerpingUp = false;
+        inRange = false;
+        secondsRemainingInMinute = 0;
+        adjustedSecondsInHour = 0;
+        secondsInHour = 60f;
+        lightLerpTime = 0;
+        frameRate = 60;
+        frameSkip = 50;
+        actualHour = 0;
+        minute = 0;
+        hour = 6;
+        prev = 0;
+        t = 0;
+
+        // todo add default gradient settings
+    }
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        sun = GetComponent<Light>();
 
-        transform.eulerAngles = Vector3.zero;
-        var angles = transform.eulerAngles;
-        angles.y = 45;
-        angles.x = 15f * ((hour + (minute / 60f))-6f);
-        transform.Rotate(angles);
+        if (sun != null)
+        {
+            sun.transform.eulerAngles = Vector3.zero;
+            var angles = sun.transform.eulerAngles;
+            angles.y = 45;
+            angles.x = 15f * ((hour + (minute / 60f)) - 6f);
+            sun.transform.Rotate(angles);
 
-        actualHour = hour + (minute / 60f);
-        secondsRemainingInMinute = Time.time + (secondsInHour / 60);
-        adjustedSecondsInHour = secondsInHour / 60;
+            actualHour = hour + (minute / 60f);
+            secondsRemainingInMinute = Time.time + (secondsInHour / 60);
+            adjustedSecondsInHour = secondsInHour / 60;
 
-        RenderSettings.fogColor = fogColor.Evaluate(transform.eulerAngles.x / 360);
-        RenderSettings.ambientLight = ambientLight.Evaluate(transform.eulerAngles.x / 360);
-        sun.intensity = sunLight.Evaluate(transform.eulerAngles.x / 360).grayscale;
+            RenderSettings.fogColor = fogColor.Evaluate(sun.transform.eulerAngles.x / 360);
+            RenderSettings.ambientLight = ambientLight.Evaluate(sun.transform.eulerAngles.x / 360);
+            sun.intensity = sunLight.Evaluate(sun.transform.eulerAngles.x / 360).grayscale;
+        }
 
-        reflectionProbe.RenderProbe();
+        didChangeReflectionProbeSetting = enableReflections;
 
+        if (reflectionProbe != null)
+        {
+            if (enableReflections)
+            {
+                reflectionProbe.enabled = true;
+                reflectionProbe.RenderProbe();
+            }
+            else
+                reflectionProbe.enabled = false;
+        }
         Application.targetFrameRate = frameRate;
     }
 
     void LateUpdate()
     {
-        //second = (int)((3600 / secondsInHour) * Time.time) % 60;
-        if (Time.frameCount % frameSkip == 0)
+        if (sun == null) return;
+
+        if (Time.frameCount % frameSkip == 0 && reflectionProbe != null)
         {
-            reflectionProbe.RenderProbe();
+            if (didChangeReflectionProbeSetting != enableReflections)
+            {
+                didChangeReflectionProbeSetting = enableReflections;
+                reflectionProbe.enabled = (enableReflections) ? true : false;
+            }
+
+            if (enableReflections)
+            {
+                reflectionProbe.backgroundColor = RenderSettings.fogColor;
+                reflectionProbe.RenderProbe();
+            }
         }
         else if (isLerpingUp && Time.time > lightLerpTime)
         {
             var luminosity = Mathf.Lerp(prev, .25f, t);
             RenderSettings.ambientLight = new Color(luminosity, luminosity, luminosity);
-
             t += Time.deltaTime;
 
             if (RenderSettings.ambientLight.r >= .24f)
@@ -84,7 +127,6 @@ public class TimeController : MonoBehaviour
         {
             var luminosity = Mathf.Lerp(.25f, prev, t);
             RenderSettings.ambientLight = new Color(luminosity, luminosity, luminosity);
-
             t += Time.deltaTime;
 
             if (RenderSettings.ambientLight.r <= prev + .01f)
@@ -96,13 +138,11 @@ public class TimeController : MonoBehaviour
         }
         else if (!isLerpingBack && !isLerpingUp && Time.time > secondsRemainingInMinute)
         {
-            float colorIndex = transform.eulerAngles.x / 360f;
-
+            float colorIndex = sun.transform.eulerAngles.x / 360f;
             RenderSettings.fogColor = fogColor.Evaluate(colorIndex);
             sun.intensity = sunLight.Evaluate(colorIndex).grayscale;
             secondsRemainingInMinute = Time.time + adjustedSecondsInHour;
-            transform.Rotate(.25f, 0, 0);
-
+            sun.transform.Rotate(.25f, 0, 0);
             var distance = (testLight == null) ? Mathf.Infinity : Vector3.Distance(player.transform.position, testLight.transform.position);
 
             if (testLight != null)
@@ -130,7 +170,7 @@ public class TimeController : MonoBehaviour
             hour = ((int)actualHour) % 24;
             minute = ((int)(60f * (actualHour - ((int)actualHour))));
 
-            if (transform.eulerAngles.x > 270 && transform.eulerAngles.x < 280)
+            if (sun.transform.eulerAngles.x > 270 && sun.transform.eulerAngles.x < 280)
             {
                 EndOfDay = true;
             }
@@ -148,3 +188,6 @@ public class TimeController : MonoBehaviour
         }
     }
 }
+
+//public float second = 0;
+//second = (int)((3600 / secondsInHour) * Time.time) % 60;
