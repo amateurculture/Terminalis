@@ -37,21 +37,26 @@ public class WaterController : MonoBehaviour
 
     void Update()
     {
-        if (rend != null && Time.frameCount % frameSkip == 0) {
+        if (rend != null && Time.frameCount % frameSkip == 0)
+        {
 
             if ((weatherController != null && (currentDirection != weatherController.direction || currentSpeed != weatherController.speed)) ||
                 currentFrameSkip != frameSkip)
                 UpdateSelection();
-            
+
             textureMovement.x += directionOffset.x;
             textureMovement.y += directionOffset.y;
             textureMovement2.x += directionOffset2.x;
             textureMovement2.y += directionOffset2.y;
-            
+
             rend.material.SetTextureOffset("_MainTex", new Vector2(textureMovement.x, textureMovement.y));
             rend.material.SetTextureOffset("_DetailAlbedoMap", new Vector2(textureMovement2.x, textureMovement2.y));
-            rend.material.SetFloat("_BumpScale", weatherController.speed * .15f);
-            rend.material.SetFloat("_DetailNormalMapScale", weatherController.speed * .15f);
+
+            if (weatherController != null)
+            {
+                rend.material.SetFloat("_BumpScale", weatherController.speed * .15f);
+                rend.material.SetFloat("_DetailNormalMapScale", weatherController.speed * .15f);
+            }
         }
     }
 

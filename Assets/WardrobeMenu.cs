@@ -47,6 +47,8 @@ public class WardrobeMenu : MonoBehaviour
                 buttonList.Add(newObj.GetComponent<Button>());
             }
         }
+
+        scrollHeight = 25f * (buttonList.Count-5);
     }
 
     public void CenterToItem(RectTransform obj)

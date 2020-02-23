@@ -6,8 +6,15 @@ using System;
 
 public class ShowTime : MonoBehaviour
 {
-    public int frameSkip = 5;
+    public int frameSkip;
     TextMeshProUGUI textMesh;
+    public TimeController timeController;
+    public bool isSundial;
+
+    private void Reset()
+    {
+        frameSkip = 5;
+    }
 
     void Start()
     {
@@ -18,9 +25,14 @@ public class ShowTime : MonoBehaviour
     {
         if (Time.frameCount % frameSkip == 0)
         {
-            TimeSpan timeSpan = TimeSpan.FromSeconds(Time.time);
-            string timeText = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-            textMesh.text = timeText;
+            if (!isSundial || 
+                (isSundial && timeController.hour > 6 && timeController.hour < 17)) {
+                var timeText = (timeController.hour % 12) + ":" + timeController.minute.ToString("00") + " " + ((timeController.hour < 12) ? "AM" : "PM");
+                textMesh.text = timeText; 
+            } else
+            {
+                textMesh.text = "";
+            }
         }
     }
 }

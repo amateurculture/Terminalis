@@ -187,7 +187,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e678050ace2bd084eb163b73c640ecb8, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 4317458772058624478}
   - component: {fileID: 4317458772058624474}
   m_Layer: 0
-  m_Name: Environment
+  m_Name: Environs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,7 +297,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4317458772058624472}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -321,26 +321,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 4317458772356193144}
   day: 0
-  hour: 6
+  hour: 16
   minute: 30
   sunLight:
     serializedVersion: 2
-    key0: {r: 0.019223925, g: 0.05672246, b: 0.0754717, a: 1}
+    key0: {r: 0, g: 0, b: 0, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 1}
     key2: {r: 1, g: 1, b: 1, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0.019223925, g: 0.05672246, b: 0.0754717, a: 0}
-    key6: {r: 0.5033958, g: 0.4888549, b: 0.4573612, a: 0}
-    key7: {r: 0.5033958, g: 0.4888549, b: 0.4573612, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
     ctime1: 5243
     ctime2: 30146
     ctime3: 35389
     ctime4: 65535
-    ctime5: 65535
-    ctime6: 65535
-    ctime7: 65535
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
     atime0: 0
     atime1: 65535
     atime2: 0
@@ -354,21 +354,21 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   ambientLight:
     serializedVersion: 2
-    key0: {r: 0.019223925, g: 0.05672246, b: 0.0754717, a: 1}
-    key1: {r: 0.35, g: 0.35, b: 0.35, a: 1}
-    key2: {r: 0.35, g: 0.35, b: 0.35, a: 0}
-    key3: {r: 0.019223925, g: 0.05672246, b: 0.0754717, a: 0}
-    key4: {r: 0.019223925, g: 0.05672246, b: 0.0754717, a: 0}
-    key5: {r: 0.019223925, g: 0.05672246, b: 0.0754717, a: 0}
-    key6: {r: 0.019223925, g: 0.05672246, b: 0.0754717, a: 0}
+    key0: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    key1: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    key2: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    key3: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 0}
+    key4: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
     ctime1: 5243
     ctime2: 32768
     ctime3: 38010
     ctime4: 65535
-    ctime5: 65535
-    ctime6: 65535
+    ctime5: 0
+    ctime6: 0
     ctime7: 0
     atime0: 0
     atime1: 65535
@@ -383,14 +383,14 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   fogColor:
     serializedVersion: 2
-    key0: {r: 0.019223925, g: 0.05672246, b: 0.0754717, a: 1}
-    key1: {r: 0.23673905, g: 0.525627, b: 0.5283019, a: 1}
-    key2: {r: 0.3254717, g: 0.6488757, b: 1, a: 0}
-    key3: {r: 0.3254717, g: 0.6488757, b: 1, a: 0}
-    key4: {r: 0.5849056, g: 0.30072978, b: 0.30837175, a: 0}
-    key5: {r: 0.019223925, g: 0.05672246, b: 0.0754717, a: 0}
-    key6: {r: 0.019223925, g: 0.05672246, b: 0.0754717, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 0.05882353, g: 0.05882353, b: 0.05882353, a: 1}
+    key1: {r: 0.3472321, g: 0.41106814, b: 0.4811321, a: 1}
+    key2: {r: 0.6745098, g: 0.813716, b: 0.9607843, a: 0}
+    key3: {r: 0.9622642, g: 0.87571883, b: 0.75800997, a: 0}
+    key4: {r: 0.58431375, g: 0.3019608, b: 0.30980393, a: 0}
+    key5: {r: 0.05882353, g: 0.05882353, b: 0.05882353, a: 0}
+    key6: {r: 0.05882353, g: 0.05882353, b: 0.05882353, a: 0}
+    key7: {r: 0.05882353, g: 0.05882353, b: 0.05882353, a: 0}
     ctime0: 0
     ctime1: 2621
     ctime2: 5243
@@ -398,7 +398,7 @@ MonoBehaviour:
     ctime4: 35389
     ctime5: 38010
     ctime6: 65535
-    ctime7: 0
+    ctime7: 65535
     atime0: 0
     atime1: 65535
     atime2: 0
@@ -410,10 +410,13 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 7
     m_NumAlphaKeys: 2
+  fogLerp: 0.25
   secondsInHour: 60
   frameRate: 60
+  startFogDistance: 0
+  endFogDistance: 128
   reflectionProbe: {fileID: 0}
-  frameSkip: 50
+  frameSkip: 100
   enableReflections: 1
 --- !u!114 &4317458772058624478
 MonoBehaviour:
@@ -429,7 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 0
   speed: 0.5
-  frameSkip: 50
+  frameSkip: 1000
   windZone: {fileID: 4317458772639098944}
 --- !u!114 &4317458772058624474
 MonoBehaviour:
@@ -469,13 +472,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4317458772356193142}
-  m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
+  m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 1000, z: 0}
   m_LocalScale: {x: 500, y: 126.50005, z: 375.4999}
   m_Children: []
   m_Father: {fileID: 4317458772058624473}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
 --- !u!108 &4317458772356193144
 Light:
   m_ObjectHideFlags: 0
