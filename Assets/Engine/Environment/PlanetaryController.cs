@@ -28,6 +28,9 @@ public class PlanetaryController : MonoBehaviour
 
     private void Reset()
     {
+        day = 0;
+        hour = currentHour = 0;
+        minute = currentMinute = 0;
         frameRate = 60;
         daysInYear = 365;
         hoursInDay = 24;
