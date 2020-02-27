@@ -64,11 +64,10 @@ public class LightingController : MonoBehaviour
             sun.transform.eulerAngles = Vector3.zero;
             sun.transform.Rotate(new Vector3(15f * ((planet.hour + (planet.minute / 60f)) - 6f), 0, 0));
             lightLevel = sun.transform.eulerAngles.x / 360;
-            RenderSettings.ambientLight = ambientLight.Evaluate(lightLevel);
             sun.intensity = sunLight.Evaluate(lightLevel).grayscale;
+            RenderSettings.ambientLight = ambientLight.Evaluate(lightLevel);
         }
 
-        reflectionProbe = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ReflectionProbe>();
         if (reflectionProbe != null)
         {
             reflectionProbe.enabled = true;

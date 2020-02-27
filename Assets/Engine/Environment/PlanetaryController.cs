@@ -43,14 +43,11 @@ public class PlanetaryController : MonoBehaviour
         gameTime = hour + (minute / 60f);
         secondsRemainingInMinute = Time.time + (secondsInHour / 60);
         adjustedSecondsInHour = secondsInHour / 60;
-        Application.targetFrameRate = frameRate;
 
         lightingController = atmosphere.GetComponent<LightingController>();
         fogController = atmosphere.GetComponent<FogController>();
         currentHour = hour;
         currentMinute = minute;
-
-        QualitySettings.SetQualityLevel(1);
 
         UpdateTime();
         UpdateLighting();
@@ -90,7 +87,6 @@ public class PlanetaryController : MonoBehaviour
     void UpdateTime()
     {
         gameTime += .0166f;
-        
         hour = ((int)gameTime) % hoursInDay;
         minute = ((int)(60f * (gameTime - ((int)gameTime))));
         currentHour = hour;
@@ -98,7 +94,8 @@ public class PlanetaryController : MonoBehaviour
         planetaryRotation += .25f;
         planetaryRotation %= 360;
 
-        if (planetaryRotation > 270 && planetaryRotation < 280) EndOfDay = true;
+        if (planetaryRotation > 270 && planetaryRotation < 280) 
+            EndOfDay = true;
         else
         {
             nextDay = false;
