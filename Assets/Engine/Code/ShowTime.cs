@@ -8,7 +8,7 @@ public class ShowTime : MonoBehaviour
 {
     public int frameSkip;
     TextMeshProUGUI textMesh;
-    public PlanetaryController timeController;
+    public TimeController timeController;
     public bool isSundial;
 
     private void Reset()
