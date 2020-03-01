@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MatchPosition : MonoBehaviour
 {
@@ -8,9 +6,6 @@ public class MatchPosition : MonoBehaviour
 
     void Update()
     {
-        if (Time.frameCount % 2 == 0)
-        {
-            transform.position = player.position;
-        }
+        transform.position = player.position;
     }
 }

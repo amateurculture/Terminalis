@@ -13,7 +13,6 @@ public class BarkRandom : MonoBehaviour
     public float pauseInterval = 2;
     public float fadeSpeed = 2; 
     public UMAExpressionPlayer expressionPlayer;
-    
     public string[] dialogue;
 
     private float timeToNext = 0;
@@ -59,7 +58,7 @@ public class BarkRandom : MonoBehaviour
             {
                 canvasGroup.alpha = 1;
                 isFadingIn = false;
-                expressionPlayer.overrideMecanimJaw = true;
+                //expressionPlayer.overrideMecanimJaw = true;
                 routine = StartCoroutine(TypeSpeech());
                 t = 0;
                 StopCoroutine(fadeRoutine);
@@ -72,7 +71,7 @@ public class BarkRandom : MonoBehaviour
     {
         yield return new WaitForSeconds(pauseInterval);
 
-        expressionPlayer.overrideMecanimJaw = false;
+        //expressionPlayer.overrideMecanimJaw = false;
 
         while (isFadingOut)
         {
@@ -103,7 +102,7 @@ public class BarkRandom : MonoBehaviour
 
     private void Start()
     {
-        expressionPlayer.overrideMecanimJaw = false;
+        if (expressionPlayer != null) expressionPlayer.overrideMecanimJaw = false;
     }
 
     void Update()

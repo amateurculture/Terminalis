@@ -4,11 +4,12 @@ using UnityEngine.Rendering.PostProcessing;
 public class QualityManager : MonoBehaviour
 {
     public ReflectionProbe reflectionProbe;
-    [Range(0, 3)] public int qualityLevel;
+    [Range(0, 2)] public int qualityLevel;
     [Range(24, 240)] public int frameRate;
     public bool enableReflections;
     public bool enableAmbientOcclusion;
     public bool enableDepthOfField;
+    public bool enableTonemapping;
     public bool enableHDR;
 
     bool previousEnableReflections;
@@ -22,7 +23,7 @@ public class QualityManager : MonoBehaviour
     private void Reset()
     {
         frameRate = 60;
-        qualityLevel = 3;
+        qualityLevel = 2;
         enableHDR = false;
     }
 
@@ -47,7 +48,7 @@ public class QualityManager : MonoBehaviour
         {
             QualitySettings.SetQualityLevel(qualityLevel);
             Application.targetFrameRate = frameRate;
-            colorGrading.active = enableHDR;
+            colorGrading.active = enableTonemapping;
             depthOfField.active = enableDepthOfField;
             ambientOcclusion.active = enableAmbientOcclusion;
             postprocessingCamera.allowHDR = enableHDR;
@@ -56,7 +57,8 @@ public class QualityManager : MonoBehaviour
             {
                 reflectionProbe.enabled = enableReflections;
                 previousEnableReflections = enableReflections;
-                reflectionProbe.RenderProbe();
+
+                if (enableReflections) reflectionProbe.RenderProbe();
             }
         }
     }

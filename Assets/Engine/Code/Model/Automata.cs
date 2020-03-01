@@ -12,12 +12,8 @@ public class Automata : MonoBehaviour
 {
     #region Property Inspector Variables
 
-    [Header("Behavior")]
-    public Globals.AIType aiStyle;
-    
-    [Header("Testing")]
-    [EnumFlags]
-    public Globals.AITestingFlags show;
+    [Header("Behavior")] public Globals.AIType aiStyle;
+    [Header("Testing")] [EnumFlags] public Globals.AITestingFlags show;
 
     #endregion
 
@@ -26,11 +22,12 @@ public class Automata : MonoBehaviour
     protected GameObject navigationLocus;
     protected NavMeshAgent navMeshAgent;
     protected Animator animatorComponent;
-    protected float updateTime = 0;
-    protected float _ai_wait_ = 1f;
+    protected GameObject player;
+    protected float updateTime;
+    protected float _ai_wait_;
+
     private Spawner spawner;
     private Agent agent;
-    protected GameObject player;
 
     #endregion
 
@@ -39,35 +36,29 @@ public class Automata : MonoBehaviour
     void Start()
     {
         agent = GetComponent<Agent>();
-
-        player = GameObject.FindGameObjectWithTag("Player");
-
         agent.InitializeAgent();
-
+        updateTime = 0; 
+        _ai_wait_ = 1f;
+        player = GameObject.FindGameObjectWithTag("Player");
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         animatorComponent = this.GetComponent<Animator>();
-
-        if (animatorComponent != null)
-            animatorComponent.enabled = true;
-
-        navMeshAgent.avoidancePriority = (int)(UnityEngine.Random.value * 100f);
         navigationLocus = transform.gameObject;
-        player = GameObject.FindGameObjectWithTag("Player");
-
-        spawner = GetComponentInParent<Spawner>();
-        if (spawner != null)
-            navigationLocus = spawner.gameObject;
-
+        navMeshAgent.avoidancePriority = (int)(UnityEngine.Random.value * 100f);
         navMeshAgent.updateRotation = false;
         navMeshAgent.updatePosition = true;
-
-        player = GameObject.FindGameObjectWithTag("Player");
-
         navMeshAgent.autoRepath = true;
+
+        /*
+        if (animatorComponent != null) animatorComponent.enabled = true;
+        spawner = GetComponentInParent<Spawner>();
+        if (spawner != null) navigationLocus = spawner.gameObject;
+        */
+
     }
 
-    void OnEnable() { StartCoroutine("_PatchAnimatorNotWorkingAtStart"); }
+    //void OnEnable() { StartCoroutine("_PatchAnimatorNotWorkingAtStart"); }
 
+/*
     IEnumerator _PatchAnimatorNotWorkingAtStart()
     {
         float timer = 0;
@@ -92,7 +83,7 @@ public class Automata : MonoBehaviour
             yield return new WaitForSeconds(.75f);
         }
     }
-
+    */
     #endregion
 
     #region Debugging
@@ -157,7 +148,11 @@ public class Automata : MonoBehaviour
             Vector3 locus = navigationLocus.transform.position;
             testWaypoint = RandomNavSphere(locus, (spawner != null) ? spawner.wander : range, -1);
             //float distance = Vector3.Distance(testWaypoint, transform.position);
-            
+
+            if (testWaypoint.x == Mathf.Infinity) testWaypoint.x = 999999;
+            if (testWaypoint.y == Mathf.Infinity) testWaypoint.y = 999999;
+            if (testWaypoint.z == Mathf.Infinity) testWaypoint.z = 999999;
+
         } while (!navMeshAgent.CalculatePath(testWaypoint, navMeshPath));
 
         return testWaypoint;
@@ -206,8 +201,7 @@ public class Automata : MonoBehaviour
 #endif
         if (!navMeshAgent.pathPending && navMeshAgent.isActiveAndEnabled)
             
-            if (navMeshAgent.remainingDistance < 1.5f ||
-                navMeshAgent.velocity.sqrMagnitude == 0)
+            if (navMeshAgent.remainingDistance < 1.5f || navMeshAgent.velocity.sqrMagnitude == 0)
             {
 #if ENVIRO_HD && ENVIRO_LW
                 if (Globals.Instance.enviro != null && agent.work != null && !agent.isWorking)
@@ -225,26 +219,22 @@ public class Automata : MonoBehaviour
                     }
                 }
 #endif
+                /*
                 Building selectedBuilding = null;
 
-                if (agent.hunger >= 100)
-                    selectedBuilding = FindClosestBuilding(Globals.BuildingType.Restaurant);
-                else if (agent.fatigue >= 100)
-                    selectedBuilding = (agent.home != null) ? agent.home : FindClosestBuilding(Globals.BuildingType.Residence);
-                else
-                    navMeshAgent.SetDestination(GetNextWaypoint());
+                if (agent.hunger >= 100) selectedBuilding = FindClosestBuilding(Globals.BuildingType.Restaurant);
+                else if (agent.fatigue >= 100) selectedBuilding = (agent.home != null) ? agent.home : FindClosestBuilding(Globals.BuildingType.Residence);
+                else navMeshAgent.SetDestination(GetNextWaypoint());
 
-                if (selectedBuilding != null)
-                    navMeshAgent.SetDestination(selectedBuilding.transform.position);
-                else
-                    navMeshAgent.SetDestination(GetNextWaypoint());
+                if (selectedBuilding != null) navMeshAgent.SetDestination(selectedBuilding.transform.position);
+                else navMeshAgent.SetDestination(GetNextWaypoint());
+                */
+
+                navMeshAgent.SetDestination(GetNextWaypoint());
             }
     }
 
-    private void Update()
-    {
-        UpdatePosition();
-    }
+    private void Update() { if (Time.frameCount % 5 == 0) UpdatePosition(); }
 
     #endregion
 }

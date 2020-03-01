@@ -1,74 +1,86 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+
+[RequireComponent(typeof(BoxCollider))]
 
 public class ContextAwareMenu : MonoBehaviour
 {
-    GameObject player;
     public CanvasGroup canvasGroup;
-    
-    bool isFadingIn = false;
-    bool isFadingOut = false;
-    bool isInside = false;
-    float t = 0;
-
     public float fadeDistance = 3.5f;
     public float fadeSpeed = 2f;
 
+    Coroutine coroutine;
+    BoxCollider boxCollider;
+    float t = 0;
+
+    private void Reset()
+    {
+        boxCollider = GetComponent<BoxCollider>();
+        boxCollider.center = new Vector3(0, 1, -1.2f);
+        boxCollider.size = new Vector3(2, 1, 2);
+        boxCollider.isTrigger = true;
+    }
+
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-
         if (canvasGroup != null)
         {
-            canvasGroup = canvasGroup.GetComponent<CanvasGroup>();
+            canvasGroup.alpha = 0;
             canvasGroup.gameObject.SetActive(false);
         }
     }
 
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        if (!isInside && !isFadingIn && !isFadingOut && Vector3.Distance(player.transform.position, transform.position) < fadeDistance)
+        if (other.tag == "Player")
         {
-            isFadingIn = true;
-            isFadingOut = false;
-            isInside = true;
             t = 0;
-
-            if (canvasGroup != null)
-                canvasGroup.gameObject.SetActive(true);
+            if (coroutine != null) StopCoroutine(coroutine);
+            if (canvasGroup != null) canvasGroup.gameObject.SetActive(true);
+            coroutine = StartCoroutine(FadeIn());
         }
-        else if (isInside && !isFadingOut && !isFadingIn && Vector3.Distance(player.transform.position, transform.position) >= fadeDistance)
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
         {
-            isFadingOut = true;
-            isFadingIn = false;
-            isInside = false;
             t = 0;
+            if (coroutine != null) StopCoroutine(coroutine);
+            coroutine = StartCoroutine(FadeOut());
         }
+    }
 
-        if (isFadingIn)
+    IEnumerator FadeIn()
+    {
+        while (true)
         {
-            isFadingOut = false;
             canvasGroup.alpha = Mathf.Lerp(0, 1, t);
             t += Time.deltaTime * fadeSpeed;
 
             if (canvasGroup.alpha >= .95f)
             {
                 canvasGroup.alpha = 1;
-                isFadingIn = false;
+                StopCoroutine(coroutine);
             }
+            yield return new WaitForSeconds(Time.deltaTime);
         }
-        else if (isFadingOut)
+    }
+
+    IEnumerator FadeOut()
+    {
+        while (true)
         {
-            isFadingIn = false;
             canvasGroup.alpha = Mathf.Lerp(1, 0, t);
             t += Time.deltaTime * fadeSpeed;
 
             if (canvasGroup.alpha <= .1f)
             {
                 canvasGroup.alpha = 0f;
-                isFadingOut = false;
-                if (canvasGroup != null)
-                    canvasGroup.gameObject.SetActive(false);
+                if (canvasGroup != null) canvasGroup.gameObject.SetActive(false);
+                StopCoroutine(coroutine);
             }
+            yield return new WaitForSeconds(Time.deltaTime);
         }
     }
 }

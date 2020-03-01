@@ -7,7 +7,7 @@ public class WeatherController : MonoBehaviour
 {
     FogController fogController;
     WindController windController;
-    public CloudController clouds;
+    //public CloudController clouds;
     public int updateWeatherOnFrame;
 
     private void Reset()
@@ -24,15 +24,16 @@ public class WeatherController : MonoBehaviour
 
     void UpdateWeather()
     {
-        fogController.fogEndDistance = Random.value * 1000f;
-        windController.speed = Random.value;
+        fogController.fogEndDistance = fogController.fogStartDistance + (Random.value * (5000f - fogController.fogStartDistance));
+        windController.speed = Random.value * .7f;
         windController.direction = (int)(Random.value * 360);
 
-        if (clouds != null)
-        {
-            clouds.density = Random.value;
-            clouds.cloudBreaks = Random.value;
-        }
+        //if (clouds != null)
+        //{
+            // todo clouds should lerp like everything else...
+            //clouds.density = Random.value;
+            //clouds.cloudBreaks = Random.value;
+        //}
     }
 
     void Update()

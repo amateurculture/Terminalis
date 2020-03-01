@@ -18,13 +18,14 @@ public class CloudController : FluidsController
 
     public override void UpdateController()
     {
-        var speedMultiplier = .2f;
+        var speedMultiplier = -.2f;
         var bumpMultiplier = cloudBreaks * 10;
 
         cloudColor = RenderSettings.fogColor;
         cloudColor.a = density;
         meshRenderer.material.SetColor("_Color", cloudColor);
         meshRenderer.material.SetColor("_EmissionColor", cloudColor);
+
 
         UpdateFluid(speedMultiplier, bumpMultiplier);
     }

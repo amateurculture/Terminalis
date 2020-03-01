@@ -4,7 +4,6 @@
 
 public class FogController : MonoBehaviour
 {
-    [Header("Global Fog")]
     [Range(0, 10000)] public float fogStartDistance;
     [Range(1, 5000)] public float fogEndDistance;
     public Gradient fogColor;
@@ -64,13 +63,19 @@ public class FogController : MonoBehaviour
         UpdateFogColor();
     }
 
+    float GetGradientIndex()
+    {
+        gradientIndex = lightingController.timeController.minute * .017f;
+        gradientIndex += lightingController.timeController.hour;
+        gradientIndex *= 0.04f;
+        return gradientIndex;
+    }
+
     public void UpdateFogColor()
     {
         if (RenderSettings.sun == null || lightingController == null) return;
-        gradientIndex = lightingController.timeController.minute / 60f;
-        gradientIndex += lightingController.timeController.hour;
-        gradientIndex /= 24f;
-        RenderSettings.fogColor = fogColor.Evaluate(gradientIndex);
+
+        RenderSettings.fogColor = fogColor.Evaluate(GetGradientIndex());
     }
 
     void UpdateStartFog()

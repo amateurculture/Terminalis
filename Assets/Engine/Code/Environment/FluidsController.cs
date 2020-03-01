@@ -34,14 +34,16 @@ public abstract class FluidsController : MonoBehaviour
         counterFlowDirection = (direction + 45) % 360;
         directionOffset2.x = Mathf.Cos(counterFlowDirection * 0.0174532925f) * slowOffset;
         directionOffset2.y = Mathf.Sin(counterFlowDirection * 0.0174532925f) * slowOffset;
+
         textureMovement.x += directionOffset.x * speedMultiplier;
         textureMovement.y += directionOffset.y * speedMultiplier;
         textureMovement2.x += directionOffset2.x * speedMultiplier;
         textureMovement2.y += directionOffset2.y * speedMultiplier;
+        
         meshRenderer.material.SetTextureOffset("_MainTex", new Vector2(textureMovement.x, textureMovement.y));
         meshRenderer.material.SetTextureOffset("_DetailAlbedoMap", new Vector2(textureMovement.x, textureMovement2.y));
-        meshRenderer.material.SetFloat("_BumpScale", bumpMultiplier);
-        meshRenderer.material.SetFloat("_DetailNormalMapScale", bumpMultiplier);
+        meshRenderer.material.SetFloat("_BumpScale", bumpMultiplier * speed);
+        meshRenderer.material.SetFloat("_DetailNormalMapScale", bumpMultiplier * speed);
     }
 
     private void Update()

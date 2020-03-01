@@ -2,6 +2,7 @@
 
 public class LightingController : MonoBehaviour
 {
+    public Gradient skyColor;
     public Gradient sunLight;
     public Gradient ambientLight;
     public FogController fogController;
@@ -12,6 +13,7 @@ public class LightingController : MonoBehaviour
     
     float gradientIndex;
     float lightLevel;
+    Camera camera;
 
     private void Reset()
     {
@@ -57,13 +59,18 @@ public class LightingController : MonoBehaviour
 
     private void Start()
     {
+        camera = Camera.main;
+
         if (RenderSettings.sun != null)
         {
             RenderSettings.sun.transform.eulerAngles = Vector3.zero;
             RenderSettings.sun.transform.Rotate(new Vector3(15f * ((timeController.hour + (timeController.minute / 60f)) - 6f), 0, 0));
-            lightLevel = RenderSettings.sun.transform.eulerAngles.x / 360;
+
+            //lightLevel = RenderSettings.sun.transform.eulerAngles.x / 360;
+            lightLevel = GetGradientIndex();
             RenderSettings.sun.intensity = sunLight.Evaluate(lightLevel).grayscale;
             RenderSettings.ambientLight = ambientLight.Evaluate(lightLevel);
+            RenderSettings.sun.color = skyColor.Evaluate(lightLevel);
         }
 
         if (reflectionProbe != null)
@@ -79,7 +86,7 @@ public class LightingController : MonoBehaviour
         {
             if (reflectionProbe != null)
             {
-                reflectionProbe.backgroundColor = RenderSettings.fogColor;
+                reflectionProbe.backgroundColor = camera.backgroundColor;
                 reflectionProbe.RenderProbe();
             }
         }
@@ -90,13 +97,26 @@ public class LightingController : MonoBehaviour
         UpdateGeocentricSun();
         UpdateSunLight();
         UpdateAmbientLight();
+        UpdateSkyColor();
     }
 
-    void UpdateAmbientLight()
+    float GetGradientIndex()
     {
         gradientIndex = timeController.minute * .017f;
         gradientIndex += timeController.hour;
         gradientIndex *= 0.04f;
+        return gradientIndex;
+    }
+
+    void UpdateSkyColor()
+    {
+        gradientIndex = GetGradientIndex();
+        camera.backgroundColor = skyColor.Evaluate(GetGradientIndex());
+    }
+
+    void UpdateAmbientLight()
+    {
+        gradientIndex = GetGradientIndex();
         RenderSettings.ambientLight = ambientLight.Evaluate(gradientIndex);
     }
 
