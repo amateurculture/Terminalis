@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300646383}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.003, y: 0.0028, z: 0.003}
   m_Children: []
   m_Father: {fileID: 8028757509280642666}
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9bf9b571c837e2a49baf9e054a849fec, type: 2}
+  - {fileID: 2100000, guid: f6b4549b577184d41a99c056c316658c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -91,8 +91,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 200, y: 650, z: 200}
-  m_Center: {x: 0, y: 250, z: 0}
+  m_Size: {x: 200, y: 600, z: 200}
+  m_Center: {x: 0, y: 300, z: 0}
 --- !u!1 &8028757509058654661
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +324,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!95 &8028757509280642668
 Animator:
   serializedVersion: 3

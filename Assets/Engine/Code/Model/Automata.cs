@@ -28,6 +28,11 @@ public class Automata : MonoBehaviour
 
     private Spawner spawner;
     private Agent agent;
+    private Vector3 waypoint;
+    public float preferredSpeed;
+
+    Coroutine robotCoroutine;
+    float checkAfterThisTime;
 
     #endregion
 
@@ -44,16 +49,23 @@ public class Automata : MonoBehaviour
         animatorComponent = this.GetComponent<Animator>();
         navigationLocus = transform.gameObject;
         navMeshAgent.avoidancePriority = (int)(UnityEngine.Random.value * 100f);
-        navMeshAgent.updateRotation = false;
+        navMeshAgent.updateRotation = true;
         navMeshAgent.updatePosition = true;
-        navMeshAgent.autoRepath = true;
+        navMeshAgent.autoRepath = false;
+        navMeshAgent.autoBraking = true;
+
+        waypoint = GetNextWaypoint(transform.position, 50);
+        transform.rotation = Quaternion.LookRotation(waypoint - transform.position);
+        navMeshAgent.SetDestination(waypoint);
+        animatorComponent.SetFloat("Speed", preferredSpeed);
+        checkAfterThisTime = Time.time + 10;
+        robotCoroutine = null;
 
         /*
         if (animatorComponent != null) animatorComponent.enabled = true;
         spawner = GetComponentInParent<Spawner>();
         if (spawner != null) navigationLocus = spawner.gameObject;
         */
-
     }
 
     //void OnEnable() { StartCoroutine("_PatchAnimatorNotWorkingAtStart"); }
@@ -129,33 +141,46 @@ public class Automata : MonoBehaviour
 
     #region Navigation
 
-    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    public Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
-        Vector3 randDirection = (UnityEngine.Random.insideUnitSphere * dist);
-        randDirection += origin;
         NavMeshHit navHit;
-        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+        bool isValidPath;
+        float failsafe = 0;
+        
+        do
+        {
+            var localfailsafe = 0;
+            Vector3 randDirection = Vector3.zero;
+            do
+            {
+                randDirection = (UnityEngine.Random.insideUnitSphere * dist);
+                randDirection += origin;
+                localfailsafe++;
+            }
+            while (Vector3.Distance(randDirection, origin) < 15f && localfailsafe < 1000);
+
+            NavMesh.SamplePosition(randDirection, out navHit, dist, -1);
+
+            if (navHit.position.x == Mathf.Infinity ||
+                navHit.position.y == Mathf.Infinity ||
+                navHit.position.z == Mathf.Infinity)
+                isValidPath = false;
+            else
+                isValidPath = true;
+
+            //if (navMeshAgent.pathStatus == NavMeshPathStatus.PathInvalid) isValidPath = false;
+
+            failsafe ++;
+        } 
+        while (!isValidPath && failsafe < 1000);
+
         return navHit.position;
     }
 
-    public Vector3 GetNextWaypoint(float range = 10f)
+    public Vector3 GetNextWaypoint(Vector3 locus, float range = 10f)
     {
-        NavMeshPath navMeshPath = new NavMeshPath();
-        Vector3 testWaypoint;
-
-        do
-        {
-            Vector3 locus = navigationLocus.transform.position;
-            testWaypoint = RandomNavSphere(locus, (spawner != null) ? spawner.wander : range, -1);
-            //float distance = Vector3.Distance(testWaypoint, transform.position);
-
-            if (testWaypoint.x == Mathf.Infinity) testWaypoint.x = 999999;
-            if (testWaypoint.y == Mathf.Infinity) testWaypoint.y = 999999;
-            if (testWaypoint.z == Mathf.Infinity) testWaypoint.z = 999999;
-
-        } while (!navMeshAgent.CalculatePath(testWaypoint, navMeshPath));
-
-        return testWaypoint;
+        LayerMask mask = LayerMask.GetMask("Terrain", "Earth");
+        return RandomNavSphere(locus, (spawner != null) ? spawner.wander : range, mask);
     }
 
     Building FindClosestBuilding(Globals.BuildingType buildingType)
@@ -230,11 +255,76 @@ public class Automata : MonoBehaviour
                 else navMeshAgent.SetDestination(GetNextWaypoint());
                 */
 
-                navMeshAgent.SetDestination(GetNextWaypoint());
+                //waypoint = futureWaypoint;
+                //futureWaypoint = GetNextWaypoint(waypoint, 50);
+                //navMeshAgent.SetDestination(waypoint);
             }
     }
 
-    private void Update() { if (Time.frameCount % 5 == 0) UpdatePosition(); }
+    bool InRange(Vector3 a, Vector3 b, float min)
+    {
+        if (Mathf.Abs(a.x - b.x) < min &&
+            Mathf.Abs(a.y - b.y) < min &&
+            Mathf.Abs(a.z - b.z) < min)
+            return true;
+        return false;
+    }
+
+    IEnumerator WaitForDecision()
+    {
+        waypoint = Vector3.positiveInfinity;
+
+        //while (waypoint == Vector3.positiveInfinity || Vector3.Distance(waypoint, transform.position) <= 50)
+        while (waypoint.x == Mathf.Infinity || InRange(waypoint, transform.position, 10f))
+        {
+            waypoint = RandomNavmeshLocation(30);
+            yield return new WaitForSeconds(2);
+        }
+        animatorComponent.SetFloat("Speed", preferredSpeed);
+        navMeshAgent.SetDestination(waypoint);
+        robotCoroutine = null;
+        checkAfterThisTime = Time.time + 10f;
+    }
+
+    public Vector3 RandomNavmeshLocation(float radius)
+    {
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * radius;
+        randomDirection += transform.position;
+        NavMeshHit hit;
+        Vector3 finalPosition = Vector3.zero;
+        if (NavMesh.SamplePosition(randomDirection, out hit, radius, NavMesh.AllAreas))
+        {
+            finalPosition = hit.position;
+        }
+        return finalPosition;
+    }
+
+    void StopWalking()
+    {
+        gameObject.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
+        animatorComponent.SetFloat("Speed", 0);
+        StopAllCoroutines();
+        robotCoroutine = StartCoroutine(WaitForDecision());
+    }
+
+    private void Update()
+    {
+        if (robotCoroutine == null)
+        {
+            if (Time.time > checkAfterThisTime)
+            {
+                checkAfterThisTime = Time.time + 10f;
+
+                // todo comparison here should be based on relative scale of agent
+                if ( Mathf.Abs(navMeshAgent.velocity.x) <= .1f && Mathf.Abs(navMeshAgent.velocity.z) <= .1f) 
+                    StopWalking();
+            }
+            else if (!navMeshAgent.pathPending)
+                if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+                    if (!navMeshAgent.hasPath || navMeshAgent.velocity.sqrMagnitude == 0f)
+                        StopWalking();
+        }
+    }
 
     #endregion
 }

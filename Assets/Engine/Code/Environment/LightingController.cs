@@ -13,7 +13,7 @@ public class LightingController : MonoBehaviour
     
     float gradientIndex;
     float lightLevel;
-    Camera camera;
+    Camera cameraMain;
 
     private void Reset()
     {
@@ -59,7 +59,7 @@ public class LightingController : MonoBehaviour
 
     private void Start()
     {
-        camera = Camera.main;
+        cameraMain = Camera.main;
 
         if (RenderSettings.sun != null)
         {
@@ -86,7 +86,7 @@ public class LightingController : MonoBehaviour
         {
             if (reflectionProbe != null)
             {
-                reflectionProbe.backgroundColor = camera.backgroundColor;
+                reflectionProbe.backgroundColor = cameraMain.backgroundColor;
                 reflectionProbe.RenderProbe();
             }
         }
@@ -111,7 +111,7 @@ public class LightingController : MonoBehaviour
     void UpdateSkyColor()
     {
         gradientIndex = GetGradientIndex();
-        camera.backgroundColor = skyColor.Evaluate(GetGradientIndex());
+        cameraMain.backgroundColor = skyColor.Evaluate(GetGradientIndex());
     }
 
     void UpdateAmbientLight()

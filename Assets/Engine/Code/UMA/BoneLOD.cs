@@ -5,7 +5,7 @@ using UMA.CharacterSystem;
 public class BoneLOD : MonoBehaviour
 {
     GameObject umaPlayer;
-    SkinnedMeshRenderer renderer;
+    SkinnedMeshRenderer skinRenderer;
     UMAExpressionPlayer expressions;
     Animator animator;
     CharacterController controller;
@@ -13,14 +13,14 @@ public class BoneLOD : MonoBehaviour
     
     void Update()
     {
-        if (renderer == null)
+        if (skinRenderer == null)
         {
             foreach (Transform child in transform)
             {
                 if (child.name == "UMARenderer")
                 {
                     umaPlayer = child.gameObject;
-                    renderer = umaPlayer.GetComponent<SkinnedMeshRenderer>();
+                    skinRenderer = umaPlayer.GetComponent<SkinnedMeshRenderer>();
                     expressions = transform.GetComponent<UMAExpressionPlayer>();
                     animator = transform.GetComponent<Animator>();
                     controller = transform.GetComponent<CharacterController>();
@@ -36,11 +36,11 @@ public class BoneLOD : MonoBehaviour
             if (distance < 5)
             {
                 avatar.enabled = true;
-                renderer.enabled = true;
+                skinRenderer.enabled = true;
 
-                if (renderer.quality != SkinQuality.Bone4)
+                if (skinRenderer.quality != SkinQuality.Bone4)
                 {
-                    renderer.quality = SkinQuality.Bone4;
+                    skinRenderer.quality = SkinQuality.Bone4;
                     expressions.enabled = true;
                     animator.enabled = true;
                     controller.enabled = true;
@@ -49,11 +49,11 @@ public class BoneLOD : MonoBehaviour
             else if (distance < 10)
             {
                 avatar.enabled = true;
-                renderer.enabled = true;
+                skinRenderer.enabled = true;
 
-                if (renderer.quality != SkinQuality.Bone2)
+                if (skinRenderer.quality != SkinQuality.Bone2)
                 {
-                    renderer.quality = SkinQuality.Bone2;
+                    skinRenderer.quality = SkinQuality.Bone2;
                     expressions.enabled = false;
                     animator.enabled = true;
                     controller.enabled = true;
@@ -62,11 +62,11 @@ public class BoneLOD : MonoBehaviour
             else if (distance < 80 && transform.tag != "Player")
             {
                 avatar.enabled = true;
-                renderer.enabled = true;
+                skinRenderer.enabled = true;
 
-                if (renderer.quality != SkinQuality.Bone1)
+                if (skinRenderer.quality != SkinQuality.Bone1)
                 {
-                    renderer.quality = SkinQuality.Bone1;
+                    skinRenderer.quality = SkinQuality.Bone1;
                     expressions.enabled = false;
                     animator.enabled = false;
                     controller.enabled = false;
@@ -74,10 +74,10 @@ public class BoneLOD : MonoBehaviour
             }
             else if (distance >= 80 && transform.tag != "Player")
             {
-                if (renderer.enabled)
+                if (skinRenderer.enabled)
                 {
                     avatar.enabled = false;
-                    renderer.enabled = false;
+                    skinRenderer.enabled = false;
                     expressions.enabled = false;
                     animator.enabled = false;
                     controller.enabled = false;

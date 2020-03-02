@@ -24,7 +24,7 @@ public class AudioPlane : MonoBehaviour
 
     void Update()
     {
-        if (Time.frameCount % frameSkip == 0 && soundClip != null) {
+        if (Time.frameCount % frameSkip == 0 && soundClip != null && player != null) {
 
             distance = Vector3.Distance(new Vector3(0, meshPlane.position.y, 0), new Vector3(0, player.position.y, 0));
 
