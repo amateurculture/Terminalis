@@ -319,7 +319,7 @@ public class Automata : MonoBehaviour
                 if (Mathf.Abs(navMeshAgent.velocity.x) <= .1f && Mathf.Abs(navMeshAgent.velocity.z) <= .1f) 
                     StopWalking();
             }
-            else if (!navMeshAgent.pathPending)
+            else if (navMeshAgent.isActiveAndEnabled && !navMeshAgent.pathPending)
                 if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
                     if (!navMeshAgent.hasPath || navMeshAgent.velocity.sqrMagnitude == 0f)
                         StopWalking();
