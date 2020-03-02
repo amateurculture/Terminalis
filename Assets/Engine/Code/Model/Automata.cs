@@ -29,10 +29,11 @@ public class Automata : MonoBehaviour
     private Spawner spawner;
     private Agent agent;
     private Vector3 waypoint;
-    public float preferredSpeed;
+    float preferredSpeed;
 
     Coroutine robotCoroutine;
-    float checkAfterThisTime;
+    float checkStuckAfterThisTime;
+    float checkStuckInterval;
 
     #endregion
 
@@ -53,13 +54,15 @@ public class Automata : MonoBehaviour
         navMeshAgent.updatePosition = true;
         navMeshAgent.autoRepath = false;
         navMeshAgent.autoBraking = true;
+        preferredSpeed = navMeshAgent.speed;
 
         waypoint = GetNextWaypoint(transform.position, 50);
         transform.rotation = Quaternion.LookRotation(waypoint - transform.position);
         navMeshAgent.SetDestination(waypoint);
         animatorComponent.SetFloat("Speed", preferredSpeed);
-        checkAfterThisTime = Time.time + 10;
+        checkStuckAfterThisTime = Time.time + 5;
         robotCoroutine = null;
+        checkStuckInterval = 2.5f;
 
         /*
         if (animatorComponent != null) animatorComponent.enabled = true;
@@ -168,8 +171,6 @@ public class Automata : MonoBehaviour
             else
                 isValidPath = true;
 
-            //if (navMeshAgent.pathStatus == NavMeshPathStatus.PathInvalid) isValidPath = false;
-
             failsafe ++;
         } 
         while (!isValidPath && failsafe < 1000);
@@ -274,7 +275,6 @@ public class Automata : MonoBehaviour
     {
         waypoint = Vector3.positiveInfinity;
 
-        //while (waypoint == Vector3.positiveInfinity || Vector3.Distance(waypoint, transform.position) <= 50)
         while (waypoint.x == Mathf.Infinity || InRange(waypoint, transform.position, 10f))
         {
             waypoint = RandomNavmeshLocation(30);
@@ -283,7 +283,7 @@ public class Automata : MonoBehaviour
         animatorComponent.SetFloat("Speed", preferredSpeed);
         navMeshAgent.SetDestination(waypoint);
         robotCoroutine = null;
-        checkAfterThisTime = Time.time + 10f;
+        checkStuckAfterThisTime = Time.time + checkStuckInterval;
     }
 
     public Vector3 RandomNavmeshLocation(float radius)
@@ -311,12 +311,12 @@ public class Automata : MonoBehaviour
     {
         if (robotCoroutine == null)
         {
-            if (Time.time > checkAfterThisTime)
+            if (Time.time > checkStuckAfterThisTime)
             {
-                checkAfterThisTime = Time.time + 10f;
+                checkStuckAfterThisTime = Time.time + checkStuckInterval;
 
                 // todo comparison here should be based on relative scale of agent
-                if ( Mathf.Abs(navMeshAgent.velocity.x) <= .1f && Mathf.Abs(navMeshAgent.velocity.z) <= .1f) 
+                if (Mathf.Abs(navMeshAgent.velocity.x) <= .1f && Mathf.Abs(navMeshAgent.velocity.z) <= .1f) 
                     StopWalking();
             }
             else if (!navMeshAgent.pathPending)

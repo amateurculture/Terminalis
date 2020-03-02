@@ -70,7 +70,9 @@ public class LightingController : MonoBehaviour
             lightLevel = GetGradientIndex();
             RenderSettings.sun.intensity = sunLight.Evaluate(lightLevel).grayscale;
             RenderSettings.ambientLight = ambientLight.Evaluate(lightLevel);
-            RenderSettings.sun.color = skyColor.Evaluate(lightLevel);
+
+            // todo is this ok?
+            //RenderSettings.sun.color = skyColor.Evaluate(lightLevel);
         }
 
         if (reflectionProbe != null)
@@ -94,8 +96,8 @@ public class LightingController : MonoBehaviour
 
     public void UpdateLighting()
     {
-        UpdateGeocentricSun();
         UpdateSunLight();
+        UpdateGeocentricSun();
         UpdateAmbientLight();
         UpdateSkyColor();
     }
@@ -122,9 +124,7 @@ public class LightingController : MonoBehaviour
 
     void UpdateSunLight()
     {
-        gradientIndex = timeController.minute * .017f;
-        gradientIndex += timeController.hour;
-        gradientIndex *= 0.04f;
+        gradientIndex = GetGradientIndex();
         lightLevel = RenderSettings.sun.intensity = sunLight.Evaluate(gradientIndex).grayscale * 1.25f;
 
         if (lightLevel <= 0)
