@@ -666,6 +666,7 @@ GameObject:
   - component: {fileID: 5071738533765630494}
   - component: {fileID: 5071738533765630495}
   - component: {fileID: 5071738533765630492}
+  - component: {fileID: 2586837326393531913}
   m_Layer: 0
   m_Name: Chicken Brown
   m_TagString: Untagged
@@ -723,7 +724,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 0
@@ -780,6 +781,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiStyle: 0
   show: 0
+  minWanderRange: 2
+  maxWanderRange: 5
+--- !u!205 &2586837326393531913
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5071738533765630493}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.0013120174, y: 0.3082251, z: -0.018311918}
+  m_Size: 0.6511563
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.29545242
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 5156342198916746525}
+  - screenRelativeHeight: 0.033589985
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 5156342198916746525}
+  - screenRelativeHeight: 0.0019061108
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3802349355201644369}
+  m_Enabled: 1
 --- !u!1 &5071747711974809681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,7 +1297,7 @@ SkinnedMeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0.19920196
+  m_ScaleInLightmap: 0.29545242
   m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
@@ -1750,14 +1780,13 @@ GameObject:
   - component: {fileID: 202428476227268537}
   - component: {fileID: 9153256585406781689}
   - component: {fileID: 3802349355201644369}
-  - component: {fileID: 920701963040708159}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &202428476227268537
 Transform:
   m_ObjectHideFlags: 0
@@ -1766,8 +1795,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8096583717168775853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.292, z: 0.015}
-  m_LocalScale: {x: 0.11768, y: 0.34045, z: 0.41351}
+  m_LocalPosition: {x: 0, y: 0.1827, z: 0.0231}
+  m_LocalScale: {x: 0.11768, y: 0.3684136, z: 0.27852786}
   m_Children: []
   m_Father: {fileID: 5073551719423680789}
   m_RootOrder: 2
@@ -1805,7 +1834,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0.06295679
+  m_ScaleInLightmap: 0.13435994
   m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
@@ -1819,16 +1848,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &920701963040708159
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8096583717168775853}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

@@ -753,6 +753,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiStyle: 0
   show: 0
+  minWanderRange: 10
+  maxWanderRange: 30
 --- !u!205 &3526721852003748029
 LODGroup:
   m_ObjectHideFlags: 0
@@ -1909,7 +1911,6 @@ GameObject:
   - component: {fileID: 6002111649547509378}
   - component: {fileID: 2578006145645716976}
   - component: {fileID: 3963048965787069210}
-  - component: {fileID: 2103938902006907963}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1957,7 +1958,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4253588671899480465, guid: 7816a54bfb7bca742aa936ef30b937c9, type: 3}
+  - {fileID: 2100000, guid: 1cfac338026e4a548bee81904a6f356b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1978,16 +1979,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2103938902006907963
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6240330194975850911}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

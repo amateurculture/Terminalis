@@ -2,11 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using System;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Agent))]
+
+public class Tilt : MonoBehaviour
+{
+    public LayerMask mask;
+    public Transform referencePos;
+    [HideInInspector]
+    public Vector3 hitPoint;
+
+    void Update()
+    {
+        
+    }
+}
 
 public class Automata : MonoBehaviour
 {
@@ -14,6 +26,8 @@ public class Automata : MonoBehaviour
 
     [Header("Behavior")] public Globals.AIType aiStyle;
     [Header("Testing")] [EnumFlags] public Globals.AITestingFlags show;
+    public float minWanderRange;
+    public float maxWanderRange;
 
     #endregion
 
@@ -29,76 +43,76 @@ public class Automata : MonoBehaviour
     private Spawner spawner;
     private Agent agent;
     private Vector3 waypoint;
-    float preferredSpeed;
 
-    Coroutine robotCoroutine;
+    float preferredSpeed;
     float checkStuckAfterThisTime;
     float checkStuckInterval;
+    Coroutine robotCoroutine;
+    Vector2 smoothDeltaPosition = Vector2.zero;
+    Vector3 originalPosition;
 
     #endregion
 
     #region Initialize
 
+    private void Reset()
+    {
+        minWanderRange = 10;
+        maxWanderRange = 30;
+    }
+
     void Start()
     {
         agent = GetComponent<Agent>();
         agent.InitializeAgent();
-        updateTime = 0; 
+        updateTime = 0;
         _ai_wait_ = 1f;
+
         player = GameObject.FindGameObjectWithTag("Player");
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         animatorComponent = this.GetComponent<Animator>();
+
         navigationLocus = transform.gameObject;
         navMeshAgent.avoidancePriority = (int)(UnityEngine.Random.value * 100f);
         navMeshAgent.updateRotation = true;
         navMeshAgent.updatePosition = true;
         navMeshAgent.autoRepath = false;
         navMeshAgent.autoBraking = true;
-        preferredSpeed = navMeshAgent.speed;
+        navMeshAgent.updateUpAxis = false;
 
-        waypoint = GetNextWaypoint(transform.position, 50);
-        transform.rotation = Quaternion.LookRotation(waypoint - transform.position);
-        navMeshAgent.SetDestination(waypoint);
-        animatorComponent.SetFloat("Speed", preferredSpeed);
-        checkStuckAfterThisTime = Time.time + 5;
+        preferredSpeed = navMeshAgent.speed;
         robotCoroutine = null;
         checkStuckInterval = 2.5f;
 
-        /*
-        if (animatorComponent != null) animatorComponent.enabled = true;
-        spawner = GetComponentInParent<Spawner>();
-        if (spawner != null) navigationLocus = spawner.gameObject;
-        */
+        StopWalking();
     }
 
-    //void OnEnable() { StartCoroutine("_PatchAnimatorNotWorkingAtStart"); }
-
-/*
-    IEnumerator _PatchAnimatorNotWorkingAtStart()
-    {
-        float timer = 0;
-        while (true)
+    /*
+        IEnumerator _PatchAnimatorNotWorkingAtStart()
         {
-            if (timer != -1)
+            float timer = 0;
+            while (true)
             {
-                if (timer == 0)
+                if (timer != -1)
                 {
-                    if (animatorComponent != null)
-                        animatorComponent.enabled = false;
-                    timer = Time.time + .5f;
+                    if (timer == 0)
+                    {
+                        if (animatorComponent != null)
+                            animatorComponent.enabled = false;
+                        timer = Time.time + .5f;
+                    }
+                    else if (Time.time > timer)
+                    {
+                        if (animatorComponent != null)
+                            animatorComponent.enabled = true;
+                        timer = -1;
+                        yield break;
+                    }
                 }
-                else if (Time.time > timer)
-                {
-                    if (animatorComponent != null)
-                        animatorComponent.enabled = true;
-                    timer = -1;
-                    yield break;
-                }
+                yield return new WaitForSeconds(.75f);
             }
-            yield return new WaitForSeconds(.75f);
         }
-    }
-    */
+        */
     #endregion
 
     #region Debugging
@@ -271,16 +285,31 @@ public class Automata : MonoBehaviour
         return false;
     }
 
+    bool IsValidTerrainWaypoint()
+    {
+        return waypoint.x == Mathf.Infinity || InRange(waypoint, transform.position, minWanderRange);
+    }
+
     IEnumerator WaitForDecision()
     {
         waypoint = Vector3.positiveInfinity;
+        bool isValidWaypoint = false;
 
-        while (waypoint.x == Mathf.Infinity || InRange(waypoint, transform.position, 10f))
+        while (!isValidWaypoint)
         {
-            waypoint = RandomNavmeshLocation(30);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(5);
+
+            if (IsValidTerrainWaypoint())
+            {
+                //animatorComponent.SetFloat("Speed", navMeshAgent.velocity.magnitude);
+                waypoint = RandomNavmeshLocation(maxWanderRange);
+
+                NavMeshPath navPath = new NavMeshPath();
+                if (navMeshAgent.CalculatePath(waypoint, navPath)) 
+                    isValidWaypoint = true;
+            }
         }
-        animatorComponent.SetFloat("Speed", preferredSpeed);
+        //animatorComponent.SetFloat("Speed", preferredSpeed);
         navMeshAgent.SetDestination(waypoint);
         robotCoroutine = null;
         checkStuckAfterThisTime = Time.time + checkStuckInterval;
@@ -292,37 +321,47 @@ public class Automata : MonoBehaviour
         randomDirection += transform.position;
         NavMeshHit hit;
         Vector3 finalPosition = Vector3.zero;
+
         if (NavMesh.SamplePosition(randomDirection, out hit, radius, NavMesh.AllAreas))
-        {
             finalPosition = hit.position;
-        }
+
         return finalPosition;
     }
 
     void StopWalking()
     {
-        gameObject.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
-        animatorComponent.SetFloat("Speed", 0);
-        StopAllCoroutines();
+        navMeshAgent.velocity = Vector3.zero;
+
+        if (animatorComponent.isInitialized) animatorComponent.SetFloat("Speed", 0);
+
+        if (robotCoroutine != null) StopCoroutine(robotCoroutine);
+
         robotCoroutine = StartCoroutine(WaitForDecision());
     }
 
+    float previousSpeed = 0;
+    float t = 0;
+
     private void Update()
     {
-        if (robotCoroutine == null)
+        if (robotCoroutine == null) 
         {
-            if (Time.time > checkStuckAfterThisTime)
-            {
-                checkStuckAfterThisTime = Time.time + checkStuckInterval;
+            var s = navMeshAgent.velocity.magnitude;
+            t += .0001f;
+            var speed = Mathf.Lerp(previousSpeed, s, t);
+            previousSpeed = speed;
+            animatorComponent.SetFloat("Speed", speed);
 
-                // todo comparison here should be based on relative scale of agent
-                if (Mathf.Abs(navMeshAgent.velocity.x) <= .1f && Mathf.Abs(navMeshAgent.velocity.z) <= .1f) 
-                    StopWalking();
-            }
-            else if (navMeshAgent.isActiveAndEnabled && !navMeshAgent.pathPending)
-                if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-                    if (!navMeshAgent.hasPath || navMeshAgent.velocity.sqrMagnitude == 0f)
+            if (navMeshAgent.isActiveAndEnabled && !navMeshAgent.pathPending)
+            {
+                if (!navMeshAgent.hasPath || navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+                {
+                    if (navMeshAgent.velocity.sqrMagnitude == 0) 
+                    {
                         StopWalking();
+                    }
+                }
+            }
         }
     }
 
