@@ -1,27 +1,38 @@
 ﻿using UnityEngine;
 using System;
 using TMPro;
+using UnityEngine.UI;
 
 public class DateTimeText : MonoBehaviour
 {
-    private TextMeshProUGUI statusText;
-    
+    public TimeController Planet;
+    private Text statusText;
+    private TextMeshProUGUI statusUGUIText;
+    private string textString;
+    private string ampmString;
+    private string hourString;
+
     void Start()
     {
-        statusText = transform.GetComponent<TextMeshProUGUI>();
+        statusUGUIText = transform.GetComponent<TextMeshProUGUI>();
+        statusText = transform.GetComponent<Text>();
     }
 
     void Update()
     {
-#if ENVIRO_HD && ENVIRO_LW
-        if (Globals.Instance.enviro != null)
+        if (Time.frameCount % 2 == 0)
         {
-            DateTime currentDate = new DateTime((int)Globals.Instance.enviro.currentYear, Globals.Instance.GetMonth((int)Globals.Instance.enviro.currentDay), (int)Globals.Instance.enviro.currentDay);
-            statusText.text = currentDate.ToLongDateString() + " " + Globals.Instance.enviro.GetTimeStringWithSeconds();
-        } else
-            statusText.text = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString();
-#else
-        statusText.text = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString();
-#endif
+            if (Planet != null)
+            {
+                ampmString = (Planet.hour > 12) ? "pm" : "am";
+                hourString = "" + ((ampmString == "am") ? ((int)Planet.hour).ToString("D2") : (((int)Planet.hour - 12)).ToString("D2"));
+                textString = "Day " + Planet.day + ", " + hourString + ":" + Planet.minute + " " + ampmString;
+            }
+            else textString = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString();
+            
+            if (statusUGUIText != null) statusUGUIText.text = textString;
+
+            if (statusText != null) statusText.text = textString;
+        }
     }
 }

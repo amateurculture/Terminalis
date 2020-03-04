@@ -7,19 +7,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Agent))]
 
-public class Tilt : MonoBehaviour
-{
-    public LayerMask mask;
-    public Transform referencePos;
-    [HideInInspector]
-    public Vector3 hitPoint;
-
-    void Update()
-    {
-        
-    }
-}
-
 public class Automata : MonoBehaviour
 {
     #region Property Inspector Variables
@@ -39,17 +26,12 @@ public class Automata : MonoBehaviour
     protected GameObject player;
     protected float updateTime;
     protected float _ai_wait_;
+    protected Coroutine robotCoroutine;
+    protected float previousSpeed = 0;
 
     private Spawner spawner;
     private Agent agent;
     private Vector3 waypoint;
-
-    float preferredSpeed;
-    float checkStuckAfterThisTime;
-    float checkStuckInterval;
-    Coroutine robotCoroutine;
-    Vector2 smoothDeltaPosition = Vector2.zero;
-    Vector3 originalPosition;
 
     #endregion
 
@@ -79,10 +61,7 @@ public class Automata : MonoBehaviour
         navMeshAgent.autoRepath = false;
         navMeshAgent.autoBraking = true;
         navMeshAgent.updateUpAxis = false;
-
-        preferredSpeed = navMeshAgent.speed;
         robotCoroutine = null;
-        checkStuckInterval = 2.5f;
 
         StopWalking();
     }
@@ -301,18 +280,15 @@ public class Automata : MonoBehaviour
 
             if (IsValidTerrainWaypoint())
             {
-                //animatorComponent.SetFloat("Speed", navMeshAgent.velocity.magnitude);
                 waypoint = RandomNavmeshLocation(maxWanderRange);
-
                 NavMeshPath navPath = new NavMeshPath();
+
                 if (navMeshAgent.CalculatePath(waypoint, navPath)) 
                     isValidWaypoint = true;
             }
         }
-        //animatorComponent.SetFloat("Speed", preferredSpeed);
         navMeshAgent.SetDestination(waypoint);
         robotCoroutine = null;
-        checkStuckAfterThisTime = Time.time + checkStuckInterval;
     }
 
     public Vector3 RandomNavmeshLocation(float radius)
@@ -331,37 +307,25 @@ public class Automata : MonoBehaviour
     void StopWalking()
     {
         navMeshAgent.velocity = Vector3.zero;
-
         if (animatorComponent.isInitialized) animatorComponent.SetFloat("Speed", 0);
-
         if (robotCoroutine != null) StopCoroutine(robotCoroutine);
-
         robotCoroutine = StartCoroutine(WaitForDecision());
     }
 
-    float previousSpeed = 0;
-    float t = 0;
-
     private void Update()
     {
-        if (robotCoroutine == null) 
+        if (robotCoroutine == null)
         {
             var s = navMeshAgent.velocity.magnitude;
-            t += .0001f;
-            var speed = Mathf.Lerp(previousSpeed, s, t);
+            var speed = Mathf.Lerp(previousSpeed, s, Time.deltaTime);
+
             previousSpeed = speed;
             animatorComponent.SetFloat("Speed", speed);
 
-            if (navMeshAgent.isActiveAndEnabled && !navMeshAgent.pathPending)
-            {
-                if (!navMeshAgent.hasPath || navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-                {
-                    if (navMeshAgent.velocity.sqrMagnitude == 0) 
-                    {
-                        StopWalking();
-                    }
-                }
-            }
+            if ((navMeshAgent.isActiveAndEnabled && !navMeshAgent.pathPending) &&
+                (!navMeshAgent.hasPath || navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance) &&
+                navMeshAgent.velocity.sqrMagnitude == 0)
+                StopWalking();
         }
     }
 
