@@ -125,7 +125,7 @@ public class LightingController : MonoBehaviour
     void UpdateSunLight()
     {
         gradientIndex = GetGradientIndex();
-        lightLevel = RenderSettings.sun.intensity = sunLight.Evaluate(gradientIndex).grayscale * 1.25f;
+        lightLevel = RenderSettings.sun.intensity = sunLight.Evaluate(gradientIndex).grayscale * 1.5f;
 
         if (lightLevel <= 0)
         {

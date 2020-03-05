@@ -15,7 +15,9 @@ public class Automata : MonoBehaviour
     [Header("Testing")] [EnumFlags] public Globals.AITestingFlags show;
     public float minWanderRange;
     public float maxWanderRange;
-
+    public GameObject mother;
+    public GameObject father;
+    
     #endregion
 
     #region Class Variables
@@ -28,6 +30,8 @@ public class Automata : MonoBehaviour
     protected float _ai_wait_;
     protected Coroutine robotCoroutine;
     protected float previousSpeed = 0;
+    protected float _run_speed;
+    protected float _walk_speed;
 
     private Spawner spawner;
     private Agent agent;
@@ -41,6 +45,14 @@ public class Automata : MonoBehaviour
     {
         minWanderRange = 10;
         maxWanderRange = 30;
+
+        navMeshAgent = GetComponentInChildren<NavMeshAgent>();
+        navMeshAgent.autoTraverseOffMeshLink = true;
+        navMeshAgent.autoRepath = true;
+        navMeshAgent.autoBraking = true;
+        navMeshAgent.updateUpAxis = false;
+        navMeshAgent.areaMask = (1 << 0);
+        navMeshAgent.height = 1;
     }
 
     void Start()
@@ -58,11 +70,17 @@ public class Automata : MonoBehaviour
         navMeshAgent.avoidancePriority = (int)(UnityEngine.Random.value * 100f);
         navMeshAgent.updateRotation = true;
         navMeshAgent.updatePosition = true;
-        navMeshAgent.autoRepath = false;
+
+        navMeshAgent.autoTraverseOffMeshLink = true;
+        navMeshAgent.autoRepath = true;
+        navMeshAgent.areaMask = (1 << 0);
+
         navMeshAgent.autoBraking = true;
         navMeshAgent.updateUpAxis = false;
         robotCoroutine = null;
-
+        _run_speed = navMeshAgent.speed;
+        _walk_speed = _run_speed / 2;
+     
         StopWalking();
     }
 
@@ -128,8 +146,8 @@ public class Automata : MonoBehaviour
             Debug.DrawLine(transform.position, navMeshAgent.destination, Color.yellow);
         }
 
-        if (navMeshAgent != null && navMeshAgent.pathStatus == NavMeshPathStatus.PathInvalid)
-            print(transform.name + "'s path is invalid!");
+        //if (navMeshAgent != null && navMeshAgent.pathStatus == NavMeshPathStatus.PathInvalid)
+        //    print(transform.name + "'s path is invalid!");
     }
 #endif
 
@@ -271,22 +289,23 @@ public class Automata : MonoBehaviour
 
     IEnumerator WaitForDecision()
     {
-        waypoint = Vector3.positiveInfinity;
         bool isValidWaypoint = false;
 
         while (!isValidWaypoint)
         {
             yield return new WaitForSeconds(5);
+            waypoint = Vector3.positiveInfinity;
 
             if (IsValidTerrainWaypoint())
             {
                 waypoint = RandomNavmeshLocation(maxWanderRange);
                 NavMeshPath navPath = new NavMeshPath();
 
-                if (navMeshAgent.CalculatePath(waypoint, navPath)) 
+                if (navMeshAgent.CalculatePath(waypoint, navPath))
                     isValidWaypoint = true;
             }
         }
+        navMeshAgent.speed = _walk_speed;
         navMeshAgent.SetDestination(waypoint);
         robotCoroutine = null;
     }
@@ -314,11 +333,32 @@ public class Automata : MonoBehaviour
 
     private void Update()
     {
+        // Interrupt the wander behavior when a qualifying event occurs
+        if (Time.frameCount % 100 == 0)
+        {
+            if (aiStyle == Globals.AIType.Child && mother != null)
+            {
+                if (!InRange(mother.transform.position, transform.position, maxWanderRange))
+                {
+                    waypoint = mother.transform.position;
+                    navMeshAgent.speed = _run_speed;
+                    navMeshAgent.SetDestination(waypoint);
+                    robotCoroutine = null;
+                }
+            }
+            else if (aiStyle == Globals.AIType.Agressive && InRange(player.transform.position, transform.position, 10))
+            {
+                waypoint = player.transform.position;
+                navMeshAgent.speed = _run_speed;
+                navMeshAgent.SetDestination(waypoint);
+                robotCoroutine = null;
+            }
+        }
+
         if (robotCoroutine == null)
         {
             var s = navMeshAgent.velocity.magnitude;
             var speed = Mathf.Lerp(previousSpeed, s, Time.deltaTime);
-
             previousSpeed = speed;
             animatorComponent.SetFloat("Speed", speed);
 

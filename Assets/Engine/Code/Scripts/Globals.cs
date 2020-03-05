@@ -76,9 +76,10 @@ public class Globals
 
     public enum AIType
     {
-        Passive,
         Agressive,
-        Defensive
+        Defensive,
+        Passive,
+        Child
     }
 
     public enum AITestingFlags

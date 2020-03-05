@@ -36,7 +36,10 @@ public class QualityManager : MonoBehaviour
         postProcessingVolume.profile.TryGetSettings(out depthOfField);
         postProcessingVolume.profile.TryGetSettings(out ambientOcclusion);
         QualitySettings.SetQualityLevel(qualityLevel);
-        Application.targetFrameRate = frameRate;
+
+        if (frameRate < 240)
+            Application.targetFrameRate = frameRate;
+        
         previousEnableReflections = enableReflections;
     }
 
