@@ -85,6 +85,21 @@ public class Globals
         Polygamous = 1 << 1
     }
 
+    public enum Diet
+    {
+        Herbavore = 1 << 0,
+        Carnivore = 1 << 2,
+        Omnivore = 1 << 3
+    }
+
+    public enum Foliage
+    {
+        Grass = 1 << 0,
+        Bush = 1 << 1,
+        Tree = 1 << 2,
+        Ornamental = 1 << 3
+    }
+
     public enum Status
     {
         Asleep = 1 << 0,

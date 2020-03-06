@@ -14,13 +14,15 @@ public class Automata : MonoBehaviour
     [Header("Behavior")] 
     public Globals.AIType aiStyle;
     [Tooltip("Value cooresponds to small, medium, and large animal.")] [Range(1, 3)] public int sizeClass;
-
+    
     float minWanderRange;
     float chargeRange;
     float maxWanderRange;
+    public GameObject owner;
     public GameObject mother;
     public GameObject father;
-    public GameObject owner;
+    public Globals.Diet diet;
+
     [Header("Testing")] [EnumFlags] public Globals.AITestingFlags show;
     public float health;
     bool isDead;
@@ -124,19 +126,17 @@ public class Automata : MonoBehaviour
         navMeshAgent.avoidancePriority = (int)(UnityEngine.Random.value * 100f);
         navMeshAgent.updateRotation = true;
         navMeshAgent.updatePosition = true;
-
         navMeshAgent.autoTraverseOffMeshLink = true;
         navMeshAgent.autoRepath = true;
         navMeshAgent.areaMask = (1 << 0);
-
         navMeshAgent.autoBraking = true;
         navMeshAgent.updateUpAxis = false;
         robotCoroutine = null;
         _run_speed = navMeshAgent.speed;
         _walk_speed = _run_speed / 2;
-
         isDead = false;
 
+        DisableAllColliders();
         StopWalking();
     }
 
@@ -438,11 +438,12 @@ public class Automata : MonoBehaviour
         *   1) Am I female, am I partnered, can I give birth, am I about to give birth, or in estrous and is it the first day of spring? if yes produce 0-n children, if no continue.
         *   2) Are any of my needs in emergency? If yes resolve, if no continue.
         *   3) Do I have a schedule? If yes do that, if no continue.
-        * X 4) Am I agressive or defensive and is a target in range? If yes attack, if no continue.
-        *   5) Am I passive and is anyone not of my species in range? If yes run away, if no continue.
-        *   5) Are any of my needs in warning? If yes resolve, if no continue.
-        * X 6) Is my partner out of range and are both of us not on a schedule? If yes run to them, if no continue.
-        * X 7) Wander
+        * X 4) Am I agressive and is a target in range? If yes attack, if no continue.
+        *   5) Am I defensive and is a target in range? If yes attack, if no continue.
+        *   6) Am I passive and is anyone not of my species in range? If yes run away, if no continue.
+        *   7) Are any of my needs in warning? If yes resolve, if no continue.
+        * X 8) Is my partner out of range and are both of us not on a schedule? If yes run to them, if no continue.
+        * X 9) Wander
         */
 
         if (aiStyle == Globals.AIType.Agressive && InRange(player.transform.position, chargeRange))
@@ -476,7 +477,7 @@ public class Automata : MonoBehaviour
         navMeshAgent.enabled = true;
         animatorComponent.enabled = true;
 
-        yield return new WaitForSeconds(15);
+        yield return new WaitForSeconds(6);
 
         navMeshAgent.enabled = false;
         animatorComponent.enabled = false;
@@ -509,6 +510,10 @@ public class Automata : MonoBehaviour
         }
         return isDead;
     }
+
+    // you cannot have multiple ownership! only relationship chains!
+
+    // Is this true? What about alternative heirarchies? Also relationships can create cycles.
 
     private void Update()
     {
