@@ -11,7 +11,7 @@ public class Agent : Container
     public float currency = 100;
     public Globals.Sex sex = Globals.Sex.Female;
     public Globals.Gender gender = Globals.Gender.Female;
-    public Globals.Attraction attraction = Globals.Attraction.Men;
+    public Globals.Attraction attraction = Globals.Attraction.Heterosexual;
 
     [EnumFlags] public Globals.Status status;
 

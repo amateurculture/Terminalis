@@ -28,13 +28,32 @@ public class Globals
 
     #region Game Types
 
-    internal static float _ai_wait = 2f;
+    // todo move through governments every hundred years in order (barring interference); Each change of governments has a period of revolution where the game rules change and all in-groups fight each other for a year.
+
+    public enum Government
+    {
+        Anarchy, // is creative and has a traditional economy
+        Monarchy, // is theocratic and has feudal economy
+        Democracy, // is socialist and has capitalist economy
+        Communism, // is socialist and has planned economy
+        Fascism, // is angry and has a war economy
+    }
+
+    public enum AIType
+    {
+        Agressive,
+        Defensive,
+        Passive,
+        Child
+    }
 
     public enum Sex
     {
         Male = 1 << 0,
         Female = 1 << 1,
-        Intersex = 1 << 2
+        MaleIntersex = 1 << 2,
+        FemaleIntersex = 1 << 3,
+        Hermaphrodite = 1 << 4
     }
 
     public enum Gender
@@ -46,9 +65,24 @@ public class Globals
 
     public enum Attraction
     {
-        Men = 1 << 0,
-        Women = 1 << 1,
-        Pansexual = 1 << 2
+        Heterosexual = 1 << 0,
+        Homosexual = 1 << 1,
+        Pansexual = 1 << 2,
+        Asexual = 1 << 3
+    }
+
+    public enum Cycle
+    {
+        None = 1 << 0,
+        Estrous = 1 << 1,
+        Monthly = 1 << 2
+    }
+
+    // In monogamy, pairs must own each other; in polygamy, chains are possible
+    public enum Proclivity
+    {
+        Monogamous = 1 << 0,
+        Polygamous = 1 << 1
     }
 
     public enum Status
@@ -74,14 +108,6 @@ public class Globals
         Back = 1 << 6
     }
 
-    public enum AIType
-    {
-        Agressive,
-        Defensive,
-        Passive,
-        Child
-    }
-
     public enum AITestingFlags
     {
         WanderRange = 1 << 0,
@@ -98,20 +124,13 @@ public class Globals
         Status = 1 << 2
     }
 
-    public enum Government
-    {
-        Anarchy,
-        Communism,
-        Capitalism,
-        Fascism,
-        Theocracy
-    }
-
     public enum BuildingType
     {
         Residence,
         Restaurant
     }
+
+    internal static float _ai_wait = 2f;
 
     #endregion
 
@@ -476,7 +495,7 @@ public class Globals
     #endregion
 
     #region Helper Functions
-        
+
     public int GetMonth(int currentDay)
     {
 #if ENVIRO_HD && ENVIRO_LW

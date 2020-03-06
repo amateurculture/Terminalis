@@ -11,7 +11,7 @@ public class S_Agent
     public float currency = 100;
     public Globals.Sex sex = Globals.Sex.Female;
     public Globals.Gender gender = Globals.Gender.Female;
-    public Globals.Attraction attraction = Globals.Attraction.Men;
+    public Globals.Attraction attraction = Globals.Attraction.Heterosexual;
     public float hunger = 0f;
     public float fatigue = 0f;
     public float anxiety = 0f;

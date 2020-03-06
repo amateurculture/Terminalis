@@ -17,7 +17,7 @@ using UnityEngine.SceneManagement;
 public class Brain : MonoBehaviour
 {
     public static Brain instance;
-    public Globals.Government government = Globals.Government.Capitalism;
+    public Globals.Government government = Globals.Government.Democracy;
     public Gradient colorGradient;
     public Color textColor;
     public Color buttonTextColor;

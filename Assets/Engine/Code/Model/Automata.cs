@@ -11,13 +11,20 @@ public class Automata : MonoBehaviour
 {
     #region Property Inspector Variables
 
-    [Header("Behavior")] public Globals.AIType aiStyle;
-    [Header("Testing")] [EnumFlags] public Globals.AITestingFlags show;
-    public float minWanderRange;
-    public float maxWanderRange;
+    [Header("Behavior")] 
+    public Globals.AIType aiStyle;
+    [Tooltip("Value cooresponds to small, medium, and large animal.")] [Range(1, 3)] public int sizeClass;
+
+    float minWanderRange;
+    float chargeRange;
+    float maxWanderRange;
     public GameObject mother;
     public GameObject father;
-    
+    public GameObject owner;
+    [Header("Testing")] [EnumFlags] public Globals.AITestingFlags show;
+    public float health;
+    bool isDead;
+
     #endregion
 
     #region Class Variables
@@ -43,8 +50,16 @@ public class Automata : MonoBehaviour
 
     private void Reset()
     {
-        minWanderRange = 10;
-        maxWanderRange = 30;
+        health = 100;
+
+        minWanderRange = 5;
+        chargeRange = 10;
+        maxWanderRange = 15;
+        sizeClass = 1;
+
+        minWanderRange = 5 * sizeClass;
+        chargeRange = 8 * sizeClass;
+        maxWanderRange = 13 * sizeClass;
 
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         navMeshAgent.autoTraverseOffMeshLink = true;
@@ -55,12 +70,51 @@ public class Automata : MonoBehaviour
         navMeshAgent.height = 1;
     }
 
+    Vector3 FindNearestTree()
+    {
+        Terrain terrain = Terrain.activeTerrain;
+        TerrainData data = terrain.terrainData;
+        TreeInstance[] trees = data.treeInstances;
+
+        if (trees.Length > 0)
+        {
+            TreeInstance Nearest = trees[0];
+            Vector3 NearPosition = Vector3.Scale(Nearest.position, data.size) + terrain.transform.position;
+
+            foreach (TreeInstance Location in trees)
+            {
+                Vector3 position = Vector3.Scale(Location.position, data.size) + terrain.transform.position;
+
+                if (Vector3.Distance(position, this.gameObject.transform.position) < 
+                    Vector3.Distance(NearPosition, this.gameObject.transform.position))
+                {
+                    Nearest = Location;
+                    NearPosition = position;
+                }
+            }
+            NearPosition.y = terrain.SampleHeight(NearPosition);
+            Debug.Log(NearPosition);
+            return NearPosition;
+
+            //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            //cube.transform.position = NearPosition;
+        }
+        return Vector3.positiveInfinity;
+    }
+
+    [System.Obsolete]
     void Start()
     {
+        //DisableAllColliders();
+
         agent = GetComponent<Agent>();
         agent.InitializeAgent();
         updateTime = 0;
         _ai_wait_ = 1f;
+
+        minWanderRange = 5 * sizeClass;
+        chargeRange = 8 * sizeClass;
+        maxWanderRange = 13 * sizeClass;
 
         player = GameObject.FindGameObjectWithTag("Player");
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
@@ -80,7 +134,9 @@ public class Automata : MonoBehaviour
         robotCoroutine = null;
         _run_speed = navMeshAgent.speed;
         _walk_speed = _run_speed / 2;
-     
+
+        isDead = false;
+
         StopWalking();
     }
 
@@ -195,6 +251,18 @@ public class Automata : MonoBehaviour
         return RandomNavSphere(locus, (spawner != null) ? spawner.wander : range, mask);
     }
 
+    void DisableAllColliders()
+    {
+        colliders = GetComponentsInChildren<Collider>();
+        foreach (Collider c in colliders) c.enabled = false;
+    }
+
+    void EnableAllColliders()
+    {
+        colliders = GetComponentsInChildren<Collider>();
+        foreach (Collider c in colliders) c.enabled = true;
+    }
+
     Building FindClosestBuilding(Globals.BuildingType buildingType)
     {
         List<Building> buildingList = new List<Building>();
@@ -273,18 +341,18 @@ public class Automata : MonoBehaviour
             }
     }
 
-    bool InRange(Vector3 a, Vector3 b, float min)
+    bool InRange(Vector3 a, float min)
     {
-        if (Mathf.Abs(a.x - b.x) < min &&
-            Mathf.Abs(a.y - b.y) < min &&
-            Mathf.Abs(a.z - b.z) < min)
+        if (Mathf.Abs(a.x - transform.position.x) < min &&
+            Mathf.Abs(a.y - transform.position.y) < min &&
+            Mathf.Abs(a.z - transform.position.z) < min)
             return true;
         return false;
     }
 
     bool IsValidTerrainWaypoint()
     {
-        return waypoint.x == Mathf.Infinity || InRange(waypoint, transform.position, minWanderRange);
+        return waypoint.x == Mathf.Infinity || InRange(waypoint, minWanderRange);
     }
 
     IEnumerator WaitForDecision()
@@ -301,7 +369,7 @@ public class Automata : MonoBehaviour
                 waypoint = RandomNavmeshLocation(maxWanderRange);
                 NavMeshPath navPath = new NavMeshPath();
 
-                if (navMeshAgent.CalculatePath(waypoint, navPath))
+                if (navMeshAgent.isActiveAndEnabled && navMeshAgent.CalculatePath(waypoint, navPath))
                     isValidWaypoint = true;
             }
         }
@@ -331,41 +399,145 @@ public class Automata : MonoBehaviour
         robotCoroutine = StartCoroutine(WaitForDecision());
     }
 
+    void MoveTo(Vector3 here, float speed)
+    {
+        navMeshAgent.speed = speed;
+        navMeshAgent.SetDestination(here);
+        robotCoroutine = null;
+    }
+
+    void ChildLogic()
+    {
+        /** Child Logic Flow:
+        *
+        *   1) Are any of my needs in emergency? if yes resolve, if no continue
+        * X 2) Do I have a living mother and is she out of range? if yes run to her, if no continue
+        * X 3) Do I have a living father and is he out of range? if yes run to him, if no continue
+        *   4) Is there a female of my species nearby? if yes run to her, if no continue
+        *   5) Is there a male of my species nearby? if yes run to him, if no continue
+        *   6) Is there a nearby animal? if yes walk to them, if no continue
+        * X 6) Wander
+        */
+
+        if (mother != null)
+        {
+            if (!InRange(mother.transform.position, maxWanderRange))
+                MoveTo(mother.transform.position, _run_speed);
+        }
+        else if (father != null)
+            if (!InRange(father.transform.position, maxWanderRange))
+                MoveTo(father.transform.position, _run_speed);
+            else if (aiStyle == Globals.AIType.Agressive && InRange(player.transform.position, chargeRange))
+                MoveTo(player.transform.position, _run_speed);
+    }
+
+    void AdultLogic()
+    {
+        /** Adult Logic Flow:
+        *
+        *   1) Am I female, am I partnered, can I give birth, am I about to give birth, or in estrous and is it the first day of spring? if yes produce 0-n children, if no continue.
+        *   2) Are any of my needs in emergency? If yes resolve, if no continue.
+        *   3) Do I have a schedule? If yes do that, if no continue.
+        * X 4) Am I agressive or defensive and is a target in range? If yes attack, if no continue.
+        *   5) Am I passive and is anyone not of my species in range? If yes run away, if no continue.
+        *   5) Are any of my needs in warning? If yes resolve, if no continue.
+        * X 6) Is my partner out of range and are both of us not on a schedule? If yes run to them, if no continue.
+        * X 7) Wander
+        */
+
+        if (aiStyle == Globals.AIType.Agressive && InRange(player.transform.position, chargeRange))
+        {
+            /*** todo figure out if checking raycast is worth it enough here
+            RaycastHit hit;
+            int layerMask = LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("Default");
+            Vector3 adjustedPlayer = player.transform.position;
+            adjustedPlayer.y += 1f;
+            Vector3 adjustedPosition = transform.position;
+            adjustedPosition.y += 1f;
+            var heading = adjustedPlayer - adjustedPosition;
+
+            if (Physics.Raycast(adjustedPosition, heading, out hit, maxWanderRange, layerMask))
+                if (hit.transform.tag == "Player")
+                    */
+            
+            MoveTo(player.transform.position, _run_speed);
+        }
+        else if (owner != null && !InRange(owner.transform.position, maxWanderRange))
+            MoveTo((owner.transform.position + transform.position) / 2, _run_speed);
+    }
+
+    Collider[] colliders;
+   
+    IEnumerator KillAfterTime()
+    {
+        isDead = true;
+        animatorComponent.SetBool("isDead", true);
+        animatorComponent.Update(0);
+        navMeshAgent.enabled = true;
+        animatorComponent.enabled = true;
+
+        yield return new WaitForSeconds(15);
+
+        navMeshAgent.enabled = false;
+        animatorComponent.enabled = false;
+
+        EnableAllColliders();
+    }
+
+    bool IsDead()
+    {
+        if (isDead && health > 0)
+        {
+            StopAllCoroutines(); // may break something? maybe use a coroutine variable instead of kill all?
+            robotCoroutine = null;
+
+            animatorComponent.SetBool("isDead", false);
+            animatorComponent.enabled = true;
+            navMeshAgent.enabled = true; // before or after disable colliders? seems to be in the right place maybe?
+            DisableAllColliders();
+            isDead = false; 
+            return false;
+        }
+        else if (health <= 0 && !isDead)
+        {
+            StartCoroutine(KillAfterTime());
+
+            if (robotCoroutine != null) 
+                StopCoroutine(robotCoroutine); robotCoroutine = null;
+
+            return true;
+        }
+        return isDead;
+    }
+
     private void Update()
     {
-        // Interrupt the wander behavior when a qualifying event occurs
-        if (Time.frameCount % 100 == 0)
+        if (!IsDead())
         {
-            if (aiStyle == Globals.AIType.Child && mother != null)
+            // I am assessing if anything in my environment needs tending to.
+            if (Time.frameCount % 100 == 0)
             {
-                if (!InRange(mother.transform.position, transform.position, maxWanderRange))
-                {
-                    waypoint = mother.transform.position;
-                    navMeshAgent.speed = _run_speed;
-                    navMeshAgent.SetDestination(waypoint);
-                    robotCoroutine = null;
-                }
+                if (aiStyle == Globals.AIType.Child)
+                    ChildLogic();
+                else
+                    AdultLogic();
             }
-            else if (aiStyle == Globals.AIType.Agressive && InRange(player.transform.position, transform.position, 10))
+
+            // I am in the middle of deciding what to do.
+            if (!isDead && robotCoroutine == null)
             {
-                waypoint = player.transform.position;
-                navMeshAgent.speed = _run_speed;
-                navMeshAgent.SetDestination(waypoint);
-                robotCoroutine = null;
+                // I am updating my animation blendtree.
+                var s = navMeshAgent.velocity.magnitude;
+                var speed = Mathf.Lerp(previousSpeed, s, Time.deltaTime);
+                previousSpeed = speed;
+                animatorComponent.SetFloat("Speed", speed);
+
+                // I have arrived, make a decision.
+                if ((navMeshAgent.isActiveAndEnabled && !navMeshAgent.pathPending) &&
+                    (!navMeshAgent.hasPath || navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance) &&
+                    navMeshAgent.velocity.sqrMagnitude == 0)
+                    StopWalking();
             }
-        }
-
-        if (robotCoroutine == null)
-        {
-            var s = navMeshAgent.velocity.magnitude;
-            var speed = Mathf.Lerp(previousSpeed, s, Time.deltaTime);
-            previousSpeed = speed;
-            animatorComponent.SetFloat("Speed", speed);
-
-            if ((navMeshAgent.isActiveAndEnabled && !navMeshAgent.pathPending) &&
-                (!navMeshAgent.hasPath || navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance) &&
-                navMeshAgent.velocity.sqrMagnitude == 0)
-                StopWalking();
         }
     }
 

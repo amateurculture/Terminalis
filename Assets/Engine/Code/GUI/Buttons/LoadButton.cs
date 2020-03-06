@@ -54,7 +54,7 @@ public class LoadButton : MonoBehaviour
                         Brain.instance.player.sex = Globals.Sex.Female;
                         break;
                     default:
-                        Brain.instance.player.sex = Globals.Sex.Intersex;
+                        Brain.instance.player.sex = Globals.Sex.Hermaphrodite;
                         break;
                 }
             }
@@ -64,10 +64,10 @@ public class LoadButton : MonoBehaviour
                 switch (attractionDropdown.value)
                 {
                     case 0:
-                        Brain.instance.player.attraction = Globals.Attraction.Men;
+                        Brain.instance.player.attraction = Globals.Attraction.Heterosexual;
                         break;
                     case 1:
-                        Brain.instance.player.attraction = Globals.Attraction.Women;
+                        Brain.instance.player.attraction = Globals.Attraction.Homosexual;
                         break;
                     default:
                         Brain.instance.player.attraction = Globals.Attraction.Pansexual;
