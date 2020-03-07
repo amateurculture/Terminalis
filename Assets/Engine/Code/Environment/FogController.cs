@@ -4,8 +4,8 @@
 
 public class FogController : MonoBehaviour
 {
-    [Range(0, 10000)] public float fogStartDistance;
-    [Range(1, 5000)] public float fogEndDistance;
+    [Range(0, 256)] public float fogStartDistance;
+    [Range(1, 25000)] public float fogEndDistance;
     public Gradient fogColor;
     
     LightingController lightingController;
