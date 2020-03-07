@@ -952,13 +952,13 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 1
-  m_AutoTraverseOffMeshLink: 0
+  m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
-  m_AutoRepath: 0
+  m_AutoRepath: 1
   m_Height: 8
   m_BaseOffset: 0
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 2
 --- !u!114 &5358344015748859759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1007,6 +1007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiStyle: 3
+  age: 0
   sizeClass: 0
   owner: {fileID: 0}
   mother: {fileID: 0}
@@ -1014,6 +1015,8 @@ MonoBehaviour:
   diet: 1
   show: 0
   health: 100
+  isRagdollEnabled: 0
+  isAttacking: 0
 --- !u!1 &5358344015748859758
 GameObject:
   m_ObjectHideFlags: 0

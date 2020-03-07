@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UMA;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,10 +12,10 @@ public class Automata : MonoBehaviour
 {
     #region Property Inspector Variables
 
-    [Header("Behavior")] 
     public Globals.AIType aiStyle;
+    public int age;
     [Tooltip("Value cooresponds to small, medium, and large animal.")] [Range(1, 3)] public int sizeClass;
-    
+
     float minWanderRange;
     float chargeRange;
     float maxWanderRange;
@@ -25,12 +26,13 @@ public class Automata : MonoBehaviour
 
     [Header("Testing")] [EnumFlags] public Globals.AITestingFlags show;
     public float health;
-    bool isDead;
-
+    public bool isRagdollEnabled;
+    public bool isAttacking;
     #endregion
 
     #region Class Variables
 
+    bool isDead;
     protected GameObject navigationLocus;
     protected NavMeshAgent navMeshAgent;
     protected Animator animatorComponent;
@@ -45,6 +47,7 @@ public class Automata : MonoBehaviour
     private Spawner spawner;
     private Agent agent;
     private Vector3 waypoint;
+    UMAData umaData;
 
     #endregion
 
@@ -70,6 +73,8 @@ public class Automata : MonoBehaviour
         navMeshAgent.updateUpAxis = false;
         navMeshAgent.areaMask = (1 << 0);
         navMeshAgent.height = 1;
+
+        age = 18;
     }
 
     Vector3 FindNearestTree()
@@ -136,36 +141,39 @@ public class Automata : MonoBehaviour
         _walk_speed = _run_speed / 2;
         isDead = false;
 
+        umaData = GetComponent<UMAData>();
+
+        //StartCoroutine(_PatchAnimatorNotWorkingAtStart());
+
         DisableAllColliders();
         StopWalking();
     }
 
-    /*
-        IEnumerator _PatchAnimatorNotWorkingAtStart()
+    IEnumerator _PatchAnimatorNotWorkingAtStart()
+    {
+        float timer = 0;
+        while (true)
         {
-            float timer = 0;
-            while (true)
+            if (timer != -1)
             {
-                if (timer != -1)
+                if (timer == 0)
                 {
-                    if (timer == 0)
-                    {
-                        if (animatorComponent != null)
-                            animatorComponent.enabled = false;
-                        timer = Time.time + .5f;
-                    }
-                    else if (Time.time > timer)
-                    {
-                        if (animatorComponent != null)
-                            animatorComponent.enabled = true;
-                        timer = -1;
-                        yield break;
-                    }
+                    if (animatorComponent != null)
+                        animatorComponent.enabled = false;
+                    timer = Time.time + .5f;
                 }
-                yield return new WaitForSeconds(.75f);
+                else if (Time.time > timer)
+                {
+                    if (animatorComponent != null)
+                        animatorComponent.enabled = true;
+                    timer = -1;
+                    yield break;
+                }
             }
+            yield return new WaitForSeconds(.75f);
         }
-        */
+    }
+
     #endregion
 
     #region Debugging
@@ -495,25 +503,22 @@ public class Automata : MonoBehaviour
             animatorComponent.SetBool("isDead", false);
             animatorComponent.enabled = true;
             navMeshAgent.enabled = true; // before or after disable colliders? seems to be in the right place maybe?
+            
             DisableAllColliders();
-            isDead = false; 
+
+            isDead = false;
             return false;
         }
         else if (health <= 0 && !isDead)
         {
             StartCoroutine(KillAfterTime());
 
-            if (robotCoroutine != null) 
-                StopCoroutine(robotCoroutine); robotCoroutine = null;
+            if (robotCoroutine != null) StopCoroutine(robotCoroutine); robotCoroutine = null;
 
             return true;
         }
         return isDead;
     }
-
-    // you cannot have multiple ownership! only relationship chains!
-
-    // Is this true? What about alternative heirarchies? Also relationships can create cycles.
 
     private void Update()
     {
@@ -522,6 +527,12 @@ public class Automata : MonoBehaviour
             // I am assessing if anything in my environment needs tending to.
             if (Time.frameCount % 100 == 0)
             {
+                // todo get generic age slider to work
+                //if (umaData == null) umaData = GetComponent<UMAData>()
+                //var dnaDB = umaData.GetAllDna();
+                //var names = dnaDB[0].Names;
+                //print(names);
+
                 if (aiStyle == Globals.AIType.Child)
                     ChildLogic();
                 else
