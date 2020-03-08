@@ -2,7 +2,7 @@
 
 public class LightingController : MonoBehaviour
 {
-    public Gradient skyColor;
+    //public Gradient skyColor;
     public Gradient sunLight;
     public Gradient ambientLight;
     public FogController fogController;
@@ -113,7 +113,7 @@ public class LightingController : MonoBehaviour
     void UpdateSkyColor()
     {
         gradientIndex = GetGradientIndex();
-        cameraMain.backgroundColor = skyColor.Evaluate(GetGradientIndex());
+        cameraMain.backgroundColor = ambientLight.Evaluate(GetGradientIndex()); // skyColor
     }
 
     void UpdateAmbientLight()
@@ -125,7 +125,7 @@ public class LightingController : MonoBehaviour
     void UpdateSunLight()
     {
         gradientIndex = GetGradientIndex();
-        lightLevel = RenderSettings.sun.intensity = sunLight.Evaluate(gradientIndex).grayscale * 1.25f;
+        lightLevel = RenderSettings.sun.intensity = sunLight.Evaluate(gradientIndex).grayscale;
 
         if (lightLevel <= 0)
         {

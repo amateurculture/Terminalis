@@ -1225,6 +1225,7 @@ GameObject:
   - component: {fileID: 6161086694505585286}
   - component: {fileID: 1997706138498741687}
   - component: {fileID: 748023173922258412}
+  - component: {fileID: 5401071687520050396}
   m_Layer: 0
   m_Name: Brown Bear
   m_TagString: Untagged
@@ -1277,7 +1278,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5766363682801085836}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.25
+  m_Radius: 0.75
   m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1289,7 +1290,7 @@ NavMeshAgent:
   m_Height: 1.25
   m_BaseOffset: 0
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 2
+  m_ObstacleAvoidanceType: 1
 --- !u!114 &6161086694505585286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1338,7 +1339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiStyle: 0
-  age: 0
+  age: 8
   sizeClass: 2
   owner: {fileID: 0}
   mother: {fileID: 0}
@@ -1375,6 +1376,19 @@ LODGroup:
     renderers:
     - renderer: {fileID: 7583362906509305518}
   m_Enabled: 1
+--- !u!65 &5401071687520050396
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5766363682801085836}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 1, z: 1.9}
+  m_Center: {x: 0, y: 0.85, z: 0.22}
 --- !u!1 &5766369333558739842
 GameObject:
   m_ObjectHideFlags: 0

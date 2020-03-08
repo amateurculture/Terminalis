@@ -915,6 +915,8 @@ GameObject:
   - component: {fileID: 63303207643249075}
   - component: {fileID: 4964766865730649806}
   - component: {fileID: 1199552351407119046}
+  - component: {fileID: 1946134776}
+  - component: {fileID: 1946134777}
   m_Layer: 0
   m_Name: Tyrannasaurus
   m_TagString: Untagged
@@ -1028,13 +1030,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiStyle: 0
+  age: 15
   sizeClass: 2
+  owner: {fileID: 0}
   mother: {fileID: 0}
   father: {fileID: 0}
-  owner: {fileID: 0}
   diet: 4
   show: 0
   health: 100
+  isRagdollEnabled: 0
+  isAttacking: 0
 --- !u!114 &4964766865730649806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1074,6 +1079,31 @@ LODGroup:
     renderers:
     - renderer: {fileID: 3964323689076268171}
   m_Enabled: 1
+--- !u!114 &1946134776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63303207643249074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c683bd2e2b59b6649b9996e9d017862e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1946134777
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63303207643249074}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.77, z: 5}
+  m_Center: {x: 0, y: 1.8, z: 1.14}
 --- !u!1 &63303207643249076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1866,7 +1896,6 @@ GameObject:
   - component: {fileID: 8224631639800769037}
   - component: {fileID: 3021288488145049099}
   - component: {fileID: 3964323689076268171}
-  - component: {fileID: 7605004895583438876}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1935,16 +1964,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7605004895583438876
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3337372589091632572}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

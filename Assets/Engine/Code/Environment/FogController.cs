@@ -4,27 +4,17 @@
 
 public class FogController : MonoBehaviour
 {
-    [Range(0, 256)] public float fogStartDistance;
-    [Range(1, 25000)] public float fogEndDistance;
+    [Range(0, 1)] public float fogDensity;
     public Gradient fogColor;
-    
+
+    [Range(0, 1)] float gradientIndex;
     LightingController lightingController;
     float fogLerp;
-    float currentFogStartDistance;
-    float currentFogEndDistance;
+    float currentFogDensity = 0;
     float t1;
     bool isLerping;
     int frameSkip;
-
-    [Range(0, 1)] float gradientIndex;
-
-    enum WhatIsLerping
-    {
-        startFog,
-        endFog,
-        time
-    }
-    WhatIsLerping whatIsLerping;
+    float originalDensity;
 
     private void Reset()
     {
@@ -44,21 +34,18 @@ public class FogController : MonoBehaviour
         };
         fogColor = new Gradient();
         fogColor.SetKeys(keys2, alphaKeys);
-        fogStartDistance = 0;
-        fogEndDistance = 1024;
     }
 
     private void Start()
     {
         lightingController = GetComponent<LightingController>();
-        fogLerp = .0001f;
+        fogLerp = .05f;
         frameSkip = 60;
         isLerping = false;
-        RenderSettings.fogStartDistance = fogStartDistance;
-        RenderSettings.fogEndDistance = fogEndDistance;
         RenderSettings.fogColor = fogColor.Evaluate(RenderSettings.sun.transform.eulerAngles.x / 360);
-        currentFogStartDistance = fogStartDistance;
-        currentFogEndDistance = fogEndDistance;
+        RenderSettings.fogDensity = fogDensity;
+        RenderSettings.fogMode = FogMode.ExponentialSquared;
+        currentFogDensity = fogDensity;
 
         UpdateFogColor();
     }
@@ -78,30 +65,17 @@ public class FogController : MonoBehaviour
         RenderSettings.fogColor = fogColor.Evaluate(GetGradientIndex());
     }
 
-    void UpdateStartFog()
+    void UpdateFogDensity()
     {
-        currentFogStartDistance = Mathf.Lerp(currentFogStartDistance, fogStartDistance, t1);
-        RenderSettings.fogStartDistance = currentFogStartDistance;
+        currentFogDensity = Mathf.Lerp(originalDensity, fogDensity, t1);
+        print("Fog density: " + currentFogDensity);
 
-        if (Mathf.Abs(currentFogStartDistance - fogStartDistance) <= .35f)
+        if (Mathf.Abs(currentFogDensity - fogDensity) <= .0001f)
         {
-            RenderSettings.fogStartDistance = fogStartDistance;
-            currentFogStartDistance = fogStartDistance;
+            currentFogDensity = originalDensity = fogDensity;
             isLerping = false;
         }
-    }
-
-    void UpdateEndFog()
-    {
-        currentFogEndDistance = Mathf.Lerp(currentFogEndDistance, fogEndDistance, t1);
-        RenderSettings.fogEndDistance = currentFogEndDistance;
-
-        if (Mathf.Abs(currentFogEndDistance - fogEndDistance) <= .35f)
-        {
-            RenderSettings.fogEndDistance = fogEndDistance;
-            currentFogEndDistance = fogEndDistance;
-            isLerping = false;
-        }
+        RenderSettings.fogDensity = currentFogDensity;
     }
 
     private void Update()
@@ -109,25 +83,13 @@ public class FogController : MonoBehaviour
         if (isLerping)
         {
             t1 += Time.deltaTime * fogLerp;
-
-            switch (whatIsLerping)
-            {
-                case WhatIsLerping.startFog: UpdateStartFog(); break;
-                case WhatIsLerping.endFog: UpdateEndFog(); break;
-                default: break;
-            }
+            UpdateFogDensity();
         }
         else if (Time.frameCount % frameSkip == 0 && !isLerping)
         {
-            if (currentFogStartDistance != fogStartDistance)
+            if (currentFogDensity != fogDensity)
             {
-                whatIsLerping = WhatIsLerping.startFog;
-                isLerping = true;
-                t1 = 0;
-            }
-            else if (currentFogEndDistance != fogEndDistance)
-            {
-                whatIsLerping = WhatIsLerping.endFog;
+                originalDensity = currentFogDensity;
                 isLerping = true;
                 t1 = 0;
             }

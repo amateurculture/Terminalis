@@ -479,6 +479,7 @@ GameObject:
   - component: {fileID: 6316545742107154631}
   - component: {fileID: 6316545742107154630}
   - component: {fileID: 2317974118614573830}
+  - component: {fileID: 8982502976104330137}
   m_Layer: 0
   m_Name: Wild Boar
   m_TagString: Untagged
@@ -592,13 +593,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiStyle: 0
+  age: 0
   sizeClass: 1
+  owner: {fileID: 0}
   mother: {fileID: 0}
   father: {fileID: 0}
-  owner: {fileID: 0}
   diet: 8
   show: 0
   health: 100
+  isRagdollEnabled: 0
+  isAttacking: 0
 --- !u!205 &2317974118614573830
 LODGroup:
   m_ObjectHideFlags: 0
@@ -626,6 +630,19 @@ LODGroup:
     renderers:
     - renderer: {fileID: 1373068611991442559}
   m_Enabled: 1
+--- !u!65 &8982502976104330137
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6316545742107154625}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.51, y: 0.51, z: 1.64}
+  m_Center: {x: 0, y: 0.69, z: 0.13}
 --- !u!1 &6316564944643130881
 GameObject:
   m_ObjectHideFlags: 0

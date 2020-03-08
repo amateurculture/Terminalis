@@ -27,8 +27,7 @@ public class QualityManager : MonoBehaviour
         enableHDR = false;
     }
 
-    void Start()
-    {
+    void Start()    {
         frameSkip = 120;
         postprocessingCamera = Camera.main;
         postProcessingVolume = postprocessingCamera.GetComponent<PostProcessVolume>();

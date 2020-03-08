@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 7038049024114241309}
   - component: {fileID: 7038049024114241310}
   - component: {fileID: 7846119088020396491}
+  - component: {fileID: 120236902529324897}
   m_Layer: 0
   m_Name: Cow
   m_TagString: Untagged
@@ -563,16 +564,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiStyle: 2
+  age: 0
   sizeClass: 2
   owner: {fileID: 0}
   mother: {fileID: 0}
   father: {fileID: 0}
   diet: 1
-  food:
-  - {fileID: 6564985551351227563, guid: d85b65d3e002fde4da3bf0808dee5281, type: 3}
-  - {fileID: 2341612663209885204, guid: 11151a61aa28fd04faf6a827c0fff6c0, type: 3}
   show: 0
   health: 100
+  isRagdollEnabled: 0
+  isAttacking: 0
 --- !u!205 &7846119088020396491
 LODGroup:
   m_ObjectHideFlags: 0
@@ -600,6 +601,19 @@ LODGroup:
     renderers:
     - renderer: {fileID: 4682091627164039806}
   m_Enabled: 1
+--- !u!65 &120236902529324897
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7038049024114241311}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.65, y: 0.85, z: 2.41}
+  m_Center: {x: 0, y: 0.95, z: 0.29}
 --- !u!1 &7038052105921814843
 GameObject:
   m_ObjectHideFlags: 0

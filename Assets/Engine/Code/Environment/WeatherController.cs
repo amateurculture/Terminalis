@@ -24,7 +24,10 @@ public class WeatherController : MonoBehaviour
 
     void UpdateWeather()
     {
+        /*
         fogController.fogEndDistance = fogController.fogStartDistance + (Random.value * (5000f - fogController.fogStartDistance));
+        */
+
         windController.speed = Random.value * .7f;
         windController.direction = (int)(Random.value * 360);
 

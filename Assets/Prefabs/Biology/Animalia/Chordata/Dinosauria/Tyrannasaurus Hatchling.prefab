@@ -1077,6 +1077,7 @@ GameObject:
   - component: {fileID: 2398518342061524791}
   - component: {fileID: 7300264073204121674}
   - component: {fileID: 4603617968321221890}
+  - component: {fileID: 5130958471550193206}
   m_Layer: 0
   m_Name: Tyrannasaurus Hatchling
   m_TagString: Untagged
@@ -1189,7 +1190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiStyle: 3
-  age: 0
+  age: 1
   sizeClass: 1
   owner: {fileID: 0}
   mother: {fileID: 0}
@@ -1238,6 +1239,19 @@ LODGroup:
     renderers:
     - renderer: {fileID: 2398518342047926884}
   m_Enabled: 1
+--- !u!65 &5130958471550193206
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2398518342061524790}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.52, z: 5.31}
+  m_Center: {x: 0, y: 1.92, z: 1.05}
 --- !u!1 &2398518342061524792
 GameObject:
   m_ObjectHideFlags: 0

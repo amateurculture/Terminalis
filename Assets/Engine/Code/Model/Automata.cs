@@ -32,7 +32,7 @@ public class Automata : MonoBehaviour
 
     #region Class Variables
 
-    bool isDead;
+    protected bool isDead;
     protected GameObject navigationLocus;
     protected NavMeshAgent navMeshAgent;
     protected Animator animatorComponent;
@@ -145,7 +145,8 @@ public class Automata : MonoBehaviour
 
         //StartCoroutine(_PatchAnimatorNotWorkingAtStart());
 
-        DisableAllColliders();
+        if (isRagdollEnabled) DisableAllColliders();
+
         StopWalking();
     }
 
@@ -485,7 +486,7 @@ public class Automata : MonoBehaviour
         navMeshAgent.enabled = true;
         animatorComponent.enabled = true;
 
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(3);
 
         navMeshAgent.enabled = false;
         animatorComponent.enabled = false;
@@ -504,13 +505,14 @@ public class Automata : MonoBehaviour
             animatorComponent.enabled = true;
             navMeshAgent.enabled = true; // before or after disable colliders? seems to be in the right place maybe?
             
-            DisableAllColliders();
+            if (isRagdollEnabled) DisableAllColliders();
 
             isDead = false;
             return false;
         }
         else if (health <= 0 && !isDead)
         {
+            health = 0;
             StartCoroutine(KillAfterTime());
 
             if (robotCoroutine != null) StopCoroutine(robotCoroutine); robotCoroutine = null;
@@ -556,6 +558,10 @@ public class Automata : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter(Collider other) { health = 0; }
+
+    private void OnCollisionEnter(Collision collision) { health = 0; }
 
     #endregion
 }
