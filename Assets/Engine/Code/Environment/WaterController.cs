@@ -2,6 +2,9 @@
 
 public class WaterController : FluidsController
 {
+    public LightingController lightingController;
+    bool isDaytime;
+
     private void Reset()
     {
         speed = .5f;
@@ -10,12 +13,34 @@ public class WaterController : FluidsController
         windController = GetComponent<WindController>();
     }
 
+    private void Start()
+    {
+        lightingController = GetComponent<LightingController>();
+    }
+
+    bool isDay()
+    {
+        return (lightingController.timeController.hour > 6 && 
+            lightingController.timeController.hour < 18) ? true : false;
+    }
+
     public override void UpdateController()
     {
         if (meshRenderer != null)
         {
             var speedMultiplier = 1f;
             var bumpMultiplier = .3f;
+
+            if (isDay() && !isDaytime)
+            {
+                isDaytime = true;
+                //lightingController.reflectionProbe.clearFlags = UnityEngine.Rendering.ReflectionProbeClearFlags.Skybox;
+            }
+            else if (!isDay() && isDaytime)
+            {
+                isDaytime = false;
+                //lightingController.reflectionProbe.clearFlags = UnityEngine.Rendering.ReflectionProbeClearFlags.SolidColor;
+            }
 
             UpdateFluid(speedMultiplier, bumpMultiplier);
         }

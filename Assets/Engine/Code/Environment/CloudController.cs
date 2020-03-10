@@ -18,7 +18,7 @@ public class CloudController : FluidsController
 
     public override void UpdateController()
     {
-        var speedMultiplier = -.05f;
+        var speedMultiplier = .05f;
         var bumpMultiplier = cloudBreaks * 10;
 
         cloudColor = RenderSettings.fogColor;

@@ -2,6 +2,10 @@
 
 [RequireComponent(typeof(FogController))]
 [RequireComponent(typeof(WindController))]
+[RequireComponent(typeof(CloudController))]
+[RequireComponent(typeof(TimeController))]
+[RequireComponent(typeof(WaterController))]
+[RequireComponent(typeof(LightingController))]
 
 public class WeatherController : MonoBehaviour
 {

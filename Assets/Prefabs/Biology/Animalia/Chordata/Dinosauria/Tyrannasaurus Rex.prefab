@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2071721907742922863}
   - component: {fileID: 2368434335464752896}
   - component: {fileID: 6488221464786524677}
-  - component: {fileID: 204319930762787769}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -27,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 782871254025884578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.679, z: 0.166}
-  m_LocalScale: {x: 1, y: 2.357168, z: 3.9432347}
+  m_LocalPosition: {x: 0, y: 0.926, z: 0.166}
+  m_LocalScale: {x: 1, y: 1.8645198, z: 3.9432347}
   m_Children: []
   m_Father: {fileID: 7736189945461089667}
   m_RootOrder: 2
@@ -80,19 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &204319930762787769
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782871254025884578}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: -0.0000038146973, z: 0}
 --- !u!1 &7736189945461586001
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,8 +745,9 @@ GameObject:
   - component: {fileID: 7736189945461586342}
   - component: {fileID: 7736189945461586336}
   - component: {fileID: 7736189945461586338}
-  - component: {fileID: 9216168475547362713}
   - component: {fileID: 5537568074454283133}
+  - component: {fileID: 311605500}
+  - component: {fileID: 311605499}
   m_Layer: 0
   m_Name: Tyrannasaurus Rex
   m_TagString: Untagged
@@ -814,7 +801,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 6
+  m_Speed: 8
   m_Acceleration: 120
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -825,7 +812,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 2
 --- !u!114 &7736189945461586336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -873,23 +860,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1783729da62d0746bbcbdb9caf3ddc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lodGroup: {fileID: 0}
-  aiStyle: 1
+  aiStyle: 0
+  age: 18
+  sizeClass: 3
+  owner: {fileID: 0}
+  mother: {fileID: 0}
+  father: {fileID: 0}
+  diet: 4
   show: 0
-  minWanderRange: 30
-  maxWanderRange: 60
---- !u!114 &9216168475547362713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7736189945461586339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb08b327ee62cfb4aa7e8e426f16fca0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  health: 100
+  isRagdollEnabled: 0
+  isAttacking: 0
 --- !u!205 &5537568074454283133
 LODGroup:
   m_ObjectHideFlags: 0
@@ -917,6 +898,32 @@ LODGroup:
     renderers:
     - renderer: {fileID: 6488221464786524677}
   m_Enabled: 1
+--- !u!65 &311605500
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736189945461586339}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.4, z: 2.73}
+  m_Center: {x: 0, y: 1.72, z: 0.68}
+--- !u!65 &311605499
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736189945461586339}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.62, y: 0.68, z: 1.05}
+  m_Center: {x: 0, y: 2.34, z: 2.62}
 --- !u!1 &7736189945461586341
 GameObject:
   m_ObjectHideFlags: 0

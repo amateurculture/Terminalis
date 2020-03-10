@@ -2,7 +2,7 @@
 
 public class LightingController : MonoBehaviour
 {
-    //public Gradient skyColor;
+    public Gradient skyColor;
     public Gradient sunLight;
     public Gradient ambientLight;
     public FogController fogController;
@@ -66,13 +66,9 @@ public class LightingController : MonoBehaviour
             RenderSettings.sun.transform.eulerAngles = Vector3.zero;
             RenderSettings.sun.transform.Rotate(new Vector3(15f * ((timeController.hour + (timeController.minute / 60f)) - 6f), 0, 0));
 
-            //lightLevel = RenderSettings.sun.transform.eulerAngles.x / 360;
             lightLevel = GetGradientIndex();
             RenderSettings.sun.intensity = sunLight.Evaluate(lightLevel).grayscale;
             RenderSettings.ambientLight = ambientLight.Evaluate(lightLevel);
-
-            // todo is this ok?
-            //RenderSettings.sun.color = skyColor.Evaluate(lightLevel);
         }
 
         if (reflectionProbe != null)
@@ -84,13 +80,10 @@ public class LightingController : MonoBehaviour
 
     void Update()
     {
-        if (Time.frameCount % reflectionFrameSkip == 0)
+        if (Time.frameCount % reflectionFrameSkip == 0 && reflectionProbe != null)
         {
-            if (reflectionProbe != null)
-            {
-                reflectionProbe.backgroundColor = cameraMain.backgroundColor;
-                reflectionProbe.RenderProbe();
-            }
+            reflectionProbe.backgroundColor = cameraMain.backgroundColor;
+            reflectionProbe.RenderProbe();
         }
     }
 
@@ -113,7 +106,7 @@ public class LightingController : MonoBehaviour
     void UpdateSkyColor()
     {
         gradientIndex = GetGradientIndex();
-        cameraMain.backgroundColor = ambientLight.Evaluate(GetGradientIndex()); // skyColor
+        cameraMain.backgroundColor = skyColor.Evaluate(GetGradientIndex());
     }
 
     void UpdateAmbientLight()
@@ -127,16 +120,8 @@ public class LightingController : MonoBehaviour
         gradientIndex = GetGradientIndex();
         lightLevel = RenderSettings.sun.intensity = sunLight.Evaluate(gradientIndex).grayscale;
 
-        if (lightLevel <= 0)
-        {
-            RenderSettings.sun.enabled = false;
-            moon.enabled = true;
-        }
-         else
-        {
-            RenderSettings.sun.enabled = true;
-            moon.enabled = false;
-        }
+        RenderSettings.sun.enabled = (lightLevel <= 0) ? false : true;
+        moon.enabled = (lightLevel <= 0) ? true : false;
     }
 
     void UpdateGeocentricSun()
