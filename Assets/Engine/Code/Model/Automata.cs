@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UMA;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +12,6 @@ public class Automata : MonoBehaviour
     #region Property Inspector Variables
 
     public Globals.AIType aiStyle;
-    public int age;
     [Tooltip("Value cooresponds to small, medium, and large animal.")] [Range(1, 3)] public int sizeClass;
 
     float minWanderRange;
@@ -23,11 +21,13 @@ public class Automata : MonoBehaviour
     public GameObject mother;
     public GameObject father;
     public Globals.Diet diet;
+    public GameObject favoriteFood;
 
     [Header("Testing")] [EnumFlags] public Globals.AITestingFlags show;
-    public float health;
     public bool isRagdollEnabled;
     public bool isAttacking;
+    public bool isRunning;
+
     #endregion
 
     #region Class Variables
@@ -47,7 +47,6 @@ public class Automata : MonoBehaviour
     private Spawner spawner;
     private Agent agent;
     private Vector3 waypoint;
-    UMAData umaData;
 
     #endregion
 
@@ -55,8 +54,6 @@ public class Automata : MonoBehaviour
 
     private void Reset()
     {
-        health = 100;
-
         minWanderRange = 5;
         chargeRange = 10;
         maxWanderRange = 15;
@@ -73,8 +70,6 @@ public class Automata : MonoBehaviour
         navMeshAgent.updateUpAxis = false;
         navMeshAgent.areaMask = (1 << 0);
         navMeshAgent.height = 1;
-
-        age = 18;
     }
 
     Vector3 FindNearestTree()
@@ -141,10 +136,7 @@ public class Automata : MonoBehaviour
         _walk_speed = _run_speed / 2;
         isDead = false;
 
-        umaData = GetComponent<UMAData>();
-
         //StartCoroutine(_PatchAnimatorNotWorkingAtStart());
-
         if (isRagdollEnabled) DisableAllColliders();
 
         StopWalking();
@@ -455,7 +447,11 @@ public class Automata : MonoBehaviour
         * X 9) Wander
         */
 
-        if (aiStyle == Globals.AIType.Agressive && InRange(player.transform.position, chargeRange))
+        if (agent.hunger == 0)
+        {
+
+        }
+        else if (aiStyle == Globals.AIType.Agressive && InRange(player.transform.position, chargeRange))
         {
             /*** todo figure out if checking raycast is worth it enough here
             RaycastHit hit;
@@ -496,7 +492,7 @@ public class Automata : MonoBehaviour
 
     bool IsDead()
     {
-        if (isDead && health > 0)
+        if (isDead && agent.health > 0)
         {
             StopAllCoroutines(); // may break something? maybe use a coroutine variable instead of kill all?
             robotCoroutine = null;
@@ -510,9 +506,9 @@ public class Automata : MonoBehaviour
             isDead = false;
             return false;
         }
-        else if (health <= 0 && !isDead)
+        else if (agent.health <= 0 && !isDead)
         {
-            health = 0;
+            agent.health = 0;
             StartCoroutine(KillAfterTime());
 
             if (robotCoroutine != null) StopCoroutine(robotCoroutine); robotCoroutine = null;
@@ -559,9 +555,15 @@ public class Automata : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) { health = 0; }
+    private void OnTriggerEnter(Collider collider) {
+        if (collider.transform.tag == "Player" || collider.transform.name.Contains("Arrow")) 
+            agent.health = 0; 
+    }
 
-    private void OnCollisionEnter(Collision collision) { health = 0; }
+    private void OnCollisionEnter(Collision collision) {
+         if (collision.transform.tag == "Player" || collision.transform.name.Contains("Arrow"))
+            agent.health = 0; 
+    }
 
     #endregion
 }

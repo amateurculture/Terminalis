@@ -6,7 +6,7 @@ public class AudioPlane : MonoBehaviour
     public AudioSource soundClip;
     public float fadeoutDistance;
     int frameSkip;
-    Transform player;
+    Transform cameraRig;
     float distance;
 
     private void Reset()
@@ -18,15 +18,15 @@ public class AudioPlane : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        cameraRig = Camera.main.transform;
         frameSkip = 10;
     }
 
     void Update()
     {
-        if (Time.frameCount % frameSkip == 0 && soundClip != null && player != null) {
+        if (Time.frameCount % frameSkip == 0 && soundClip != null && cameraRig != null) {
 
-            distance = Vector3.Distance(new Vector3(0, meshPlane.position.y, 0), new Vector3(0, player.position.y, 0));
+            distance = Vector3.Distance(new Vector3(0, meshPlane.position.y, 0), new Vector3(0, cameraRig.position.y, 0));
 
             if (distance <= 0)
                 soundClip.volume = 1;

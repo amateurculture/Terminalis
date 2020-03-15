@@ -1762,7 +1762,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4206705415808692796}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.1
+  m_Radius: 0.65
   m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1823,6 +1823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiStyle: 3
+  age: 10
   sizeClass: 1
   owner: {fileID: 0}
   mother: {fileID: 0}
@@ -1830,6 +1831,8 @@ MonoBehaviour:
   diet: 4
   show: 0
   health: 100
+  isRagdollEnabled: 0
+  isAttacking: 0
 --- !u!205 &8707773073044714410
 LODGroup:
   m_ObjectHideFlags: 0
@@ -1848,7 +1851,7 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 5445068871626590733}
-  - screenRelativeHeight: 0.029245747
+  - screenRelativeHeight: 0.017712174
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 5445068871626590733}

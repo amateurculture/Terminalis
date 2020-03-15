@@ -1151,7 +1151,7 @@ Transform:
   m_GameObject: {fileID: 7868806085915758954}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_Children:
   - {fileID: 7865011863036589542}
   - {fileID: 7870245001742799210}
@@ -1173,7 +1173,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: ba92ec21b084d104da291133ad441050, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1215,12 +1215,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   sprite: {fileID: 0}
-  price: 1
-  health: 1
+  price: -1
+  health: 100
   inventory: []
   currency: 100
   sex: 1
-  gender: 2
+  gender: 1
   attraction: 1
   status: 0
   hunger: 0
@@ -1249,16 +1249,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiStyle: 2
-  age: 0
   sizeClass: 2
   owner: {fileID: 0}
   mother: {fileID: 0}
   father: {fileID: 0}
   diet: 1
   show: 0
-  health: 100
   isRagdollEnabled: 0
   isAttacking: 0
+  isRunning: 0
 --- !u!205 &4397408135423963205
 LODGroup:
   m_ObjectHideFlags: 0
@@ -1296,7 +1295,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7868806085915758954}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.49, y: 0.51, z: 1.41}
@@ -1309,9 +1308,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7868806085915758954}
   serializedVersion: 2
-  m_Mass: 100
-  m_Drag: 5
-  m_AngularDrag: 5
+  m_Mass: 200
+  m_Drag: 1
+  m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0

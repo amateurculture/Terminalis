@@ -71,6 +71,15 @@ public class Globals
         Asexual = 1 << 3
     }
 
+    public enum Language
+    {
+        Local,
+        Foreign,
+        Sign,
+        Gestural,
+        Animal
+    }
+
     public enum Cycle
     {
         None = 1 << 0,
@@ -102,14 +111,15 @@ public class Globals
 
     public enum Status
     {
-        Asleep = 1 << 0,
-        Blind = 1 << 1,
-        Crippled = 1 << 2,
-        Deaf = 1 << 3,
-        Diseased = 1 << 4,
-        Drunk = 1 << 5,
-        Infertile = 1 << 6,
-        Mute = 1 << 7
+        Asleep = 1 << 0, // agent is asleep
+        Blind = 1 << 1, // no sight is possible, camera is black for player except when tapping (acts like sonar)
+        Crippled = 1 << 2, // half movement speed only
+        Deaf = 1 << 3, // can't hear anything except the occasional tintinitis
+        Diseased = 1 << 4, // you need a cure otherwise you will drain health indefintely
+        Sick = 1 << 5, // this will drain health, but has a burndown
+        Drunk = 1 << 6, // a temporary movement problem
+        Infertile = 1 << 7, // can't have children
+        Mute = 1 << 8 // no one will be able to hear you when you talk (unless both know sign language)
     }
 
     public enum BodyPart

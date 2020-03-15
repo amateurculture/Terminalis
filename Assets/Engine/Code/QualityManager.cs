@@ -6,11 +6,11 @@ public class QualityManager : MonoBehaviour
     public ReflectionProbe reflectionProbe;
     [Range(0, 2)] public int qualityLevel;
     [Range(24, 240)] public int frameRate;
-    public bool enableReflections;
-    public bool enableAmbientOcclusion;
-    public bool enableDepthOfField;
+    bool enableReflections;
+    bool enableAmbientOcclusion;
+    bool enableDepthOfField;
     public bool enableTonemapping;
-    public bool enableHDR;
+    bool enableHDR;
 
     bool previousEnableReflections;
     Camera postprocessingCamera;
@@ -24,10 +24,16 @@ public class QualityManager : MonoBehaviour
     {
         frameRate = 60;
         qualityLevel = 2;
-        enableHDR = false;
+        enableTonemapping = false;
     }
 
-    void Start()    {
+    void Start()
+    {
+        enableReflections = (qualityLevel == 0) ? false : true;
+        enableHDR = true;
+        enableAmbientOcclusion = true;
+        enableDepthOfField = false;
+
         frameSkip = 120;
         postprocessingCamera = Camera.main;
         postProcessingVolume = postprocessingCamera.GetComponent<PostProcessVolume>();
@@ -49,6 +55,8 @@ public class QualityManager : MonoBehaviour
         if (Time.frameCount % frameSkip == 0)
         {
             QualitySettings.SetQualityLevel(qualityLevel);
+            enableReflections = (qualityLevel == 0) ? false : true;
+
             Application.targetFrameRate = frameRate;
             colorGrading.active = enableTonemapping;
             depthOfField.active = enableDepthOfField;
