@@ -14,9 +14,6 @@ public class Automata : MonoBehaviour
     public Globals.AIType aiStyle;
     [Tooltip("Value cooresponds to small, medium, and large animal.")] [Range(1, 3)] public int sizeClass;
 
-    float minWanderRange;
-    float chargeRange;
-    float maxWanderRange;
     public GameObject owner;
     public GameObject mother;
     public GameObject father;
@@ -32,6 +29,10 @@ public class Automata : MonoBehaviour
 
     #region Class Variables
 
+    protected Spawner spawner;
+    protected float minWanderRange;
+    protected float chargeRange;
+    protected float maxWanderRange;
     protected bool isDead;
     protected GameObject navigationLocus;
     protected NavMeshAgent navMeshAgent;
@@ -44,7 +45,6 @@ public class Automata : MonoBehaviour
     protected float _run_speed;
     protected float _walk_speed;
 
-    private Spawner spawner;
     private Agent agent;
     private Vector3 waypoint;
 
@@ -108,6 +108,8 @@ public class Automata : MonoBehaviour
     void Start()
     {
         //DisableAllColliders();
+
+        spawner = transform.parent.GetComponent<Spawner>();
 
         agent = GetComponent<Agent>();
         agent.InitializeAgent();
@@ -351,6 +353,15 @@ public class Automata : MonoBehaviour
         return false;
     }
 
+    bool InRange(Vector3 a, Vector3 b, float min)
+    {
+        if (Mathf.Abs(a.x - b.x) < min &&
+            Mathf.Abs(a.y - b.y) < min &&
+            Mathf.Abs(a.z - b.z) < min)
+            return true;
+        return false;
+    }
+
     bool IsValidTerrainWaypoint()
     {
         return waypoint.x == Mathf.Infinity || InRange(waypoint, minWanderRange);
@@ -363,16 +374,25 @@ public class Automata : MonoBehaviour
         while (!isValidWaypoint)
         {
             yield return new WaitForSeconds(5);
-            waypoint = Vector3.positiveInfinity;
 
-            if (IsValidTerrainWaypoint())
+            //waypoint = Vector3.positiveInfinity;
+            //if (IsValidTerrainWaypoint())
+            //{
+
+            waypoint = RandomNavmeshLocation(maxWanderRange);
+            NavMeshPath navPath = new NavMeshPath();
+
+            if (navMeshAgent.isActiveAndEnabled && navMeshAgent.CalculatePath(waypoint, navPath))
             {
-                waypoint = RandomNavmeshLocation(maxWanderRange);
-                NavMeshPath navPath = new NavMeshPath();
+                isValidWaypoint = true;
 
-                if (navMeshAgent.isActiveAndEnabled && navMeshAgent.CalculatePath(waypoint, navPath))
-                    isValidWaypoint = true;
+                if (spawner != null && !InRange(transform.position, spawner.transform.position, spawner.range))
+                {
+                    isValidWaypoint = false;
+                }
             }
+
+            //}
         }
         navMeshAgent.speed = _walk_speed;
         navMeshAgent.SetDestination(waypoint);
@@ -381,7 +401,7 @@ public class Automata : MonoBehaviour
 
     public Vector3 RandomNavmeshLocation(float radius)
     {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * radius;
+        Vector3 randomDirection = Random.insideUnitSphere * radius;
         randomDirection += transform.position;
         NavMeshHit hit;
         Vector3 finalPosition = Vector3.zero;
@@ -449,7 +469,7 @@ public class Automata : MonoBehaviour
 
         if (agent.hunger == 0)
         {
-
+            agent.health --;
         }
         else if (aiStyle == Globals.AIType.Agressive && InRange(player.transform.position, chargeRange))
         {

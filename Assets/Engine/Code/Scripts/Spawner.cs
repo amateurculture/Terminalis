@@ -118,6 +118,7 @@ public class Spawner : MonoBehaviour
     bool isFar = false;
     bool isClose = false;
 
+    /*
     private void LateUpdate()
     {
         if (player == null) return;
@@ -140,6 +141,7 @@ public class Spawner : MonoBehaviour
             isFar = false;
         }
     }
+    */
 
     #endregion
 }

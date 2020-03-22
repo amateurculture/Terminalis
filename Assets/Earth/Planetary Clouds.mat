@@ -8,20 +8,23 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Planetary Clouds
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-  m_LightmapFlags: 4
+  m_Shader: {fileID: 4800000, guid: cc0046d4f4fd63844b23862d897c1e3c, type: 3}
+  m_ShaderKeywords: _ALPHABLEND_ON _EMISSION _NORMALMAP _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BumpMap:
+    - _AlphaTex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: a5d07f2e08c7151449a4ac13da5148d8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -40,8 +43,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Gradient:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3789bd2dc0aeca04187158cd9a97c124, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3544462ae71cca24cbb685b56caacc2b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -56,23 +63,57 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BumpScale: 1
-    - _Cutoff: 0.5
+    - PixelSnap: 0
+    - _BumpScale: 0.05
+    - _CameraHeight: 2
+    - _CameraHeight2: 3
+    - _Cutoff: 0.6
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
+    - _EnableExternalAlpha: 0
+    - _FresnelExponent: 0.14
+    - _G: 0
+    - _G2: 0
     - _GlossMapScale: 0
-    - _Glossiness: 0.629
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _InnerRadius: 0
+    - _InnerRadius2: 0
+    - _Km4PI: 0
+    - _KmESun: 0
+    - _Kr4PI: 0
+    - _KrESun: 0
+    - _MainAlpha: 1
     - _Metallic: 0
-    - _Mode: 3
+    - _Mode: 2
     - _OcclusionStrength: 1
+    - _OuterRadius: 4
+    - _OuterRadius2: 5
     - _Parallax: 0.02
+    - _ReflectionAlpha: 0
+    - _Samples: 0
+    - _Scale: 0
+    - _ScaleDepth: 0
+    - _ScaleOverScaleDepth: 0
+    - _Shininess: 0.078125
     - _SmoothnessTextureChannel: 1
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
+    - _SrcBlend: 5
+    - _TransitionWidth: 0.215
     - _UVSec: 0
+    - _UseMetallicMap: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0.19215687}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _CameraPosition: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.5019608}
+    - _EmissionColor: {r: 0.06857421, g: 0.1355967, b: 0.21698111, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _InvWaveLength: {r: 1, g: 1, b: 1, a: 0}
+    - _LightDir: {r: 45, g: 0, b: 0, a: 0}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}

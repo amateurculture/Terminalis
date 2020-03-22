@@ -5,23 +5,34 @@ public class DisableAtRange : MonoBehaviour
     private int interval = 5;
     private GameObject player;
     public GameObject[] targets;
-    private GameObject target;
     public float range;
+    float distanceSqr;
+    float rangeSqr;
+    float previousRangeSqr;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        previousRangeSqr = rangeSqr = range * range;
     }
 
     void Update()
     {
         if (Time.frameCount % interval == 0)
         {
+            distanceSqr = Vector3.SqrMagnitude(player.transform.position - transform.position);
+
+            if (previousRangeSqr != rangeSqr)
+            {
+                rangeSqr = range * range;
+                previousRangeSqr = rangeSqr;
+            }
+
             foreach (var target in targets)
             {
-                if (target.activeSelf && Vector3.Distance(player.transform.position, target.transform.position) >= range)
+                if (target.activeSelf && distanceSqr >= rangeSqr)
                     target.SetActive(false);
-                else if (!target.activeSelf && Vector3.Distance(player.transform.position, target.transform.position) < range)
+                else if (!target.activeSelf && distanceSqr < rangeSqr)
                     target.SetActive(true);
             }
         }

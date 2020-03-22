@@ -59,7 +59,7 @@ public class Brain : MonoBehaviour
 
         automataList.AddRange(FindObjectsOfType<Agent>());
         
-        baseScene = SceneManager.GetActiveScene();
+        //baseScene = SceneManager.GetActiveScene();
 
         QualitySettings.SetQualityLevel(6, true);
 
@@ -146,8 +146,8 @@ public class Brain : MonoBehaviour
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.sceneUnloaded += OnSceneUnloaded;
+        //SceneManager.sceneLoaded += OnSceneLoaded;
+        //SceneManager.sceneUnloaded += OnSceneUnloaded;
        
         /*
         EnviroProfile p = e.profile;
@@ -158,8 +158,8 @@ public class Brain : MonoBehaviour
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        //SceneManager.sceneLoaded -= OnSceneLoaded;
+        //SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -204,10 +204,12 @@ public class Brain : MonoBehaviour
     {
         this.isNew = isNewGame;
 
+    /*
         if (sceneName == "")
             SceneManager.LoadScene(Serializer.Load());
         else
             SceneManager.LoadScene(sceneName);
+            */
     }
 
     private void Update()
