@@ -73,13 +73,13 @@ public class Player : MonoBehaviour
 
         if (thing != null) 
         {
-            if (thing.price < 0) // you can always pick up money
+            if (thing.value < 0) // you can always pick up money
                 HudMessage("Press E to pick up " + thing.transform.name, thing);
 
             else if (thing.owner == gameObject) // I own this
             {
                 if (thing.GetType() == typeof(Building))
-                    HudMessage(thing.transform.name + " is worth $" + thing.price + "\nPress E to sell", thing);
+                    HudMessage(thing.transform.name + " is worth $" + thing.value + "\nPress E to sell", thing);
                 
                 else if (agent.inventory.Count(s => s == null) > 0)
                     HudMessage("Press E to pick up " + thing.transform.name, thing);
@@ -92,11 +92,11 @@ public class Player : MonoBehaviour
             {
                 if (thing.GetType() == typeof(Building))
                 {
-                    if (agent.currency >= thing.price)
-                        HudMessage(thing.transform.name + " costs $" + thing.price + "\nPress E to purchase", thing);
+                    if (agent.value >= thing.value)
+                        HudMessage(thing.transform.name + " costs $" + thing.value + "\nPress E to purchase", thing);
 
                     else
-                        HudMessage(thing.transform.name + " costs $" + thing.price + "\nYou are too poor to buy this", null);
+                        HudMessage(thing.transform.name + " costs $" + thing.value + "\nYou are too poor to buy this", null);
                 }
                 else
                 {
@@ -111,11 +111,11 @@ public class Player : MonoBehaviour
             {
                 if (thing.GetType() == typeof(Building))
                 {
-                    if (agent.currency >= thing.price)
-                        HudMessage(thing.transform.name + " is owned by " + thing.owner.name + " and costs $" + thing.price + "\nPress E to purchase", thing);
+                    if (agent.value >= thing.value)
+                        HudMessage(thing.transform.name + " is owned by " + thing.owner.name + " and costs $" + thing.value + "\nPress E to purchase", thing);
 
                     else
-                        HudMessage(thing.transform.name + " costs $" + thing.price + "\nYou are too poor to buy this", null);
+                        HudMessage(thing.transform.name + " costs $" + thing.value + "\nYou are too poor to buy this", null);
                 }
 
                 else
@@ -123,8 +123,8 @@ public class Player : MonoBehaviour
                     if (agent.inventory.Count(s => s == null) == 0)
                         HudMessage("inventory is full", null);
 
-                    else if (agent.currency >= thing.price)
-                        HudMessage(thing.transform.name + " is owned by " + thing.owner.name + " and costs $" + thing.price + "\nPress E to purchase", thing);
+                    else if (agent.value >= thing.value)
+                        HudMessage(thing.transform.name + " is owned by " + thing.owner.name + " and costs $" + thing.value + "\nPress E to purchase", thing);
 
                     else
                         HudMessage(thing.transform.name + " is too expensive \nPress E to steal", thing);
@@ -210,12 +210,12 @@ public class Player : MonoBehaviour
             if (thing.owner != this.gameObject)
             {
                 thing.owner = this.gameObject;
-                agent.currency -= thing.price;
+                agent.value -= thing.value;
             }
             else
             {
                 thing.owner = null;
-                agent.currency += thing.price;
+                agent.value += thing.value;
             }
         }
         else
@@ -223,9 +223,9 @@ public class Player : MonoBehaviour
             int index = 0;
 
             // Recycle and increment currency
-            if (thing.price < 0)
+            if (thing.value < 0)
             {
-                agent.currency -= thing.price;
+                agent.value -= thing.value;
                 GameObject clone = thing.gameObject;
                 //brain.TrackableEvent(new Meme(gameObject, Meme.Action.took, clone));
                 Destroy(thing.gameObject);

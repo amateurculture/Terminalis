@@ -5,8 +5,8 @@ public class Thing : MonoBehaviour
 {
     public GameObject owner;
     public Sprite sprite;
-    public float price = 1f;
-    public float health = 100f;
+    public float vitality = 100f;
+    public float value = 1f;
 
     public virtual void Use(Agent agent, InventoryPanel panel, int index) { }
 }

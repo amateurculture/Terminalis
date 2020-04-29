@@ -10,20 +10,28 @@ using UnityEngine.AI;
 public class Automata : MonoBehaviour
 {
     #region Property Inspector Variables
+    public float lifespan;
+
+    public float sightRange = 25f;
+    public float hearingRange = 10f;
+    public float fov = 120f;
 
     public Globals.AIType aiStyle;
     [Tooltip("Value cooresponds to small, medium, and large animal.")] [Range(1, 3)] public int sizeClass;
 
-    public GameObject owner;
     public GameObject mother;
     public GameObject father;
-    public Globals.Diet diet;
-    public GameObject favoriteFood;
+    public GameObject spouse;
 
-    [Header("Testing")] [EnumFlags] public Globals.AITestingFlags show;
-    public bool isRagdollEnabled;
-    public bool isAttacking;
-    public bool isRunning;
+    [Header("Diet")]
+    public Globals.Diet diet;
+    public GameObject stapleFood;
+
+    //[Header("Testing")] 
+    [HideInInspector] [EnumFlags] public Globals.AITestingFlags show;
+    [HideInInspector] public bool isRagdollEnabled;
+    [HideInInspector] public bool isAttacking;
+    [HideInInspector] public bool isRunning;
 
     #endregion
 
@@ -104,12 +112,12 @@ public class Automata : MonoBehaviour
         return Vector3.positiveInfinity;
     }
 
-    [System.Obsolete]
+    //[System.Obsolete]
     void Start()
     {
         //DisableAllColliders();
 
-        spawner = transform.parent.GetComponent<Spawner>();
+        if (transform.parent != null) spawner = transform.parent.GetComponent<Spawner>();
 
         agent = GetComponent<Agent>();
         agent.InitializeAgent();
@@ -122,10 +130,10 @@ public class Automata : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
-        animatorComponent = this.GetComponent<Animator>();
+        animatorComponent = GetComponent<Animator>();
 
         navigationLocus = transform.gameObject;
-        navMeshAgent.avoidancePriority = (int)(UnityEngine.Random.value * 100f);
+        navMeshAgent.avoidancePriority = (int)(Random.value * 100f);
         navMeshAgent.updateRotation = true;
         navMeshAgent.updatePosition = true;
         navMeshAgent.autoTraverseOffMeshLink = true;
@@ -189,13 +197,13 @@ public class Automata : MonoBehaviour
         if (show.HasFlag(Globals.AITestingFlags.HearingRange))
         {
             Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(transform.position, agent.hearingRange);
+            Gizmos.DrawWireSphere(transform.position, hearingRange);
         }
         if (show.HasFlag(Globals.AITestingFlags.SightRange))
         {
             Gizmos.color = Color.red;
             Gizmos.matrix = transform.localToWorldMatrix;
-            Gizmos.DrawFrustum(Vector3.zero, agent.fov / 2, agent.sightRange, 0f, 2f);
+            Gizmos.DrawFrustum(Vector3.zero, fov / 2, sightRange, 0f, 2f);
         }
 
         Gizmos.color = Color.yellow;
@@ -469,7 +477,7 @@ public class Automata : MonoBehaviour
 
         if (agent.hunger == 0)
         {
-            agent.health --;
+            agent.vitality --;
         }
         else if (aiStyle == Globals.AIType.Agressive && InRange(player.transform.position, chargeRange))
         {
@@ -488,8 +496,8 @@ public class Automata : MonoBehaviour
             
             MoveTo(player.transform.position, _run_speed);
         }
-        else if (owner != null && !InRange(owner.transform.position, maxWanderRange))
-            MoveTo((owner.transform.position + transform.position) / 2, _run_speed);
+        else if (spouse != null && !InRange(spouse.transform.position, maxWanderRange))
+            MoveTo((spouse.transform.position + transform.position) / 2, _run_speed);
     }
 
     Collider[] colliders;
@@ -512,7 +520,7 @@ public class Automata : MonoBehaviour
 
     bool IsDead()
     {
-        if (isDead && agent.health > 0)
+        if (isDead && agent.vitality > 0)
         {
             StopAllCoroutines(); // may break something? maybe use a coroutine variable instead of kill all?
             robotCoroutine = null;
@@ -526,9 +534,9 @@ public class Automata : MonoBehaviour
             isDead = false;
             return false;
         }
-        else if (agent.health <= 0 && !isDead)
+        else if (agent.vitality <= 0 && !isDead)
         {
-            agent.health = 0;
+            agent.vitality = 0;
             StartCoroutine(KillAfterTime());
 
             if (robotCoroutine != null) StopCoroutine(robotCoroutine); robotCoroutine = null;
@@ -577,12 +585,12 @@ public class Automata : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider) {
         if (collider.transform.tag == "Player" || collider.transform.name.Contains("Arrow")) 
-            agent.health = 0; 
+            agent.vitality = 0; 
     }
 
     private void OnCollisionEnter(Collision collision) {
          if (collision.transform.tag == "Player" || collision.transform.name.Contains("Arrow"))
-            agent.health = 0; 
+            agent.vitality = 0; 
     }
 
     #endregion

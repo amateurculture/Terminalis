@@ -39,11 +39,20 @@ public abstract class FluidsController : MonoBehaviour
         textureMovement.y += directionOffset.y * speedMultiplier;
         textureMovement2.x += directionOffset2.x * speedMultiplier;
         textureMovement2.y += directionOffset2.y * speedMultiplier;
-        
+
         meshRenderer.material.SetTextureOffset("_MainTex", new Vector2(textureMovement.x, textureMovement.y));
         meshRenderer.material.SetTextureOffset("_DetailAlbedoMap", new Vector2(textureMovement.x, textureMovement2.y));
-        meshRenderer.material.SetFloat("_BumpScale", bumpMultiplier * speed);
-        meshRenderer.material.SetFloat("_DetailNormalMapScale", bumpMultiplier * speed);
+
+        if (bumpMultiplier > 0)
+        {
+            meshRenderer.material.SetFloat("_BumpScale", bumpMultiplier * speed);
+            meshRenderer.material.SetFloat("_DetailNormalMapScale", bumpMultiplier * speed);
+        } 
+        else
+        {
+            //meshRenderer.material.SetFloat("_BumpScale", 1);
+            //meshRenderer.material.SetFloat("_DetailNormalMapScale", 1);
+        }
     }
 
     private void Update()

@@ -36,7 +36,7 @@ public class StatusText : MonoBehaviour
                 statusText.color = Color.red;
                 statusText.text = "HUNGRY";
             }
-            else if (script.anxiety == 100)
+            else if (script.stress == 100)
             {
                 statusText.color = new Color(1, 0, 1, 1);
                 statusText.text = "INSANE";

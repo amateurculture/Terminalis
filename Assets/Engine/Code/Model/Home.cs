@@ -4,8 +4,8 @@
     
     private void Reset()
     {
-        health = 10000f;
+        vitality = 10000f;
         rent = 1000f;
-        price = 100000f;
+        value = 100000f;
     }
 }

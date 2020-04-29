@@ -21,9 +21,9 @@ public class Building : Container
 
     private void Reset()
     {
-        health = 10000f;
+        vitality = 10000f;
         salary = 10f;
-        price = 100000f;
+        value = 100000f;
         startHour = 9;
         endHour = 17;
         employeeSchedule = DayOfWeek.Monday | DayOfWeek.Tuesday | DayOfWeek.Wednesday | DayOfWeek.Thursday | DayOfWeek.Friday;

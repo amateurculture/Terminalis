@@ -68,7 +68,7 @@ public class FogController : MonoBehaviour
     void UpdateFogDensity()
     {
         currentFogDensity = Mathf.Lerp(originalDensity, fogDensity, t1);
-        print("Fog density: " + currentFogDensity);
+        //print("Fog density: " + currentFogDensity);
 
         if (Mathf.Abs(currentFogDensity - fogDensity) <= .0001f)
         {

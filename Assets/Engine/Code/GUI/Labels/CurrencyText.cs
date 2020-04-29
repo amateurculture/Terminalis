@@ -21,11 +21,11 @@ public class CurrencyText : MonoBehaviour
         GameObject player = Brain.instance.player.gameObject;
         textMesh = transform.GetComponent<TextMeshProUGUI>();
         agent = Brain.instance.player;
-        textMesh.text = "$" + agent?.currency.ToString("N2");
+        textMesh.text = "$" + agent?.value.ToString("N2");
     }
 
     void UpdateCurrency()
     {
-        textMesh.text = "$" + agent?.currency.ToString("N2");
+        textMesh.text = "$" + agent?.value.ToString("N2");
     }
 }

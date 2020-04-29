@@ -27,6 +27,7 @@ public class LoadButton : MonoBehaviour
             if (nameField != null)
                 Brain.instance.player.name = nameField.text;
 
+            /*
             if (genderDropdown != null)
             {
                 switch (genderDropdown.value)
@@ -87,6 +88,8 @@ public class LoadButton : MonoBehaviour
                     Brain.instance.player.gender = Globals.Gender.NonBinary;
                     break;
             }
+            */
+
             Brain.instance.LoadScene(sceneName, true);
         }
     }

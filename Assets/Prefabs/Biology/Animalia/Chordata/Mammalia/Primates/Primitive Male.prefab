@@ -1076,17 +1076,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   sprite: {fileID: 0}
-  price: 1000
   health: 100
+  value: 1
   inventory: []
-  currency: 100
   sex: 2
   gender: 2
   attraction: 1
   status: 0
   hunger: 0
   fatigue: 0
-  anxiety: 0
+  stress: 0
   strength: 50
   home: {fileID: 0}
   work: {fileID: 0}
@@ -1094,9 +1093,6 @@ MonoBehaviour:
   isWorking: 0
   isEating: 0
   isSleeping: 0
-  sightRange: 25
-  hearingRange: 10
-  fov: 120
 --- !u!114 &8178569298940671615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1109,17 +1105,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1783729da62d0746bbcbdb9caf3ddc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifespan: 100
+  sightRange: 25
+  hearingRange: 10
+  fov: 120
   aiStyle: 0
-  age: 18
   sizeClass: 1
-  owner: {fileID: 0}
   mother: {fileID: 0}
   father: {fileID: 0}
+  spouse: {fileID: 0}
+  stapleFood: {fileID: 0}
   diet: 8
   show: 0
-  health: 100
   isRagdollEnabled: 0
   isAttacking: 0
+  isRunning: 0
 --- !u!65 &3398185268701707603
 BoxCollider:
   m_ObjectHideFlags: 0

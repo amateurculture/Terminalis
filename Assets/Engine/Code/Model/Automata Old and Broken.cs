@@ -93,6 +93,7 @@ public class AutomataOldAndBroken : MonoBehaviour
 #if DEBUG
     void OnDrawGizmosSelected()
     {
+        /*
         if (show.HasFlag(Globals.AITestingFlags.WanderRange))
         {
             Gizmos.color = Color.green;
@@ -124,6 +125,7 @@ public class AutomataOldAndBroken : MonoBehaviour
 
         if (navMeshAgent != null && navMeshAgent.pathStatus == NavMeshPathStatus.PathInvalid)
             print(transform.name + "'s path is invalid!");
+            */
     }
 #endif
 

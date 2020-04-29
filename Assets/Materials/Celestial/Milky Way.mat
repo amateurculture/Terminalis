@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Milky Way
-  m_Shader: {fileID: 4800000, guid: cc0046d4f4fd63844b23862d897c1e3c, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: d0188c64b3ff75947a4e285da6cedcd4, type: 3}
+  m_ShaderKeywords: _METALLICGLOSSMAP _USEMETALLICMAP_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -48,11 +48,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3e8bc651c8118e240b0539c0f0180c5e, type: 3}
+        m_Texture: {fileID: 2800000, guid: bfd0c712083c4d74184edd5e755087af, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 3e8bc651c8118e240b0539c0f0180c5e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -68,6 +68,7 @@ Material:
     - _Cutoff: 0.372
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EmissiveIntensity: 2
     - _FresnelExponent: 5
     - _GlossMapScale: 1
     - _Glossiness: 0
@@ -83,7 +84,7 @@ Material:
     - _SrcBlend: 1
     - _TransitionWidth: 0.15
     - _UVSec: 0
-    - _UseMetallicMap: 0
+    - _UseMetallicMap: 1
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

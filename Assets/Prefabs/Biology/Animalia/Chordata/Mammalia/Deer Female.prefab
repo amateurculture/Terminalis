@@ -650,17 +650,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   sprite: {fileID: 0}
-  price: -1
   health: 100
+  value: 100
   inventory: []
-  currency: 0
-  sex: 2
+  sex: 1
   gender: 2
   attraction: 1
   status: 0
   hunger: 0
   fatigue: 0
-  anxiety: 0
+  stress: 0
   strength: 50
   home: {fileID: 0}
   work: {fileID: 0}
@@ -685,9 +684,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiStyle: 2
   sizeClass: 2
-  owner: {fileID: 0}
   mother: {fileID: 0}
   father: {fileID: 0}
+  spouse: {fileID: 0}
   diet: 1
   favoriteFood: {fileID: 0}
   show: 0
@@ -712,7 +711,6 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 3204501815281798978}
-    - renderer: {fileID: 0}
   - screenRelativeHeight: 0.014536598
     fadeTransitionWidth: 0
     renderers:

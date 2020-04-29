@@ -69,6 +69,7 @@ public class Brain : MonoBehaviour
 
     public void TrackableEvent(Meme meme) 
     {
+        /*
         foreach (Agent a in automataList)
         {
             float distance = Vector3.Distance(meme.dobj.transform.position, a.transform.position);
@@ -83,6 +84,7 @@ public class Brain : MonoBehaviour
                 if (angle < a.fov) a.AddMemory(meme);
             }
         }
+        */
     }
 
     public string getFemaleName()

@@ -4,8 +4,8 @@
     public float fatigue;
 
     [EnumFlags]
-    public Globals.Status causes;
+    public Globals.Disease causes;
 
     [EnumFlags]
-    public Globals.Status cures;
+    public Globals.Disease cures;
 }

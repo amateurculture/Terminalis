@@ -9,6 +9,6 @@ public class InsanitySlider : StatusSlider
     void Update()
     {
         if (script != null)
-            slider.value = (100-script.anxiety) / 100f;
+            slider.value = (100-script.stress) / 100f;
     }
 }

@@ -44,31 +44,21 @@ public class Globals
         Agressive,
         Defensive,
         Passive,
-        Child
+        Child,
+        Shadow,
+        Nemesis
     }
 
     public enum Sex
     {
         Male = 1 << 0,
-        Female = 1 << 1,
-        MaleIntersex = 1 << 2,
-        FemaleIntersex = 1 << 3,
-        Hermaphrodite = 1 << 4
-    }
-
-    public enum Gender
-    {
-        Male = 1 << 0,
-        Female = 1 << 1,
-        NonBinary = 1 << 2
+        Female = 1 << 1
     }
 
     public enum Attraction
     {
-        Heterosexual = 1 << 0,
-        Homosexual = 1 << 1,
-        Pansexual = 1 << 2,
-        Asexual = 1 << 3
+        Male = 1 << 0,
+        Female = 1 << 1
     }
 
     public enum Language
@@ -107,19 +97,24 @@ public class Globals
         Bush = 1 << 1,
         Tree = 1 << 2,
         Ornamental = 1 << 3
-    }
+    } 
 
-    public enum Status
+    public enum Disease
     {
-        Asleep = 1 << 0, // agent is asleep
-        Blind = 1 << 1, // no sight is possible, camera is black for player except when tapping (acts like sonar)
-        Crippled = 1 << 2, // half movement speed only
-        Deaf = 1 << 3, // can't hear anything except the occasional tintinitis
-        Diseased = 1 << 4, // you need a cure otherwise you will drain health indefintely
-        Sick = 1 << 5, // this will drain health, but has a burndown
-        Drunk = 1 << 6, // a temporary movement problem
-        Infertile = 1 << 7, // can't have children
-        Mute = 1 << 8 // no one will be able to hear you when you talk (unless both know sign language)
+        Addiction = 1 << 0,
+        Blindness = 1 << 1,
+        Coma = 1 << 2,
+        Deafness = 1 << 3,
+        Dysphoria = 1 << 4,
+        Dystrophy = 1 << 5,
+        Hallucination = 1 << 6,
+        Handicapped = 1 << 7,
+        Infertility = 1 << 8,
+        Mutism = 1 << 9,
+        Paranoia = 1 << 10,
+        Pneumonia = 1 << 11,
+        Poisoning = 1 << 12,
+        Sociopathy = 1 << 13
     }
 
     public enum BodyPart
@@ -130,7 +125,8 @@ public class Globals
         Legs = 1 << 3,
         RightHand = 1 << 4,
         LeftHand = 1 << 5,
-        Back = 1 << 6
+        Back = 1 << 6,
+        Genitals = 1 << 7
     }
 
     public enum AITestingFlags

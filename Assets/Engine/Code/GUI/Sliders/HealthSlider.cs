@@ -9,6 +9,6 @@ public class HealthSlider : StatusSlider
     void FixedUpdate()
     {
         if (script != null)
-            slider.value = script.health / 100f;
+            slider.value = script.vitality / 100f;
     }
 }
