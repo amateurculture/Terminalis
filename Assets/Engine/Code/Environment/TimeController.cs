@@ -44,8 +44,12 @@ public class TimeController : MonoBehaviour
         secondsRemainingInMinute = Time.time + (secondsInHour / 60);
         adjustedSecondsInHour = secondsInHour / 60;
 
-        lightingController = atmosphere.GetComponent<LightingController>();
-        fogController = atmosphere.GetComponent<FogController>();
+        if (atmosphere != null)
+        {
+            lightingController = atmosphere.GetComponent<LightingController>();
+            fogController = atmosphere.GetComponent<FogController>();
+        }
+
         currentHour = hour;
         currentMinute = minute;
 
