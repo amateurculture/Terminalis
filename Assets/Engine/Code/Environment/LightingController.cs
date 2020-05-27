@@ -121,7 +121,8 @@ public class LightingController : MonoBehaviour
         lightLevel = RenderSettings.sun.intensity = sunLight.Evaluate(gradientIndex).grayscale;
 
         RenderSettings.sun.enabled = (lightLevel <= 0) ? false : true;
-        moon.enabled = (lightLevel <= 0) ? true : false;
+
+        if (moon != null) moon.enabled = (lightLevel <= 0) ? true : false;
     }
 
     void UpdateGeocentricSun()
