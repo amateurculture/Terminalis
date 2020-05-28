@@ -6,28 +6,30 @@ using UnityEngine.UI;
 
 public class VehicleController : MonoBehaviour
 {
-    GameObject player;
     public Transform lookAtTarget;
     public Transform positionTarget;
     public Transform sideView;
     public GameObject exitPoint;
     public Light headlightLeft;
     public Light headlightRight;
-    public Renderer carMaterial;
+    public GameObject speedometer;
     public AudioSource audioSource;
-
     public Image lowBeamsIndicator;
     public Image handBrakeIndicator;
+    public Renderer carMaterial;
+    public int headLightIndex;
+    public int tailLightIndex;
+    
+    private WheelCollider[] m_Wheels;
 
+    GameObject player;
     DriftCamera driftCamera;
     CameraController playerCam;
     WheelDrive1 wheelDrive;
     Camera cam;
     bool isInside;
     bool isAtDoor;
-
-    private WheelCollider[] m_Wheels;
-
+    
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -43,7 +45,16 @@ public class VehicleController : MonoBehaviour
         headlightLeft.enabled = false;
         headlightRight.enabled = false;
 
-        if (carMaterial != null) carMaterial.materials[0].DisableKeyword("_EMISSION");
+        if (carMaterial)
+        {
+            carMaterial.materials[tailLightIndex].SetColor("_EmissionColor", Color.white);
+            carMaterial.materials[headLightIndex].SetColor("_EmissionColor", Color.white);
+            carMaterial.materials[headLightIndex].DisableKeyword("_EMISSION");
+            carMaterial.materials[tailLightIndex].DisableKeyword("_EMISSION");
+            if (headLightIndex != tailLightIndex) carMaterial.materials[tailLightIndex].SetColor("_EmissionColor", new Color(.1f, 0, 0, 1));
+        }
+
+        if (speedometer) speedometer.gameObject.SetActive(false);
 
         Color temp = lowBeamsIndicator.color;
         temp.a = 5;
@@ -77,27 +88,52 @@ public class VehicleController : MonoBehaviour
                 handBrakeIndicator.color = temp;
             }
 
-            bool headlightButtonPressed = Input.GetButtonDown("Crouch");
-            bool hornButtonPressed = Input.GetButtonDown("Toggle Perspective");
+            // Handle Brakelights
+            if (Input.GetAxis("Fire2") > .1f)
+            {
+                if (headLightIndex != tailLightIndex) carMaterial.material.SetColor("_EmissionColor", Color.red);
+            }
+            else
+                if (headLightIndex != tailLightIndex) carMaterial.material.SetColor("_EmissionColor", new Color(.1f, 0, 0, 1));
 
+            if (headlightLeft.enabled)
+            {
+                carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
+                carMaterial.materials[tailLightIndex].EnableKeyword("_EMISSION");
+            }
+
+            // Handle Horn
+            bool hornButtonPressed = Input.GetButtonDown("Toggle Perspective");
             if (hornButtonPressed)
             {
                 audioSource.Play();
             }
 
+            // Handle Headlights
+            bool headlightButtonPressed = Input.GetButtonDown("Crouch");
             if (headlightButtonPressed)
             {
                 if (headlightLeft.enabled == false)
                 {
                     headlightLeft.enabled = true;
                     headlightRight.enabled = true;
-                    if (carMaterial) carMaterial.materials[0].EnableKeyword("_EMISSION");
+
+                    if (carMaterial)
+                    {
+                        carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
+                        carMaterial.materials[tailLightIndex].EnableKeyword("_EMISSION");
+                    }
                 }
                 else
                 {
                     headlightLeft.enabled = false;
                     headlightRight.enabled = false;
-                    if (carMaterial) carMaterial.materials[0].DisableKeyword("_EMISSION");
+
+                    if (carMaterial)
+                    {
+                        carMaterial.materials[headLightIndex].DisableKeyword("_EMISSION");
+                        carMaterial.materials[tailLightIndex].DisableKeyword("_EMISSION");
+                    }
                 }
 
                 lowBeamsIndicator.enabled = true;
@@ -113,6 +149,8 @@ public class VehicleController : MonoBehaviour
 
             if (enterCarButtonPressed)
             {
+                if (speedometer) speedometer.gameObject.SetActive(false);
+
                 StartCoroutine(DisableWheels());
 
                 driftCamera.enabled = false;
@@ -142,6 +180,8 @@ public class VehicleController : MonoBehaviour
             wheelDrive.isDisabled = false;
             isInside = true;
 
+            if (speedometer) speedometer.gameObject.SetActive(true);
+
             lowBeamsIndicator.enabled = true;
             Color temp = lowBeamsIndicator.color;
 
@@ -168,12 +208,12 @@ public class VehicleController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        isAtDoor = true;
+        if (other.tag == "Player") isAtDoor = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        isAtDoor = false;
+        if (other.tag == "Player") isAtDoor = false;
     }
 
     IEnumerator DisableWheels()
