@@ -91,10 +91,10 @@ public class VehicleController : MonoBehaviour
             // Handle Brakelights
             if (Input.GetAxis("Fire2") > .1f)
             {
-                if (headLightIndex != tailLightIndex) carMaterial.material.SetColor("_EmissionColor", Color.red);
+                if (headLightIndex != tailLightIndex) carMaterial.materials[tailLightIndex].SetColor("_EmissionColor", Color.red);
             }
             else
-                if (headLightIndex != tailLightIndex) carMaterial.material.SetColor("_EmissionColor", new Color(.1f, 0, 0, 1));
+                if (headLightIndex != tailLightIndex) carMaterial.materials[tailLightIndex].SetColor("_EmissionColor", new Color(.1f, 0, 0, 1));
 
             if (headlightLeft.enabled)
             {
