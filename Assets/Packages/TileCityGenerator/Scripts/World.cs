@@ -727,12 +727,12 @@ public class World : MonoBehaviour
 
 	void Update () 
 	{
-		if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("Back"))
+		if (Input.GetKeyDown(KeyCode.End) || Input.GetButtonDown("Back"))
 		{
 			deleteMap();
 			initMap();
 		}
-		else if (Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Escape))
+		else if (Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Home))
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		else
 			updateMap();
