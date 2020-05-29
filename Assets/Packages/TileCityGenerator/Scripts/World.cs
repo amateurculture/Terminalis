@@ -5,7 +5,7 @@ using System;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-
+using UnityEngine.SceneManagement;
 
 /** \brief Auxiliar class to store coordinates inside the world grid*/
 public struct Int2 {
@@ -153,6 +153,8 @@ public class TilePrefab
 
 public class World : MonoBehaviour 
 {
+	public String cityName = "The City";
+
 	/** The player object */
 	public Transform player;
 	
@@ -177,6 +179,8 @@ public class World : MonoBehaviour
 	/** The pool object. */
 	static private GameObject poolObject;
 
+	static private GameObject cityObject;
+
 	/** The tiles pool. */
 	private Dictionary<int, List<TilePrefab>> tilesPool;
 
@@ -195,7 +199,11 @@ public class World : MonoBehaviour
 		poolObject = new GameObject();
 		poolObject.transform.position = poolObjectPosition;
 		poolObject.name = "poolObject";
-		
+
+		cityObject = new GameObject();
+		cityObject.transform.position = Vector3.zero;
+		cityObject.name = cityName;
+
 		int type = 0;
 		int maxVisibleTiles = ((initialrange * 2) + 1) * ((initialrange * 2) + 2);
 		foreach (GameObject obj in prefabs)
@@ -250,7 +258,7 @@ public class World : MonoBehaviour
 		public void Instantiate(Int2 index, TilePrefab newprefab, float tileSize )
 		{
 			tilePrefab = newprefab;
-			tilePrefab.prefab.transform.parent = null;
+			tilePrefab.prefab.transform.parent = cityObject.transform;
 			tilePrefab.prefab.transform.position = new Vector3(index.y*tileSize, 0, index.x*tileSize);
 			tilePrefab.prefab.transform.rotation = Quaternion.Euler(0,90 * rotation,0); 
 			tilePrefab.used = true;
@@ -336,6 +344,7 @@ public class World : MonoBehaviour
 			if (tileprefab.used == false)
 			{
 				tile.Instantiate(index, tileprefab, tileSize);
+			    
 				break;
 			}
 		}
@@ -704,9 +713,28 @@ public class World : MonoBehaviour
 	{
 		initMap();
 	}
-	
+
+	private void OnDisable()
+	{
+		deleteMap();
+	}
+
+	void deleteMap()
+	{
+		Destroy(cityObject);
+		Destroy(poolObject);
+	}
+
 	void Update () 
 	{
-		updateMap();
+		if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("Back"))
+		{
+			deleteMap();
+			initMap();
+		}
+		else if (Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Escape))
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		else
+			updateMap();
 	}
 }

@@ -69,7 +69,7 @@ public class VehicleController : MonoBehaviour
 
     private void LateUpdate()
     {
-        bool enterCarButtonPressed = Input.GetButtonDown("EnterCar");
+        bool enterCarButtonPressed = Input.GetButtonDown("EnterCar") || Input.GetKeyDown(KeyCode.E);
 
         if (isInside)
         {
@@ -89,25 +89,23 @@ public class VehicleController : MonoBehaviour
             }
 
             // Handle Brakelights
-            if (Input.GetAxis("Fire2") > .1f)
-            {
-                if (headLightIndex != tailLightIndex) carMaterial.materials[tailLightIndex].SetColor("_EmissionColor", Color.red);
-            }
-            else
-                if (headLightIndex != tailLightIndex) carMaterial.materials[tailLightIndex].SetColor("_EmissionColor", new Color(.1f, 0, 0, 1));
 
-            if (headlightLeft.enabled)
+            if (headLightIndex != tailLightIndex)
             {
-                carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
+                if (Input.GetAxis("Fire2") > .1f)
+                    carMaterial.materials[tailLightIndex].SetColor("_EmissionColor", Color.red);
+                else
+                    carMaterial.materials[tailLightIndex].SetColor("_EmissionColor", new Color(.1f, 0, 0, 1));
+
                 carMaterial.materials[tailLightIndex].EnableKeyword("_EMISSION");
             }
 
+            if (headlightLeft.enabled)
+                carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
+
             // Handle Horn
             bool hornButtonPressed = Input.GetButtonDown("Toggle Perspective");
-            if (hornButtonPressed)
-            {
-                audioSource.Play();
-            }
+            if (hornButtonPressed) audioSource.Play();
 
             // Handle Headlights
             bool headlightButtonPressed = Input.GetButtonDown("Crouch");
@@ -121,7 +119,7 @@ public class VehicleController : MonoBehaviour
                     if (carMaterial)
                     {
                         carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
-                        carMaterial.materials[tailLightIndex].EnableKeyword("_EMISSION");
+                        //carMaterial.materials[tailLightIndex].EnableKeyword("_EMISSION");
                     }
                 }
                 else
@@ -132,7 +130,7 @@ public class VehicleController : MonoBehaviour
                     if (carMaterial)
                     {
                         carMaterial.materials[headLightIndex].DisableKeyword("_EMISSION");
-                        carMaterial.materials[tailLightIndex].DisableKeyword("_EMISSION");
+                        //carMaterial.materials[tailLightIndex].DisableKeyword("_EMISSION");
                     }
                 }
 
@@ -166,6 +164,9 @@ public class VehicleController : MonoBehaviour
 
                 player.GetComponent<UltimateCharacterLocomotionHandler>().enabled = true;
                 cam.GetComponent<CameraControllerHandler>().enabled = true;
+
+                if (headLightIndex != tailLightIndex)
+                    carMaterial.materials[tailLightIndex].DisableKeyword("_EMISSION");
             }
         }
         else if (isAtDoor && enterCarButtonPressed)
