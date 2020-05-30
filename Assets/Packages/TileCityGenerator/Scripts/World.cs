@@ -716,7 +716,7 @@ public class World : MonoBehaviour
 
 	private void OnDisable()
 	{
-		deleteMap();
+		//deleteMap();
 	}
 
 	void deleteMap()
@@ -734,7 +734,7 @@ public class World : MonoBehaviour
 		}
 		else if (Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Home))
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		else
-			updateMap();
+		//else
+		//	updateMap();
 	}
 }
