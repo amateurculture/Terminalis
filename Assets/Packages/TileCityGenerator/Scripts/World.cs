@@ -153,6 +153,8 @@ public class TilePrefab
 
 public class World : MonoBehaviour 
 {
+	public String cityName = "The City";
+
 	/** The player object */
 	[HideInInspector] public Transform player;
 	
@@ -191,8 +193,6 @@ public class World : MonoBehaviour
 	/** Instantiate pool tiles */
 	private void prepareTilePrefabs()
 	{
-		if (player == null) player = GameObject.FindGameObjectWithTag("Player").transform;
-
 		tileContainer 	= new List<TileData>();
 		tilesPool 		= new Dictionary<int, List<TilePrefab>>();
 		
@@ -202,7 +202,7 @@ public class World : MonoBehaviour
 
 		cityObject = new GameObject();
 		cityObject.transform.position = Vector3.zero;
-		cityObject.name = transform.name;
+		cityObject.name = cityName;
 
 		int type = 0;
 		int maxVisibleTiles = ((initialrange * 2) + 1) * ((initialrange * 2) + 2);
@@ -676,7 +676,6 @@ public class World : MonoBehaviour
 	/** Initialize world */
 	public void initMap()
 	{
-		player = GameObject.FindGameObjectWithTag("Player").transform;
 		tiles = new Dictionary<Int2, VisibleTile>();
 		previousPosition = new Int2(0,0);
 		prepareTilePrefabs();
@@ -712,13 +711,8 @@ public class World : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		player = GameObject.FindGameObjectWithTag("Player").transform;
 		initMap();
-		Destroy(poolObject);
-	}
-
-	private void OnDisable()
-	{
-		//deleteMap();
 	}
 
 	void deleteMap()
@@ -737,6 +731,6 @@ public class World : MonoBehaviour
 		else if (Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Home))
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		//else
-		//	updateMap();
+			//updateMap();
 	}
 }
