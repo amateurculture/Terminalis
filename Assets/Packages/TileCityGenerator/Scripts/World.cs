@@ -153,7 +153,7 @@ public class TilePrefab
 
 public class World : MonoBehaviour 
 {
-	public String cityName = "The City";
+	//public String cityName = "The City";
 
 	/** The player object */
 	[HideInInspector] public Transform player;
@@ -202,7 +202,7 @@ public class World : MonoBehaviour
 
 		cityObject = new GameObject();
 		cityObject.transform.position = Vector3.zero;
-		cityObject.name = cityName;
+		cityObject.name = transform.name;
 
 		int type = 0;
 		int maxVisibleTiles = ((initialrange * 2) + 1) * ((initialrange * 2) + 2);
