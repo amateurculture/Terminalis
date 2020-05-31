@@ -228,6 +228,8 @@ public class ProceduralWorld : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		player = GameObject.FindGameObjectWithTag("Player").transform;
+
 		int codebits = Convert.ToInt32(Math.Pow(2,tileConnections));
 		//allow tile with side pattern 0
 		//List<List<int>> necklaces = fkm(4, codebits);
