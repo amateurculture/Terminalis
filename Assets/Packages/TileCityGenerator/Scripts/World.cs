@@ -156,7 +156,7 @@ public class World : MonoBehaviour
 	public String cityName = "The City";
 
 	/** The player object */
-	public Transform player;
+	[HideInInspector] public Transform player;
 	
 	/** Tile prefabs */
 	public GameObject[] prefabs;
@@ -711,12 +711,8 @@ public class World : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		player = GameObject.FindGameObjectWithTag("Player").transform;
 		initMap();
-	}
-
-	private void OnDisable()
-	{
-		deleteMap();
 	}
 
 	void deleteMap()
@@ -734,7 +730,7 @@ public class World : MonoBehaviour
 		}
 		else if (Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Home))
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		else
-			updateMap();
+		//else
+			//updateMap();
 	}
 }
