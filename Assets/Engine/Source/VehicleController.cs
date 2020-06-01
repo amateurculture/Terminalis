@@ -160,7 +160,7 @@ public class VehicleController : MonoBehaviour
                 orbitCam.enabled = false;
 
                 // Fix to prevent exiting car underground
-                var pos = new Vector3(exitPoint.transform.position.x, exitPoint.transform.position.y, exitPoint.transform.position.z);
+                var pos = new Vector3(exitPoint.transform.position.x, exitPoint.transform.position.y - 1.6f, exitPoint.transform.position.z);
                 if (pos.y < 0) pos.y = Mathf.Abs(exitPoint.transform.position.y) + carMaterial.GetComponent<MeshFilter>().mesh.bounds.size.y;
 
                 player.transform.position = pos;

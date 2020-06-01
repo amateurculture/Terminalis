@@ -49,7 +49,7 @@ public class Agent : Container
     IEnumerator refreshLocomotionController() 
     {
         GetComponent<UltimateCharacterLocomotion>().enabled = false;    
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(.1f);
         GetComponent<UltimateCharacterLocomotion>().enabled = true;
     }
 
