@@ -75,7 +75,12 @@ public class WheelDrive1 : MonoBehaviour
 		if (!isDisabled)
 		{
 			float angle = maxAngle * Input.GetAxis("Horizontal");
-			float torque = maxTorque * (Input.GetAxis("Fire1") - Input.GetAxis("Fire2"));
+			float accelerator = (Input.GetAxis("Fire1") - Input.GetAxis("Fire2"));
+
+			if (Input.GetKey(KeyCode.W)) accelerator = 1f;
+			if (Input.GetKey(KeyCode.S)) accelerator = -1f;
+
+			float torque = maxTorque * accelerator;
 
 			bool handbrakePressed = Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Submit");
 			if (handbrakePressed) handbrakeEnabled = !handbrakeEnabled;

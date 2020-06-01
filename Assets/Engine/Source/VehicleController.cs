@@ -76,8 +76,10 @@ public class VehicleController : MonoBehaviour
 
         if (isInside)
         {
+            // Enable wheel drive
             wheelDrive.isDisabled = false;
 
+            // Handle hand brake indicator
             if (wheelDrive.handbrakeEnabled)
             {
                 Color temp = handBrakeIndicator.color;
@@ -91,8 +93,7 @@ public class VehicleController : MonoBehaviour
                 handBrakeIndicator.color = temp;
             }
 
-            // Handle Brakelights
-
+            // Handle brakelights
             if (headLightIndex != tailLightIndex)
             {
                 if (Input.GetAxis("Fire2") > .1f)
@@ -106,11 +107,11 @@ public class VehicleController : MonoBehaviour
             if (headlightLeft.enabled)
                 carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
 
-            // Handle Horn
+            // Handle horn
             bool hornButtonPressed = Input.GetButtonDown("Toggle Perspective");
             if (hornButtonPressed) audioSource.Play();
 
-            // Handle Headlights
+            // Handle headlights
             bool headlightButtonPressed = Input.GetButtonDown("Crouch");
             if (headlightButtonPressed)
             {
@@ -158,7 +159,11 @@ public class VehicleController : MonoBehaviour
                 //driftCamera.enabled = false;
                 orbitCam.enabled = false;
 
-                player.transform.position = new Vector3(exitPoint.transform.position.x, 3, exitPoint.transform.position.z);
+                // Fix to prevent exiting car underground
+                var pos = new Vector3(exitPoint.transform.position.x, exitPoint.transform.position.y, exitPoint.transform.position.z);
+                if (pos.y < 0) pos.y = Mathf.Abs(exitPoint.transform.position.y) + carMaterial.GetComponent<MeshFilter>().mesh.bounds.size.y;
+
+                player.transform.position = pos;
 
                 var euler = transform.rotation.eulerAngles;
                 var rot = Quaternion.Euler(0, euler.y, 0);
@@ -183,7 +188,6 @@ public class VehicleController : MonoBehaviour
             isAtDoor = false;
             playerCam.enabled = false;
             player.SetActive(false);
-
 
             //driftCamera.sideView = sideView;
             //driftCamera.positionTarget = positionTarget;

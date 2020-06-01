@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using AC_System;
 using System.Collections.Generic;
+using Opsive.UltimateCharacterController.Character;
+using System.Collections;
 
 public class Agent : Container
 {
@@ -42,6 +44,18 @@ public class Agent : Container
     {
         brain = GameObject.FindGameObjectWithTag("GameController")?.GetComponent<Brain>();
         memory = new List<Meme>();
+    }
+
+    IEnumerator refreshLocomotionController() 
+    {
+        GetComponent<UltimateCharacterLocomotion>().enabled = false;    
+        yield return new WaitForSeconds(.25f);
+        GetComponent<UltimateCharacterLocomotion>().enabled = true;
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(refreshLocomotionController());
     }
 
     #endregion
@@ -209,9 +223,6 @@ public class Agent : Container
 /// . ???
 /// 
 
-
-
-
 // Vitality is a value used to determine things like: 
 /// . encumberance (how much can be carried in kilos)
 /// . resistance to insanity
@@ -227,8 +238,6 @@ public class Agent : Container
 // Stress turns people into shadows. Prior to disruption, they exist in harmony with their environment.
 
 // Money can buy relief from stress, but also attracts shadows. 
-
-
 
 /// Who are all the potential agents? (IRL 20:80 predator to prey ratio)
 /// . God/Queen/King to be i.e. "you"
@@ -261,20 +270,6 @@ public class Agent : Container
 
 /// The reality is the shadows either need to be killed or contained. Killing requires being done in secret as otherwise it will potentially martyr the person for all those closest to them turning them into immediate enemies (vendetta). Containing is much more difficult. Making drugs freely available is one way, albiet with consequences. Or better systems, or no systems? So hard to say. 
 /// 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // As stress goes up, lust decreases, anger goes up

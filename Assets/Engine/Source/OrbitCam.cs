@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
 public class OrbitCam : MonoBehaviour
@@ -58,15 +59,33 @@ public class OrbitCam : MonoBehaviour
 
 	void OnValidate()
 	{
-		if (maxVerticalAngle < minVerticalAngle)
-		{
+		if (maxVerticalAngle < minVerticalAngle) 
 			maxVerticalAngle = minVerticalAngle;
+	}
+
+	private void OnEnable()
+	{
+		try
+		{
+			VehicleController con = focus.GetComponent<VehicleController>();
+			if (con != null)
+			{
+				MeshFilter meshFilter = con.carMaterial.GetComponent<MeshFilter>();
+				Mesh mesh = meshFilter.mesh;
+				fudge = mesh.bounds.size.y + .5f;
+				distance = mesh.bounds.size.z - .5f;
+			}
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine("{0} Exception caught.", e);
 		}
 	}
 
 	void Awake()
 	{
 		regularCamera = GetComponent<Camera>();
+		regularCamera.fieldOfView = 45;
 		focusPoint = focus.position;
 		focusPoint.y += fudge;
 		transform.localRotation = Quaternion.Euler(orbitAngles);

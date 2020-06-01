@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4199551275312752611}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3659659912148184984}
   - component: {fileID: 4175323973241199216}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Headlight Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6156454725634601824}
   - component: {fileID: 6302956133946417772}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: a2r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6156454727102942874}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CamLookAtTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6156454725442424786}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CamRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6156454730417025050}
   - component: {fileID: 6302956133644541432}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: a1r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6156454726389313042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CamSidePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 6128016305525705810}
   - component: {fileID: 6138297898619004658}
   - component: {fileID: 6169215305993125894}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TruckChassis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6156454724186719866}
   - component: {fileID: 6302956135235445664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: a0r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +513,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6156454724683850412}
   - component: {fileID: 6302956135532575818}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: a2l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6156454730832860456}
   - component: {fileID: 6302956128575276464}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: a0l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -636,7 +636,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6156454724937025764}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CamPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -667,7 +667,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6156454724215525140}
   - component: {fileID: 6302956133682376346}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: a1l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -735,13 +735,13 @@ GameObject:
   - component: {fileID: 8461680509229802116}
   - component: {fileID: 411748482}
   - component: {fileID: 1665885133047398209}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Truck
-  m_TagString: Untagged
+  m_TagString: Vehicle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6156454727969641498
 Transform:
   m_ObjectHideFlags: 0
@@ -813,14 +813,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAngle: 30
   maxTorque: 8400
-  brakeTorque: 30000
+  brakeTorque: 2000
   wheelShape: {fileID: 0}
-  criticalSpeed: 5
-  stepsBelow: 5
-  stepsAbove: 1
+  criticalSpeed: 15
+  stepsBelow: 10
+  stepsAbove: 5
   driveType1: 1
   handbrakeEnabled: 0
-  isDisabled: 0
+  isDisabled: 1
 --- !u!114 &1510898541685214455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -978,7 +978,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2614825075248647433}
   - component: {fileID: 7623129424187435396}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Headlight Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1071,6 +1071,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TruckTyre
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010734295496, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011689621420, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1130,11 +1134,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6156454727969641498}
     m_Modifications:
-    - target: {fileID: 901163389767362355, guid: 19eb5acee0b205948946eff6187c7491,
-        type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 1489189833427227186, guid: 19eb5acee0b205948946eff6187c7491,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1299,6 +1298,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TruckTyre
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010734295496, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011689621420, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1361,6 +1364,10 @@ PrefabInstance:
     - target: {fileID: 1000010734295496, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
       propertyPath: m_Name
       value: TruckTyre
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010734295496, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4000011689621420, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1425,6 +1432,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TruckTyre
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010734295496, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011689621420, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1488,6 +1499,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TruckTyre
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010734295496, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011689621420, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1550,6 +1565,10 @@ PrefabInstance:
     - target: {fileID: 1000010734295496, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
       propertyPath: m_Name
       value: TruckTyre
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010734295496, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4000011689621420, guid: 8a4e2f69ac0ecf242a1b727a7c204359, type: 3}
       propertyPath: m_LocalPosition.x
