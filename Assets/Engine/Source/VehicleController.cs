@@ -23,7 +23,8 @@ public class VehicleController : MonoBehaviour
     private WheelCollider[] m_Wheels;
 
     GameObject player;
-    DriftCamera driftCamera;
+    //DriftCamera driftCamera;
+    OrbitCam orbitCam;
     CameraController playerCam;
     WheelDrive1 wheelDrive;
     Camera cam;
@@ -38,7 +39,9 @@ public class VehicleController : MonoBehaviour
         wheelDrive.isDisabled = true;
 
         cam = Camera.main;
-        driftCamera = cam.GetComponent<DriftCamera>();
+        //driftCamera = cam.GetComponent<DriftCamera>();
+        orbitCam = cam.GetComponent<OrbitCam>();
+
         playerCam = cam.GetComponent<CameraController>();
         isInside = false;
         isAtDoor = false;
@@ -145,16 +148,21 @@ public class VehicleController : MonoBehaviour
                 lowBeamsIndicator.color = temp;
             }
 
+            // Exit vehicle
             if (enterCarButtonPressed)
             {
                 if (speedometer) speedometer.gameObject.SetActive(false);
 
                 StartCoroutine(DisableWheels());
 
-                driftCamera.enabled = false;
-                player.transform.position = exitPoint.transform.position;
+                //driftCamera.enabled = false;
+                orbitCam.enabled = false;
+
+                player.transform.position = new Vector3(exitPoint.transform.position.x, 3, exitPoint.transform.position.z);
+
                 var euler = transform.rotation.eulerAngles;
                 var rot = Quaternion.Euler(0, euler.y, 0);
+
                 player.transform.rotation = rot;
                 player.SetActive(true);
                 playerCam.enabled = true;
@@ -169,15 +177,21 @@ public class VehicleController : MonoBehaviour
                     carMaterial.materials[tailLightIndex].DisableKeyword("_EMISSION");
             }
         }
+        // Enter vehicle
         else if (isAtDoor && enterCarButtonPressed)
         {
             isAtDoor = false;
             playerCam.enabled = false;
             player.SetActive(false);
-            driftCamera.sideView = sideView;
-            driftCamera.positionTarget = positionTarget;
-            driftCamera.lookAtTarget = lookAtTarget;
-            driftCamera.enabled = true;
+
+
+            //driftCamera.sideView = sideView;
+            //driftCamera.positionTarget = positionTarget;
+            //driftCamera.lookAtTarget = lookAtTarget;
+            //driftCamera.enabled = true;
+            orbitCam.focus = transform;
+            orbitCam.enabled = true;
+
             wheelDrive.isDisabled = false;
             isInside = true;
 

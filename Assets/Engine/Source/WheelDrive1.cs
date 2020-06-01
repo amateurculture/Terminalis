@@ -13,7 +13,7 @@ public enum DriveType1
 public class WheelDrive1 : MonoBehaviour
 {
     [Tooltip("Maximum steering angle of the wheels")]
-	public float maxAngle = 30f;
+	public float maxAngle = 35f;
 	[Tooltip("Maximum torque applied to the driving wheels")]
 	public float maxTorque = 300f;
 	[Tooltip("Maximum brake torque applied to the driving wheels")]
@@ -84,24 +84,11 @@ public class WheelDrive1 : MonoBehaviour
 			foreach (WheelCollider wheel in m_Wheels)
 			{
 				// A simple car where front wheels steer while rear ones drive.
-				if (wheel.transform.localPosition.z > 0)
-					wheel.steerAngle = angle;
-
-				if (wheel.transform.localPosition.z < 0)
-				{
-					wheel.brakeTorque = handBrake;
-				}
-
-				if (wheel.transform.localPosition.z < 0 && driveType1 != DriveType1.FrontWheelDrive)
-				{
-					wheel.motorTorque = torque;
-				}
-
-				if (wheel.transform.localPosition.z >= 0 && driveType1 != DriveType1.RearWheelDrive)
-				{
-					wheel.motorTorque = torque;
-				}
-
+				if (wheel.transform.localPosition.z > 0) wheel.steerAngle = angle;
+				if (wheel.transform.localPosition.z < 0) wheel.brakeTorque = handBrake;
+				if (wheel.transform.localPosition.z < 0 && driveType1 != DriveType1.FrontWheelDrive) wheel.motorTorque = torque;
+				if (wheel.transform.localPosition.z >= 0 && driveType1 != DriveType1.RearWheelDrive) wheel.motorTorque = torque;
+				
 				Quaternion q;
 				Vector3 p;
 				wheel.GetWorldPose(out p, out q);
