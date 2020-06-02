@@ -10,8 +10,7 @@ public class VehicleController : MonoBehaviour
     public Transform positionTarget;
     public Transform sideView;
     public GameObject exitPoint;
-    public Light headlightLeft;
-    public Light headlightRight;
+    public GameObject headlights;
     public GameObject speedometer;
     public AudioSource audioSource;
     public Image lowBeamsIndicator;
@@ -45,8 +44,7 @@ public class VehicleController : MonoBehaviour
         playerCam = cam.GetComponent<CameraController>();
         isInside = false;
         isAtDoor = false;
-        headlightLeft.enabled = false;
-        headlightRight.enabled = false;
+        headlights.SetActive(false);
 
         if (carMaterial)
         {
@@ -104,7 +102,7 @@ public class VehicleController : MonoBehaviour
                 carMaterial.materials[tailLightIndex].EnableKeyword("_EMISSION");
             }
 
-            if (headlightLeft.enabled)
+            if (headlights.activeSelf)
                 carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
 
             // Handle horn
@@ -115,33 +113,23 @@ public class VehicleController : MonoBehaviour
             bool headlightButtonPressed = Input.GetButtonDown("Crouch");
             if (headlightButtonPressed)
             {
-                if (headlightLeft.enabled == false)
+                if (headlights.activeSelf == false)
                 {
-                    headlightLeft.enabled = true;
-                    headlightRight.enabled = true;
-
-                    if (carMaterial)
-                    {
+                    headlights.SetActive(true);
+                    if (carMaterial) 
                         carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
-                        //carMaterial.materials[tailLightIndex].EnableKeyword("_EMISSION");
-                    }
                 }
                 else
                 {
-                    headlightLeft.enabled = false;
-                    headlightRight.enabled = false;
-
-                    if (carMaterial)
-                    {
+                    headlights.SetActive(false);
+                    if (carMaterial) 
                         carMaterial.materials[headLightIndex].DisableKeyword("_EMISSION");
-                        //carMaterial.materials[tailLightIndex].DisableKeyword("_EMISSION");
-                    }
                 }
 
                 lowBeamsIndicator.enabled = true;
                 Color temp = lowBeamsIndicator.color;
 
-                if (headlightLeft.enabled)
+                if (headlights.activeSelf)
                     temp.a = 1f;
                 else
                     temp.a = .05f;
@@ -204,7 +192,7 @@ public class VehicleController : MonoBehaviour
             lowBeamsIndicator.enabled = true;
             Color temp = lowBeamsIndicator.color;
 
-            if (headlightLeft.enabled)
+            if (headlights.activeSelf)
                 temp.a = 1f;
             else
                 temp.a = .05f;
