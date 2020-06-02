@@ -22,7 +22,6 @@ public class VehicleController : MonoBehaviour
     private WheelCollider[] m_Wheels;
 
     GameObject player;
-    //DriftCamera driftCamera;
     OrbitCam orbitCam;
     CameraController playerCam;
     WheelDrive1 wheelDrive;
@@ -38,7 +37,6 @@ public class VehicleController : MonoBehaviour
         wheelDrive.isDisabled = true;
 
         cam = Camera.main;
-        //driftCamera = cam.GetComponent<DriftCamera>();
         orbitCam = cam.GetComponent<OrbitCam>();
 
         playerCam = cam.GetComponent<CameraController>();
@@ -66,6 +64,20 @@ public class VehicleController : MonoBehaviour
         temp.a = 5;
         handBrakeIndicator.color = temp;
         handBrakeIndicator.enabled = false;
+    }
+
+    private void TurnHeadlightsOn()
+    {
+        headlights.SetActive(true);
+        if (carMaterial)
+            carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
+    }
+
+    private void TurnHeadlightsOff()
+    {
+        headlights.SetActive(false);
+        if (carMaterial)
+            carMaterial.materials[headLightIndex].DisableKeyword("_EMISSION");
     }
 
     private void LateUpdate()
@@ -113,18 +125,9 @@ public class VehicleController : MonoBehaviour
             bool headlightButtonPressed = Input.GetButtonDown("Crouch");
             if (headlightButtonPressed)
             {
-                if (headlights.activeSelf == false)
-                {
-                    headlights.SetActive(true);
-                    if (carMaterial) 
-                        carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
-                }
-                else
-                {
-                    headlights.SetActive(false);
-                    if (carMaterial) 
-                        carMaterial.materials[headLightIndex].DisableKeyword("_EMISSION");
-                }
+                if (headlights.activeSelf == false) 
+                    TurnHeadlightsOn();
+                else TurnHeadlightsOff();
 
                 lowBeamsIndicator.enabled = true;
                 Color temp = lowBeamsIndicator.color;
@@ -144,7 +147,6 @@ public class VehicleController : MonoBehaviour
 
                 StartCoroutine(DisableWheels());
 
-                //driftCamera.enabled = false;
                 orbitCam.enabled = false;
 
                 // Fix to prevent exiting car underground
@@ -166,6 +168,8 @@ public class VehicleController : MonoBehaviour
                 player.GetComponent<UltimateCharacterLocomotionHandler>().enabled = true;
                 cam.GetComponent<CameraControllerHandler>().enabled = true;
 
+                //TurnHeadlightsOff();
+
                 if (headLightIndex != tailLightIndex)
                     carMaterial.materials[tailLightIndex].DisableKeyword("_EMISSION");
             }
@@ -177,10 +181,6 @@ public class VehicleController : MonoBehaviour
             playerCam.enabled = false;
             player.SetActive(false);
 
-            //driftCamera.sideView = sideView;
-            //driftCamera.positionTarget = positionTarget;
-            //driftCamera.lookAtTarget = lookAtTarget;
-            //driftCamera.enabled = true;
             orbitCam.focus = transform;
             orbitCam.enabled = true;
 

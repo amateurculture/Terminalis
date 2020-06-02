@@ -68,8 +68,7 @@ namespace Opsive.UltimateCharacterController.Character
             // The input should be retrieved within Update. The KinematicObjectManager will then move the character according to the input.
             m_HorizontalMovement = m_PlayerInput.GetAxisRaw(m_HorizontalInputName);
             m_ForwardMovement = m_PlayerInput.GetAxisRaw(m_ForwardInputName);
-
-            if (isActiveAndEnabled) KinematicObjectManager.SetCharacterMovementInput(m_CharacterLocomotion.KinematicObjectIndex, m_HorizontalMovement, m_ForwardMovement);
+            KinematicObjectManager.SetCharacterMovementInput(m_CharacterLocomotion.KinematicObjectIndex, m_HorizontalMovement, m_ForwardMovement);
 
             UpdateAbilityInput();
         }

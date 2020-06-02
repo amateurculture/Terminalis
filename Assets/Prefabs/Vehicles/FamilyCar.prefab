@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &973928037396554805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2743608574503901163}
+  m_Layer: 0
+  m_Name: Headlights
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2743608574503901163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973928037396554805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 992467776509388868}
+  - {fileID: 6820541351240368663}
+  m_Father: {fileID: 3033045620236568106}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1060190841555513170
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,7 +63,7 @@ Transform:
   m_LocalScale: {x: 0.35604772, y: 0.10964262, z: 0.054366443}
   m_Children: []
   m_Father: {fileID: 3033045620236568106}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 17.219002, y: -20.982, z: -6.477}
 --- !u!33 &1988384465208817276
 MeshFilter:
@@ -544,10 +576,9 @@ Transform:
   - {fileID: 3033045615997007158}
   - {fileID: 3033045617417397186}
   - {fileID: 4273970641251157378}
-  - {fileID: 992467776509388868}
-  - {fileID: 6820541351240368663}
   - {fileID: 277112931185580484}
   - {fileID: 3525053026836293508}
+  - {fileID: 2743608574503901163}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -621,8 +652,7 @@ MonoBehaviour:
   positionTarget: {fileID: 3033045619162410370}
   sideView: {fileID: 3033045616419142124}
   exitPoint: {fileID: 1500493469094070877}
-  headlightLeft: {fileID: 5476225174311141544}
-  headlightRight: {fileID: 5032039150522336654}
+  headlights: {fileID: 973928037396554805}
   speedometer: {fileID: 3740881840758617559}
   audioSource: {fileID: 4328486631146437079}
   lowBeamsIndicator: {fileID: 6105102023278901442}
@@ -886,8 +916,8 @@ Transform:
   m_LocalPosition: {x: 0.806, y: 0.79, z: 1.892}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3033045620236568106}
-  m_RootOrder: 7
+  m_Father: {fileID: 2743608574503901163}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!108 &5032039150522336654
 Light:
@@ -903,11 +933,11 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 50
-  m_SpotAngle: 60
+  m_SpotAngle: 80
   m_InnerSpotAngle: 5
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -934,7 +964,7 @@ Light:
     m_UseCullingMatrixOverride: 0
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
-  m_Flare: {fileID: 0}
+  m_Flare: {fileID: 12100000, guid: 5edf5d1560af7084fa086e0a8af21b11, type: 2}
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
@@ -981,7 +1011,7 @@ Transform:
   m_LocalScale: {x: 0.35604772, y: 0.10964262, z: 0.054366443}
   m_Children: []
   m_Father: {fileID: 3033045620236568106}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 17.219002, y: 20.982, z: 6.477}
 --- !u!33 &5024811462833414250
 MeshFilter:
@@ -1071,8 +1101,8 @@ Transform:
   m_LocalPosition: {x: -0.801, y: 0.79, z: 1.895}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3033045620236568106}
-  m_RootOrder: 8
+  m_Father: {fileID: 2743608574503901163}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!108 &5476225174311141544
 Light:
@@ -1088,11 +1118,11 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 50
-  m_SpotAngle: 60
+  m_SpotAngle: 80
   m_InnerSpotAngle: 5
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -1119,7 +1149,7 @@ Light:
     m_UseCullingMatrixOverride: 0
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
-  m_Flare: {fileID: 0}
+  m_Flare: {fileID: 12100000, guid: 5edf5d1560af7084fa086e0a8af21b11, type: 2}
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1683,18 +1713,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19eb5acee0b205948946eff6187c7491, type: 3}
---- !u!114 &6105102023278901442 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8882002356271214450, guid: 19eb5acee0b205948946eff6187c7491,
-    type: 3}
-  m_PrefabInstance: {fileID: 3457247068265174960}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6050667458844553640 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8935935623370712600, guid: 19eb5acee0b205948946eff6187c7491,
@@ -1719,6 +1737,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3457247068265174960}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6105102023278901442 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882002356271214450, guid: 19eb5acee0b205948946eff6187c7491,
+    type: 3}
+  m_PrefabInstance: {fileID: 3457247068265174960}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5835889812673364015
 PrefabInstance:
   m_ObjectHideFlags: 0
