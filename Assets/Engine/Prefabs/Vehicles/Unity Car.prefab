@@ -163,7 +163,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8679110985290962274}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WaypointTargetObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8679110985290962276}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 8679110985290962280}
   - component: {fileID: 8679110985287538036}
   - component: {fileID: 8679110985288538036}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCarHeadLightsGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 8679110985287538026}
   - component: {fileID: 8679110985288538026}
   - component: {fileID: 8679110985297869974}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCarBrakeLightsGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 8679110985290962250}
   - component: {fileID: 8679110985287538020}
   - component: {fileID: 8679110985288538020}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCarWheelFrontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 8679110985290962244}
   - component: {fileID: 8679110985287538034}
   - component: {fileID: 8679110985288538034}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCarWheelFrontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,7 +567,7 @@ GameObject:
   - component: {fileID: 8679110985290962254}
   - component: {fileID: 8679110985287538032}
   - component: {fileID: 8679110985288538032}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCarWheelRearRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +646,7 @@ GameObject:
   - component: {fileID: 8679110985290962248}
   - component: {fileID: 8679110985287538024}
   - component: {fileID: 8679110985288538024}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCarWheelRearLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -727,7 +727,7 @@ GameObject:
   - component: {fileID: 8679110985288538040}
   - component: {fileID: 8679110985297869972}
   - component: {fileID: 8679110985297869978}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCarMudGuardFrontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -838,9 +838,9 @@ GameObject:
   - component: {fileID: 5397494388007031567}
   - component: {fileID: 5646836622489239568}
   - component: {fileID: 3928263764595751055}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Unity Car
-  m_TagString: Player
+  m_TagString: Vehicle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1101,7 +1101,7 @@ MonoBehaviour:
   exitPoint: {fileID: 4522190468245261720}
   headlights: {fileID: 8679110985290795384}
   dashboard: {fileID: 2733163925482047991}
-  audioSource: {fileID: 5397494388007031567}
+  hornAudio: {fileID: 0}
   lowBeamsIndicator: {fileID: 3502343316329178298}
   handBrakeIndicator: {fileID: 4024870890217729488}
   carMaterial: {fileID: 8679110985288538036}
@@ -1119,7 +1119,8 @@ GameObject:
   - component: {fileID: 8679110985294645404}
   - component: {fileID: 8679110985284210834}
   - component: {fileID: 8679110985297869966}
-  m_Layer: 0
+  - component: {fileID: 7397469328180654497}
+  m_Layer: 8
   m_Name: WheelHubFrontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1280,6 +1281,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkidTrailPrefab: {fileID: 400000, guid: 4b6aa99de5d21424eab6ae279f31475b, type: 3}
   skidParticles: {fileID: 0}
+--- !u!114 &7397469328180654497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679110985290795288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618b47ab3e9aaae4385a5b3a58d8a5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8679110985290795290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,7 +1305,8 @@ GameObject:
   - component: {fileID: 8679110985294645402}
   - component: {fileID: 8679110985284210828}
   - component: {fileID: 8679110985297869960}
-  m_Layer: 0
+  - component: {fileID: 7397469328180654499}
+  m_Layer: 8
   m_Name: WheelHubFrontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1453,6 +1467,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkidTrailPrefab: {fileID: 400000, guid: 4b6aa99de5d21424eab6ae279f31475b, type: 3}
   skidParticles: {fileID: 0}
+--- !u!114 &7397469328180654499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679110985290795290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618b47ab3e9aaae4385a5b3a58d8a5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8679110985290795292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,7 +1491,8 @@ GameObject:
   - component: {fileID: 8679110985294645406}
   - component: {fileID: 8679110985284210838}
   - component: {fileID: 8679110985297869970}
-  m_Layer: 0
+  - component: {fileID: 7397469328180654501}
+  m_Layer: 8
   m_Name: WheelHubRearLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1626,6 +1653,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkidTrailPrefab: {fileID: 400000, guid: 4b6aa99de5d21424eab6ae279f31475b, type: 3}
   skidParticles: {fileID: 0}
+--- !u!114 &7397469328180654501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679110985290795292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618b47ab3e9aaae4385a5b3a58d8a5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8679110985290795294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1638,7 +1677,8 @@ GameObject:
   - component: {fileID: 8679110985294645400}
   - component: {fileID: 8679110985284210832}
   - component: {fileID: 8679110985297869964}
-  m_Layer: 0
+  - component: {fileID: 7397469328180654503}
+  m_Layer: 8
   m_Name: WheelHubRearRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1799,6 +1839,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkidTrailPrefab: {fileID: 400000, guid: 4b6aa99de5d21424eab6ae279f31475b, type: 3}
   skidParticles: {fileID: 0}
+--- !u!114 &7397469328180654503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679110985290795294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618b47ab3e9aaae4385a5b3a58d8a5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8679110985290795324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,7 +1860,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8679110985290962204}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CameraFocusPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1840,7 +1892,7 @@ GameObject:
   - component: {fileID: 8679110985290962296}
   - component: {fileID: 8679110985306165276}
   - component: {fileID: 8679110985306139068}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ParticleBurnoutSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6484,7 +6536,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8679110985290962298}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6518,7 +6570,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8679110985290962300}
   - component: {fileID: 8679110985297396828}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HeadlighRightSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6610,7 +6662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8679110985290962302}
   - component: {fileID: 8679110985297396830}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HeadlightLeftSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6703,7 +6755,7 @@ GameObject:
   - component: {fileID: 8679110985290962240}
   - component: {fileID: 8679110985287538042}
   - component: {fileID: 8679110985288538042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCarSuspensionFrontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6784,7 +6836,7 @@ GameObject:
   - component: {fileID: 8679110985288538038}
   - component: {fileID: 8679110985297869976}
   - component: {fileID: 8679110985297869980}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCarMudGuardFrontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6890,7 +6942,7 @@ GameObject:
   - component: {fileID: 8679110985287538018}
   - component: {fileID: 8679110985284346232}
   - component: {fileID: 8679110985288538018}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ColliderBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6982,7 +7034,7 @@ GameObject:
   - component: {fileID: 8679110985290962246}
   - component: {fileID: 8679110985287538028}
   - component: {fileID: 8679110985288538028}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCarSuspensionFrontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7062,7 +7114,7 @@ GameObject:
   - component: {fileID: 8679110985287538022}
   - component: {fileID: 8679110985284346238}
   - component: {fileID: 8679110985288538022}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ColliderBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7154,7 +7206,7 @@ GameObject:
   - component: {fileID: 8679110985290962252}
   - component: {fileID: 8679110985287538044}
   - component: {fileID: 8679110985288538044}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCarBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7233,7 +7285,7 @@ GameObject:
   - component: {fileID: 8679110985290962258}
   - component: {fileID: 8679110985287538046}
   - component: {fileID: 8679110985288538046}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SkyCarComponents
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7314,7 +7366,7 @@ GameObject:
   - component: {fileID: 8679110985287538030}
   - component: {fileID: 8679110985284346236}
   - component: {fileID: 8679110985288538030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ColliderFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7404,7 +7456,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8679110985290962264}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7436,7 +7488,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8679110985290962266}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelsHubs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7470,7 +7522,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8679110985290962268}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Helpers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7502,7 +7554,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8679110985290962270}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7531,6 +7583,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8679110985290962286}
     m_Modifications:
+    - target: {fileID: 840338318833590006, guid: 19eb5acee0b205948946eff6187c7491,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1273591173491159665, guid: 19eb5acee0b205948946eff6187c7491,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -7873,12 +7930,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19eb5acee0b205948946eff6187c7491, type: 3}
---- !u!1 &2733163925482047991 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7942030592743096895, guid: 19eb5acee0b205948946eff6187c7491,
+--- !u!114 &4024870890217729488 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8935935623370712600, guid: 19eb5acee0b205948946eff6187c7491,
     type: 3}
   m_PrefabInstance: {fileID: 5465651020799003592}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6877927807158344186 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1489189833427227186, guid: 19eb5acee0b205948946eff6187c7491,
@@ -7897,15 +7960,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4024870890217729488 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8935935623370712600, guid: 19eb5acee0b205948946eff6187c7491,
+--- !u!1 &2733163925482047991 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7942030592743096895, guid: 19eb5acee0b205948946eff6187c7491,
     type: 3}
   m_PrefabInstance: {fileID: 5465651020799003592}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

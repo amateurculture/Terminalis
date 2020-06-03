@@ -95,6 +95,8 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
 
         private void Update()
         {
+            if (m_Plane == null) return;
+
             // Find what proportion of the engine's power is being used.
             var enginePowerProportion = Mathf.InverseLerp(0, m_Plane.MaxEnginePower, m_Plane.EnginePower);
 

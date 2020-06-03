@@ -543,6 +543,8 @@ namespace Opsive.UltimateCharacterController.Game
         /// <param name="forwardMovement">-1 to 1 value specifying the amount of forward movement.</param>
         private void SetCharacterMovementInputInternal(int characterIndex, float horizontalMovement, float forwardMovement)
         {
+            if (characterIndex < 0 || characterIndex >= m_Characters.Length) return;
+
             m_Characters[characterIndex].HorizontalMovement = horizontalMovement;
             m_Characters[characterIndex].ForwardMovement = forwardMovement;
         }

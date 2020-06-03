@@ -33,8 +33,7 @@ public class UnityVehicleController : MonoBehaviour
     Camera cam;
     bool isInside;
     bool isAtDoor;
-    AudioSource[] soundEffects;
-
+   
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -79,7 +78,7 @@ public class UnityVehicleController : MonoBehaviour
         carController.enabled = false;
         carUserControl.enabled = false;
 
-        soundEffects = GetComponents<AudioSource>();
+        //soundEffects = GetComponents<AudioSource>();
     }
 
     private void TurnHeadlightsOn()
@@ -249,6 +248,10 @@ public class UnityVehicleController : MonoBehaviour
 
             handBrakeIndicator.color = temp;
             */
+
+            if (player == null) player = GameObject.FindGameObjectWithTag("Player");
+            if (cam == null) cam = Camera.main;
+
             player.GetComponent<UltimateCharacterLocomotionHandler>().enabled = false;
             cam.GetComponent<CameraControllerHandler>().enabled = false;
         }
