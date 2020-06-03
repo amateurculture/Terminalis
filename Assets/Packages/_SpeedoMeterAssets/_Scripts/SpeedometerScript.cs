@@ -8,7 +8,7 @@ public class SpeedometerScript : MonoBehaviour
     private float startingAngle = -120;
     private float maximumDegrees = 240;
     private float capValue = 240;
-    public ObjectVelocity objectVelocity;
+    public BlackBox objectVelocity;
     public TextMeshProUGUI digitalText;
     public RectTransform needleRect;
 
@@ -17,10 +17,13 @@ public class SpeedometerScript : MonoBehaviour
         maximumDegrees *= 0.01f;
     }
 
-    private void Update() 
+    private void Update()
     {
-        angle = startingAngle + (((objectVelocity.oldVelocity / capValue) * percentage) * maximumDegrees);
-        digitalText.text = "" + Mathf.Floor(objectVelocity.oldVelocity);
-        needleRect.transform.eulerAngles = new Vector3(0, 0, -angle);
+        if (Time.frameCount % 3 == 0)
+        {
+            angle = startingAngle + (((objectVelocity.oldVelocity / capValue) * percentage) * maximumDegrees);
+            digitalText.text = "" + Mathf.Floor(objectVelocity.oldVelocity);
+            needleRect.transform.eulerAngles = new Vector3(0, 0, -angle);
+        }
     }
 }

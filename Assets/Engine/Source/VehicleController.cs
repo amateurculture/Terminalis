@@ -3,6 +3,7 @@ using Opsive.UltimateCharacterController.Character;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.Vehicles.Car;
 
 public class VehicleController : MonoBehaviour
 {
@@ -11,14 +12,14 @@ public class VehicleController : MonoBehaviour
     public Transform sideView;
     public GameObject exitPoint;
     public GameObject headlights;
-    public GameObject speedometer;
+    public GameObject dashboard;
     public AudioSource audioSource;
     public Image lowBeamsIndicator;
     public Image handBrakeIndicator;
     public Renderer carMaterial;
     public int headLightIndex;
     public int tailLightIndex;
-    
+
     private WheelCollider[] m_Wheels;
 
     GameObject player;
@@ -53,7 +54,7 @@ public class VehicleController : MonoBehaviour
             if (headLightIndex != tailLightIndex) carMaterial.materials[tailLightIndex].SetColor("_EmissionColor", new Color(.1f, 0, 0, 1));
         }
 
-        if (speedometer) speedometer.gameObject.SetActive(false);
+        if (dashboard) dashboard.gameObject.SetActive(false);
 
         Color temp = lowBeamsIndicator.color;
         temp.a = 5;
@@ -143,9 +144,17 @@ public class VehicleController : MonoBehaviour
             // Exit vehicle
             if (enterCarButtonPressed)
             {
-                if (speedometer) speedometer.gameObject.SetActive(false);
+                if (dashboard) dashboard.gameObject.SetActive(false);
 
-                StartCoroutine(DisableWheels());
+                //StartCoroutine(DisableWheels());
+
+                m_Wheels = GetComponentsInChildren<WheelCollider>();
+                for (int i = 0; i < m_Wheels.Length; ++i)
+                {
+                    var wheel = m_Wheels[i];
+                    wheel.motorTorque = 0;
+                }
+                wheelDrive.isDisabled = true;
 
                 orbitCam.enabled = false;
 
@@ -182,12 +191,13 @@ public class VehicleController : MonoBehaviour
             player.SetActive(false);
 
             orbitCam.focus = transform;
+            orbitCam.distance = 4;
             orbitCam.enabled = true;
 
             wheelDrive.isDisabled = false;
             isInside = true;
 
-            if (speedometer) speedometer.gameObject.SetActive(true);
+            if (dashboard) dashboard.gameObject.SetActive(true);
 
             lowBeamsIndicator.enabled = true;
             Color temp = lowBeamsIndicator.color;

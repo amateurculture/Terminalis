@@ -35,41 +35,61 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         private AeroplaneController m_Plane;      // Reference to the aeroplane controller.
         private Rigidbody m_Rigidbody;
 
-
-        private void Awake()
+        public void EndAudio()
         {
-            // Set up the reference to the aeroplane controller.
-            m_Plane = GetComponent<AeroplaneController>();
-            m_Rigidbody = GetComponent<Rigidbody>();
+            m_EngineSoundSource.Stop();
+            m_WindSoundSource.Stop();
+        }
 
+        bool isInitialized;
 
-            // Add the audiosources and get the references.
-            m_EngineSoundSource = gameObject.AddComponent<AudioSource>();
-            m_EngineSoundSource.playOnAwake = false;
-            m_WindSoundSource = gameObject.AddComponent<AudioSource>();
-            m_WindSoundSource.playOnAwake = false;
+        public void StartAudio()
+        {
+            if (!isInitialized)
+            {
+                isInitialized = true;
 
-            // Assign clips to the audiosources.
-            m_EngineSoundSource.clip = m_EngineSound;
-            m_WindSoundSource.clip = m_WindSound;
+                // Set up the reference to the aeroplane controller.
+                m_Plane = GetComponent<AeroplaneController>();
+                m_Rigidbody = GetComponent<Rigidbody>();
 
-            // Set the parameters of the audiosources.
-            m_EngineSoundSource.minDistance = m_AdvancedSetttings.engineMinDistance;
-            m_EngineSoundSource.maxDistance = m_AdvancedSetttings.engineMaxDistance;
-            m_EngineSoundSource.loop = true;
-            m_EngineSoundSource.dopplerLevel = m_AdvancedSetttings.engineDopplerLevel;
+                // Add the audiosources and get the references.
+                m_EngineSoundSource = gameObject.AddComponent<AudioSource>();
+                m_EngineSoundSource.playOnAwake = false;
+                m_WindSoundSource = gameObject.AddComponent<AudioSource>();
+                m_WindSoundSource.playOnAwake = false;
 
-            m_WindSoundSource.minDistance = m_AdvancedSetttings.windMinDistance;
-            m_WindSoundSource.maxDistance = m_AdvancedSetttings.windMaxDistance;
-            m_WindSoundSource.loop = true;
-            m_WindSoundSource.dopplerLevel = m_AdvancedSetttings.windDopplerLevel;
+                // Assign clips to the audiosources.
+                m_EngineSoundSource.clip = m_EngineSound;
+                m_WindSoundSource.clip = m_WindSound;
 
-            // call update here to set the sounds pitch and volumes before they actually play
-            Update();
+                // Set the parameters of the audiosources.
+                m_EngineSoundSource.minDistance = m_AdvancedSetttings.engineMinDistance;
+                m_EngineSoundSource.maxDistance = m_AdvancedSetttings.engineMaxDistance;
+                m_EngineSoundSource.loop = true;
+                m_EngineSoundSource.dopplerLevel = m_AdvancedSetttings.engineDopplerLevel;
 
-            // Start the sounds playing.
-            m_EngineSoundSource.Play();
-            m_WindSoundSource.Play();
+                m_WindSoundSource.minDistance = m_AdvancedSetttings.windMinDistance;
+                m_WindSoundSource.maxDistance = m_AdvancedSetttings.windMaxDistance;
+                m_WindSoundSource.loop = true;
+                m_WindSoundSource.dopplerLevel = m_AdvancedSetttings.windDopplerLevel;
+
+                // call update here to set the sounds pitch and volumes before they actually play
+                Update();
+
+                // Start the sounds playing.
+                m_EngineSoundSource.Play();
+                m_WindSoundSource.Play();
+            } 
+            else
+            {
+                // call update here to set the sounds pitch and volumes before they actually play
+                //Update();
+
+                // Start the sounds playing.
+                m_EngineSoundSource.Play();
+                m_WindSoundSource.Play();
+            }
         }
 
 
