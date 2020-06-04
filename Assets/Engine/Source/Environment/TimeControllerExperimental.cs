@@ -25,27 +25,31 @@ public class TimeControllerExperimental : MonoBehaviour
     public int frameSkip;
     public bool enableReflections;
 
-    [Header("Experimental")]
-    Light testLight;
-
-    GameObject player;
     bool didChangeReflectionProbeSetting;
     bool EndOfDay;
     bool nextDay;
     bool isLerpingBack;
     bool isLerpingUp;
     bool isLerping;
-    bool inRange;
-    float lightLerpTime;
+    //float lightLerpTime;
     float adjustedSecondsInHour; 
     float actualHour;
     float secondsRemainingInMinute;
     float prev;
     float t;
+    float t1;
+
+    /*
+    [Header("Experimental")]
+    Light testLight;
+
     float previousMinute;
     float previousHour;
     float previousDay;
-    float t1;
+    bool inRange;
+
+    GameObject player;
+    */
 
     enum WhatIsLerping
     {
@@ -69,9 +73,9 @@ public class TimeControllerExperimental : MonoBehaviour
         endFogDistance = 256;
         transitionSpeed = .001f;
         
-        previousMinute = minute;
-        previousHour = hour;
-        previousDay = day;
+        //previousMinute = minute;
+        //previousHour = hour;
+        //previousDay = day;
         previousStartFog = startFogDistance;
         previousEndFog = endFogDistance;
 
@@ -127,7 +131,7 @@ public class TimeControllerExperimental : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
 
         if (sun != null)
         {
@@ -228,6 +232,7 @@ public class TimeControllerExperimental : MonoBehaviour
             previousEndFog = endFogDistance;
             */
         }
+        /*
         else if (isLerpingUp && Time.time > lightLerpTime)
         {
             var luminosity = Mathf.Lerp(prev, .25f, t);
@@ -238,7 +243,7 @@ public class TimeControllerExperimental : MonoBehaviour
             {
                 RenderSettings.ambientLight = new Color(.25f, .25f, .25f);
                 isLerpingUp = false;
-                inRange = true;
+                //inRange = true;
             }
         }
         else if (isLerpingBack && Time.time > lightLerpTime)
@@ -251,9 +256,9 @@ public class TimeControllerExperimental : MonoBehaviour
             {
                 RenderSettings.ambientLight = new Color(prev, prev, prev);
                 isLerpingBack = false;
-                inRange = false;
+                //inRange = false;
             }
-        }
+        }*/
         else if (!isLerpingBack && !isLerpingUp && !isLerping && Time.time > secondsRemainingInMinute)
         {
             float colorIndex = sun.transform.eulerAngles.x / 360f;

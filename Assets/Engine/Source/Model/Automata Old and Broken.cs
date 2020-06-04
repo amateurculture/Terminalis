@@ -28,7 +28,7 @@ public class AutomataOldAndBroken : MonoBehaviour
     protected Animator animatorComponent;
     protected float updateTime = 0;
     protected float _ai_wait_ = 1f;
-    private Spawner spawner;
+    //private Spawner spawner;
     private Agent agent;
     protected GameObject player;
 
@@ -150,7 +150,9 @@ public class AutomataOldAndBroken : MonoBehaviour
         do
         {
             Vector3 locus = navigationLocus.transform.position;
-            testWaypoint = RandomNavSphere(locus, (spawner != null) ? spawner.wander : range, -1);
+            //testWaypoint = RandomNavSphere(locus, (spawner != null) ? spawner.wander : range, -1);
+            testWaypoint = RandomNavSphere(locus, range, -1);
+
             //float distance = Vector3.Distance(testWaypoint, transform.position);
             
         } while (!navMeshAgent.CalculatePath(testWaypoint, navMeshPath));

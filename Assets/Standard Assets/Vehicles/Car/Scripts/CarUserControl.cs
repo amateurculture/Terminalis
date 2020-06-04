@@ -1,3 +1,4 @@
+/*
 using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
@@ -21,18 +22,52 @@ namespace UnityStandardAssets.Vehicles.Car
         {
             // pass the input to the car!
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
-            
-            //float v = CrossPlatformInputManager.GetAxis("Vertical");
-
-            float v = Input.GetAxis("Fire1") - Input.GetAxis("Fire2");
-
-            float handbrake = (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Submit")) ? 1 : 0;
-
+            float v = CrossPlatformInputManager.GetAxis("Vertical");
 #if !MOBILE_INPUT
-            //float handbrake = CrossPlatformInputManager.GetAxis("Jump");
+            float handbrake = CrossPlatformInputManager.GetAxis("Jump");
             m_Car.Move(h, v, v, handbrake);
 #else
             m_Car.Move(h, v, v, 0f);
+#endif
+        }
+    }
+}
+*/
+
+using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
+
+namespace UnityStandardAssets.Vehicles.Car
+{
+    [RequireComponent(typeof (CarController))]
+    public class CarUserControl : MonoBehaviour
+    {
+        private CarController car;
+        public bool usingHandbrake;
+        private float handbrakeForce;
+
+        private void Awake()
+        {
+            car = GetComponent<CarController>();
+        }
+
+        private void FixedUpdate()
+        {
+            float h = CrossPlatformInputManager.GetAxis("Horizontal");
+            float v = Input.GetAxis("Fire1") - Input.GetAxis("Fire2");
+            //float b = Input.GetAxis("Fire2");
+
+            if (Input.GetKeyDown(KeyCode.W)) v = 1;
+            if (Input.GetKeyDown(KeyCode.S)) v = -1;
+
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Submit")) usingHandbrake = !usingHandbrake;
+           
+            handbrakeForce = (usingHandbrake) ? 1 : 0;
+
+#if !MOBILE_INPUT
+            car.Move(h, v, v, handbrakeForce);
+#else
+            car.Move(h, v, b, 0f);
 #endif
         }
     }

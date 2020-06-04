@@ -1,6 +1,5 @@
 ﻿using Opsive.UltimateCharacterController.Camera;
 using Opsive.UltimateCharacterController.Character;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.Vehicles.Car;
@@ -29,17 +28,13 @@ public class UnityVehicleController : MonoBehaviour
     GameObject player;
     OrbitCam orbitCam;
     CameraController playerCam;
-    //WheelDrive1 wheelDrive;
     Camera cam;
-    bool isInside;
+    [HideInInspector] public bool isInside;
     bool isAtDoor;
    
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-
-        //wheelDrive = GetComponent<WheelDrive1>();
-        //wheelDrive.isDisabled = true;
 
         cam = Camera.main;
         orbitCam = cam.GetComponent<OrbitCam>();
@@ -77,8 +72,6 @@ public class UnityVehicleController : MonoBehaviour
         engineAudio.enabled = false;
         carController.enabled = false;
         carUserControl.enabled = false;
-
-        //soundEffects = GetComponents<AudioSource>();
     }
 
     private void TurnHeadlightsOn()
@@ -101,12 +94,8 @@ public class UnityVehicleController : MonoBehaviour
 
         if (isInside)
         {
-            /*
-            // Enable wheel drive
-            wheelDrive.isDisabled = false;
-
             // Handle hand brake indicator
-            if (wheelDrive.handbrakeEnabled)
+            if (carUserControl.usingHandbrake)
             {
                 Color temp = handBrakeIndicator.color;
                 temp.a = 1f;
@@ -119,6 +108,7 @@ public class UnityVehicleController : MonoBehaviour
                 handBrakeIndicator.color = temp;
             }
 
+            /*
             // Handle brakelights
             if (headLightIndex != tailLightIndex)
             {
@@ -173,11 +163,9 @@ public class UnityVehicleController : MonoBehaviour
                     var wheel = m_Wheels[i];
                     wheel.motorTorque = 0;
                 }
-                //wheelDrive.isDisabled = true;
                 engineAudio.enabled = false;
                 carController.enabled = false;
                 carUserControl.enabled = false;
-
                 orbitCam.enabled = false;
 
                 // Fix to prevent exiting car underground
@@ -219,7 +207,6 @@ public class UnityVehicleController : MonoBehaviour
             orbitCam.distance = 4;
             orbitCam.enabled = true;
 
-            //wheelDrive.isDisabled = false;
             engineAudio.enabled = true;
             carController.enabled = true;
             carUserControl.enabled = true;
@@ -237,17 +224,15 @@ public class UnityVehicleController : MonoBehaviour
 
             lowBeamsIndicator.color = temp;
 
-            /*
             handBrakeIndicator.enabled = true;
             temp = handBrakeIndicator.color;
 
-            if (wheelDrive.handbrakeEnabled)
+            if (carUserControl.usingHandbrake)
                 temp.a = 1f;
             else
                 temp.a = .05f;
 
             handBrakeIndicator.color = temp;
-            */
 
             if (player == null) player = GameObject.FindGameObjectWithTag("Player");
             if (cam == null) cam = Camera.main;

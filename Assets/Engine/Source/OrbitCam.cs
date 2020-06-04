@@ -86,8 +86,13 @@ public class OrbitCam : MonoBehaviour
 	{
 		regularCamera = GetComponent<Camera>();
 		regularCamera.fieldOfView = 45;
-		focusPoint = focus.position;
-		focusPoint.y += fudge;
+
+		if (focus != null)
+		{
+			focusPoint = focus.position;
+			focusPoint.y += fudge;
+		}
+
 		transform.localRotation = Quaternion.Euler(orbitAngles);
 	}
 

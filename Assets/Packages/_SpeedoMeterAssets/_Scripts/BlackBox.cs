@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class BlackBox : MonoBehaviour {
+public class BlackBox : MonoBehaviour 
+{
     [HideInInspector] public float oldVelocity;
     [HideInInspector] public float oldAltitude;
 

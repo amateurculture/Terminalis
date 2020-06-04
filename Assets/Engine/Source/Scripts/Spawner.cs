@@ -115,8 +115,8 @@ public class Spawner : MonoBehaviour
 
     #region Loop
 
-    bool isFar = false;
-    bool isClose = false;
+    //bool isFar = false;
+    //bool isClose = false;
 
     /*
     private void LateUpdate()

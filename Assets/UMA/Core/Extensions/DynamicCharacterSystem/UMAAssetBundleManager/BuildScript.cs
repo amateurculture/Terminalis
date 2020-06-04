@@ -393,13 +393,7 @@ namespace UMA.AssetBundles
 			var currentEnvironment = Application.platform.ToString();
 			switch (target)
 			{
-				case BuildTarget.StandaloneLinux:
 				case BuildTarget.StandaloneLinux64:
-				case BuildTarget.StandaloneLinuxUniversal:
-					if (currentEnvironment.IndexOf("Linux") > -1)
-						return true;
-					else
-						return false;
 				case BuildTarget.StandaloneWindows:
 				case BuildTarget.StandaloneWindows64:
 				case BuildTarget.WSAPlayer:

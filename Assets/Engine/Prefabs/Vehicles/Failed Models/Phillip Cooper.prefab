@@ -227,7 +227,7 @@ MonoBehaviour:
   sideView: {fileID: 782609164931191756}
   exitPoint: {fileID: 2844343127870681781}
   headlights: {fileID: 4571396672186062955}
-  speedometer: {fileID: 163850125681279095}
+  dashboard: {fileID: 0}
   audioSource: {fileID: 2323479703622515439}
   lowBeamsIndicator: {fileID: 7284001842265853282}
   handBrakeIndicator: {fileID: 7085320111584920584}
@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oldVelocity: 0
+  oldAltitude: 0
 --- !u!114 &4455268873786704979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1599,6 +1600,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3933825844367105660, guid: 19eb5acee0b205948946eff6187c7491,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4180079491993227327, guid: 19eb5acee0b205948946eff6187c7491,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -1624,6 +1630,11 @@ PrefabInstance:
       propertyPath: objectVelocity
       value: 
       objectReference: {fileID: 2943551046783664206}
+    - target: {fileID: 5350905679186997765, guid: 19eb5acee0b205948946eff6187c7491,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6484908492302823242, guid: 19eb5acee0b205948946eff6187c7491,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -1741,12 +1752,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &163850125681279095 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2022349135840322151, guid: 19eb5acee0b205948946eff6187c7491,
-    type: 3}
-  m_PrefabInstance: {fileID: 2186162271333802512}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2575617621014551134
 PrefabInstance:
   m_ObjectHideFlags: 0

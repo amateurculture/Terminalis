@@ -156,13 +156,16 @@ namespace Opsive.UltimateCharacterController.Input
                     if (m_PreventLookVectorChanges) {
                         OnApplicationFocus(false);
                     }
-                } else if (Cursor.visible && m_DisableCursor && !IsPointerOverUI() && (UnityEngine.Input.GetKeyDown(KeyCode.Mouse0) || UnityEngine.Input.GetKeyDown(KeyCode.Mouse1))) {
+                } 
+
+                else if (Cursor.visible && m_DisableCursor && !IsPointerOverUI() && (UnityEngine.Input.GetKeyDown(KeyCode.Mouse0) || UnityEngine.Input.GetKeyDown(KeyCode.Mouse1))) {
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     if (m_PreventLookVectorChanges) {
                         OnApplicationFocus(true);
                     }
                 }
+
 #if UNITY_EDITOR
                 // The cursor should be visible when the game is paused.
                 if (!Cursor.visible && Time.deltaTime == 0) {

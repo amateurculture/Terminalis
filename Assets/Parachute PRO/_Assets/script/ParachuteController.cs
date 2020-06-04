@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class ParachuteController : MonoBehaviour
 {
-    [SerializeField] LayerMask colliderLayerMask;
+    //[SerializeField] LayerMask colliderLayerMask;
 
     // Private fields
     Animator animator;
@@ -38,17 +38,16 @@ public class ParachuteController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (1 << other.gameObject.layer != colliderLayerMask)
-            return;
+        //if (1 << other.gameObject.layer != colliderLayerMask) return;
 
-        if(!(other is CapsuleCollider))
+        if (!(other is CapsuleCollider))
             return;
 
         colliderList.Add(other as CapsuleCollider);
     }
     private void OnTriggerExit(Collider other)
     {
-        if(colliderList.Contains(other as CapsuleCollider))
+        if (colliderList.Contains(other as CapsuleCollider))
             colliderList.Remove(other as CapsuleCollider);
     }
     #endregion
