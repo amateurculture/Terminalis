@@ -17,22 +17,23 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         private bool m_AirBrakes;
         private float m_Yaw;
 
-
         private void Awake()
         {
             // Set up the reference to the aeroplane controller.
             m_Aeroplane = GetComponent<AeroplaneController>();
+            m_AirBrakes = true;
         }
-
 
         private void FixedUpdate()
         {
             // Read input for the pitch, yaw, roll and throttle of the aeroplane.
             float roll = Input.GetAxis("Horizontal");
             float pitch = Input.GetAxis("Vertical");
-            
-            
-            m_AirBrakes = Input.GetKey(KeyCode.Backspace) || Input.GetButton("Jump");
+
+            if (Input.GetButtonDown("Jump"))
+                m_AirBrakes = !m_AirBrakes;
+
+            //m_AirBrakes = Input.GetKey(KeyCode.Backspace) || Input.GetButton("Jump");
 
             m_Yaw = 0;
             if (Input.GetButton("Equip Next Item")) m_Yaw = 1;
@@ -47,7 +48,6 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             // Pass the input to the aeroplane
             m_Aeroplane.Move(roll, pitch, m_Yaw, m_Throttle, m_AirBrakes);
         }
-
 
         private void AdjustInputForMobileControls(ref float roll, ref float pitch, ref float throttle)
         {

@@ -52,6 +52,8 @@ public class WheelDrive1 : MonoBehaviour
 				ws.transform.parent = wheel.transform;
 			}
 		}
+
+		handbrakeEnabled = true;
 	}
 
 	private void OnEnable()

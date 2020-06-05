@@ -73,6 +73,20 @@ public class AircraftController : MonoBehaviour
 
         if (isInside)
         {
+            // Handle hand brake indicator
+            if (wheelDrive.handbrakeEnabled)
+            {
+                Color temp = handBrakeIndicator.color;
+                temp.a = 1f;
+                handBrakeIndicator.color = temp;
+            }
+            else
+            {
+                Color temp = handBrakeIndicator.color;
+                temp.a = .05f;
+                handBrakeIndicator.color = temp;
+            }
+
             // Handle horn
             bool hornButtonPressed = Input.GetButtonDown("Toggle Perspective");
             if (hornButtonPressed) audioSource.Play();

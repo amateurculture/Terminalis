@@ -49,6 +49,7 @@ namespace UnityStandardAssets.Vehicles.Car
         private void Awake()
         {
             car = GetComponent<CarController>();
+            usingHandbrake = true;
         }
 
         private void FixedUpdate()
