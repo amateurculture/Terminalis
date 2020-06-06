@@ -45,6 +45,7 @@ namespace UnityStandardAssets.Vehicles.Car
         private CarController car;
         public bool usingHandbrake;
         private float handbrakeForce;
+        public bool isDisabled;
 
         private void Awake()
         {
@@ -54,16 +55,23 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void FixedUpdate()
         {
-            float h = CrossPlatformInputManager.GetAxis("Horizontal");
-            float v = Input.GetAxis("Fire1") - Input.GetAxis("Fire2");
-            //float b = Input.GetAxis("Fire2");
+            float h = 0;
+            float v = 0;
 
-            if (Input.GetKeyDown(KeyCode.W)) v = 1;
-            if (Input.GetKeyDown(KeyCode.S)) v = -1;
+            if (!isDisabled)
+            {
+                h = CrossPlatformInputManager.GetAxis("Horizontal");
+                v = Input.GetAxis("Fire1") - Input.GetAxis("Fire2");
+                //float b = Input.GetAxis("Fire2");
 
-            if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Submit")) usingHandbrake = !usingHandbrake;
-           
-            handbrakeForce = (usingHandbrake) ? 1 : 0;
+                if (Input.GetKeyDown(KeyCode.W)) v = 1;
+                if (Input.GetKeyDown(KeyCode.S)) v = -1;
+
+                if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Submit")) 
+                    usingHandbrake = !usingHandbrake;
+
+                handbrakeForce = (usingHandbrake) ? 1 : 0;
+            }
 
 #if !MOBILE_INPUT
             car.Move(h, v, v, handbrakeForce);

@@ -97,7 +97,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6625965946474883658}
-  - component: {fileID: 471527542735813856}
+  - component: {fileID: 3449877071812281933}
   m_Layer: 8
   m_Name: Air Diagnostics
   m_TagString: Untagged
@@ -125,7 +125,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &471527542735813856
+--- !u!114 &3449877071812281933
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,11 +134,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1634829633884512994}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8efee1782455b34ab8351e9b78d64a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 138d1e8f9c50acc409f65e0a4ad76b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   diagnosticsPanel: {fileID: 180944954470127665}
-  vehicleController: {fileID: 0}
+  aircraftController: {fileID: 0}
 --- !u!114 &1809425412101859592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,8 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 4800834387184244947}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!114 &1253386039056928790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,8 +166,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 8765096579141244209}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!114 &2222760005525982088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,8 +181,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 8657601819793042016}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!114 &3125576063723678796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,8 +196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 7410441843702714865}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!114 &4169458006601458057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,8 +211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 7066954365266984399}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!114 &6884442188380883717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,8 +226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 1672896482978660854}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!114 &4979001180514332780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,8 +241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 274745029422682192}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!114 &1293280804937972910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,8 +256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 835528145764395768}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!114 &5519994840088620170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,8 +271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 4550841244227583209}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!114 &4175272960928334594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,8 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 4493310928726719616}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!114 &2206383779753883399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,8 +301,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 4303835556170393104}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!114 &5150896911567449932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,8 +316,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 4185352580470215261}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!114 &7076517921477404390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,8 +331,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df19e6b831e52ba4c8a235fcba900ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
   valueLabel: {fileID: 3388451667453498500}
+  carController: {fileID: 0}
+  aeroplaneController: {fileID: 0}
 --- !u!1001 &1460889416570079940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1865,7 +1878,7 @@ PrefabInstance:
     - target: {fileID: 7545869380300201032, guid: eb51d99942b912840a7dc0ded21e8de5,
         type: 3}
       propertyPath: m_MaxValue
-      value: 10
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb51d99942b912840a7dc0ded21e8de5, type: 3}
@@ -2108,7 +2121,7 @@ PrefabInstance:
     - target: {fileID: 7545869380300201032, guid: eb51d99942b912840a7dc0ded21e8de5,
         type: 3}
       propertyPath: m_MaxValue
-      value: 10
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb51d99942b912840a7dc0ded21e8de5, type: 3}
@@ -3002,7 +3015,7 @@ PrefabInstance:
     - target: {fileID: 7545869380300201032, guid: eb51d99942b912840a7dc0ded21e8de5,
         type: 3}
       propertyPath: m_MaxValue
-      value: 10
+      value: 100000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb51d99942b912840a7dc0ded21e8de5, type: 3}

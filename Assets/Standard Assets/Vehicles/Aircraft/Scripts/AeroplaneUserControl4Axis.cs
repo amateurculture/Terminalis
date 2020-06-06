@@ -1,52 +1,79 @@
-using System;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
+using UnityStandardAssets.Vehicles.Car;
 
 namespace UnityStandardAssets.Vehicles.Aeroplane
 {
     [RequireComponent(typeof (AeroplaneController))]
     public class AeroplaneUserControl4Axis : MonoBehaviour
     {
-        // these max angles are only used on mobile, due to the way pitch and roll input are handled
         public float maxRollAngle = 80;
         public float maxPitchAngle = 80;
+        public AeroplaneController m_Aeroplane;
+        public bool m_AirBrakes;
+        public CarController car;
 
-        // reference to the aeroplane that we're controlling
-        private AeroplaneController m_Aeroplane;
-        private float m_Throttle;
-        private bool m_AirBrakes;
         private float m_Yaw;
 
         private void Awake()
         {
-            // Set up the reference to the aeroplane controller.
             m_Aeroplane = GetComponent<AeroplaneController>();
             m_AirBrakes = true;
+            m_Aeroplane.Throttle = 0f;
+            car = GetComponent<CarController>();
         }
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
-            // Read input for the pitch, yaw, roll and throttle of the aeroplane.
             float roll = Input.GetAxis("Horizontal");
             float pitch = Input.GetAxis("Vertical");
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump"))  
                 m_AirBrakes = !m_AirBrakes;
 
-            //m_AirBrakes = Input.GetKey(KeyCode.Backspace) || Input.GetButton("Jump");
+            if (Input.GetButtonDown("Equip Next Item"))
+                m_Aeroplane.Throttle += .2f;
+            
+            if (Input.GetButtonDown("Equip Previous Item"))
+                m_Aeroplane.Throttle -= .2f;
 
-            m_Yaw = 0;
-            if (Input.GetButton("Equip Next Item")) m_Yaw = 1;
-            if (Input.GetButton("Equip Previous Item")) m_Yaw -= 1;
+            m_Aeroplane.Throttle = Mathf.Clamp(m_Aeroplane.Throttle, -.2f, 1f);
+            float throttle = m_Aeroplane.Throttle;
 
-            m_Throttle = Input.GetAxis("Fire1");
-            m_Throttle -= Input.GetAxis("Fire2");
+            if (Mathf.Abs(m_Aeroplane.Throttle) < .001f){
+                m_Aeroplane.Throttle = throttle = 0f;
+            }
+
+            if (m_Aeroplane.Throttle <= -.2f)
+            {
+                car.Move(roll, -.2f, -.2f, m_AirBrakes ? 1f : 0f);
+            }
+            else
+            {
+                car.Move(0f, 0f, 0f, m_AirBrakes ? 1f : 0f);
+
+                m_Yaw = Input.GetAxis("Fire1") - Input.GetAxis("Fire2");
 
 #if MOBILE_INPUT
         AdjustInputForMobileControls(ref roll, ref pitch, ref m_Throttle);
 #endif
-            // Pass the input to the aeroplane
-            m_Aeroplane.Move(roll, pitch, m_Yaw, m_Throttle, m_AirBrakes);
+                // Clamp rolling to prevent wobble at start
+                roll = (Mathf.Abs(roll) < .1f) ? 0f : roll;
+
+                // Pass the input to the aeroplane
+                if (roll != 0f || pitch != 0f || m_Yaw != 0f || throttle > 0f)
+                    m_Aeroplane.Move(roll, pitch, m_Yaw, throttle, m_AirBrakes);
+
+                /*
+                else
+                {
+                    // Kill the propellors if stopped
+                    m_Aeroplane.Throttle -= Time.deltaTime * .01f;
+                    if (m_Aeroplane.Throttle < 0f) 
+                        m_Aeroplane.Throttle = 0f;
+                    car.Move(0f, 0f, 0f, m_AirBrakes ? 1f : 0f);
+                }
+                */
+            }
         }
 
         private void AdjustInputForMobileControls(ref float roll, ref float pitch, ref float throttle)

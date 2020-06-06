@@ -51,7 +51,12 @@ namespace UnityStandardAssets.Vehicles.Car
         public bool Skidding { get; private set; }
         public float BrakeInput { get; private set; }
         public float CurrentSteerAngle{ get { return m_SteerAngle; }}
-        public float CurrentSpeed{ get { return m_Rigidbody.velocity.magnitude*2.23693629f; }}
+        public float CurrentSpeed{ get {
+                if (m_Rigidbody != null)
+                    return m_Rigidbody.velocity.magnitude * 2.23693629f;
+                else
+                    return 0f;
+            }}
         public float MaxSpeed{get { return m_Topspeed; }}
         public float Revs { get; private set; }
         public float AccelInput { get; private set; }
@@ -255,6 +260,8 @@ namespace UnityStandardAssets.Vehicles.Car
             {
                 var turnadjust = (transform.eulerAngles.y - m_OldRotation) * m_SteerHelper;
                 Quaternion velRotation = Quaternion.AngleAxis(turnadjust, Vector3.up);
+
+                if (m_Rigidbody != null)
                 m_Rigidbody.velocity = velRotation * m_Rigidbody.velocity;
             }
             m_OldRotation = transform.eulerAngles.y;

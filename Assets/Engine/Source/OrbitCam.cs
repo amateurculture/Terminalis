@@ -12,19 +12,19 @@ public class OrbitCam : MonoBehaviour
 	public float distance = 5f;
 
 	[SerializeField, Min(0f)]
-	float focusRadius = 5f;
+	public float focusRadius = 5f;
 
 	[SerializeField, Range(0f, 1f)]
-	float focusCentering = 0.5f;
+	public float focusCentering = 0.5f;
 
 	[SerializeField, Range(1f, 360f)]
-	float rotationSpeed = 90f;
+	public float rotationSpeed = 90f;
 
 	[SerializeField, Range(-89f, 89f)]
 	float minVerticalAngle = -45f, maxVerticalAngle = 45f;
 
 	[SerializeField, Min(0f)]
-	float alignDelay = 5f;
+	public float alignDelay = 5f;
 
 	[SerializeField, Range(0f, 90f)]
 	float alignSmoothRange = 45f;

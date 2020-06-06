@@ -6,8 +6,8 @@ using UnityStandardAssets.Vehicles.Aeroplane;
 
 public class DiagnosticSlider : MonoBehaviour
 {
-    public CarController carController;
     public TextMeshProUGUI valueLabel;
+    public CarController carController;
     public AeroplaneController aeroplaneController;
     WheelCollider[] wheels;
     Slider slider;

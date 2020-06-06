@@ -71,7 +71,8 @@ public class UnityVehicleController : MonoBehaviour
 
         engineAudio.enabled = false;
         carController.enabled = false;
-        carUserControl.enabled = false;
+        carUserControl.enabled = true;
+        carUserControl.isDisabled = true;
     }
 
     private void TurnHeadlightsOn()
@@ -204,34 +205,28 @@ public class UnityVehicleController : MonoBehaviour
             player.SetActive(false);
 
             orbitCam.focus = transform;
-            orbitCam.distance = 4;
+            orbitCam.distance = 6.5f;
+            orbitCam.focusRadius = .25f;
+            orbitCam.focusCentering = .25f;
+            orbitCam.rotationSpeed = 260f;
+            orbitCam.fudge = 1f;
             orbitCam.enabled = true;
 
             engineAudio.enabled = true;
             carController.enabled = true;
             carUserControl.enabled = true;
+            carUserControl.isDisabled = false;
             isInside = true;
 
             if (dashboard) dashboard.gameObject.SetActive(true);
 
             lowBeamsIndicator.enabled = true;
             Color temp = lowBeamsIndicator.color;
-
-            if (headlights.activeSelf)
-                temp.a = 1f;
-            else
-                temp.a = .05f;
-
+            temp.a = headlights.activeSelf ? 1f : .05f;
             lowBeamsIndicator.color = temp;
-
             handBrakeIndicator.enabled = true;
             temp = handBrakeIndicator.color;
-
-            if (carUserControl.usingHandbrake)
-                temp.a = 1f;
-            else
-                temp.a = .05f;
-
+            temp.a = carUserControl.usingHandbrake ? 1f : .05f;
             handBrakeIndicator.color = temp;
 
             if (player == null) player = GameObject.FindGameObjectWithTag("Player");

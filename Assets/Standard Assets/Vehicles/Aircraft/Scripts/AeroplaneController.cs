@@ -22,7 +22,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         [SerializeField] public float m_DragIncreaseFactor = 0.001f; // how much drag should increase with speed.
 
         public float Altitude { get; private set; }                     // The aeroplane's height above the ground.
-        public float Throttle { get; private set; }                     // The amount of throttle being used.
+        public float Throttle { get; set; }                     // The amount of throttle being used.
         public bool AirBrakes { get; private set; }                     // Whether or not the air brakes are being applied.
         public float ForwardSpeed { get; private set; }                 // How fast the aeroplane is traveling in it's forward direction.
         public float EnginePower { get; private set; }                  // How much power the engine is being given.
@@ -37,7 +37,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         private float m_OriginalDrag;         // The drag when the scene starts.
         private float m_OriginalAngularDrag;  // The angular drag when the scene starts.
         private float m_AeroFactor;
-        private bool m_Immobilized = false;   // used for making the plane uncontrollable, i.e. if it has been hit or crashed.
+        public bool m_Immobilized = false;   // used for making the plane uncontrollable, i.e. if it has been hit or crashed.
         private float m_BankedTurnAmount;
         private Rigidbody m_Rigidbody;
 	    WheelCollider[] m_WheelColliders;
@@ -152,6 +152,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
 
         private void ControlThrottle()
         {
+            /*
             // override throttle if immobilized
             if (m_Immobilized)
             {
@@ -159,7 +160,8 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             }
 
             // Adjust throttle based on throttle input (or immobilized state)
-            Throttle = Mathf.Clamp01(Throttle + ThrottleInput*Time.deltaTime*m_ThrottleChangeSpeed);
+            //Throttle = Mathf.Clamp01(Throttle + ThrottleInput*Time.deltaTime*m_ThrottleChangeSpeed);
+            */
 
             // current engine power is just:
             EnginePower = Throttle*m_MaxEnginePower;

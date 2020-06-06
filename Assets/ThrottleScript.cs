@@ -4,7 +4,7 @@ using UnityStandardAssets.Vehicles.Aeroplane;
 
 public class ThrottleScript : MonoBehaviour
 {
-    public AeroplaneController airController;
+    public AeroplaneUserControl4Axis aeroplaneController;
     Slider slider;
 
     void Start()
@@ -14,9 +14,9 @@ public class ThrottleScript : MonoBehaviour
 
     void Update()
     {
-        if (Time.frameCount % 3 == 0)
+        if (Time.frameCount % 1 == 0)
         {
-            slider.value = airController.Throttle;
+            slider.value = aeroplaneController.m_Aeroplane.Throttle;
         }
     }
 }

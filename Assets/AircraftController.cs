@@ -3,6 +3,7 @@ using Opsive.UltimateCharacterController.Character;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.Vehicles.Aeroplane;
+using UnityStandardAssets.Vehicles.Car;
 
 public class AircraftController : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class AircraftController : MonoBehaviour
     public Image lowBeamsIndicator;
     public Image handBrakeIndicator;
     public Renderer carMaterial;
-    public WheelDrive1 wheelDrive;
+    public CarController carController;
     public AeroplaneUserControl4Axis aircraftController;
     public AeroplaneAudio aircraftAudioController;
 
@@ -26,8 +27,7 @@ public class AircraftController : MonoBehaviour
     Camera cam;
     bool isInside;
     bool isAtDoor;
-
-    private WheelCollider[] m_Wheels;
+    WheelCollider[] m_Wheels;
 
     void Start()
     {
@@ -42,7 +42,6 @@ public class AircraftController : MonoBehaviour
         headlights.SetActive(false);
 
         aircraftController.enabled = false;
-        wheelDrive.isDisabled = true;
 
         if (dashboard) dashboard.gameObject.SetActive(false);
         
@@ -74,7 +73,7 @@ public class AircraftController : MonoBehaviour
         if (isInside)
         {
             // Handle hand brake indicator
-            if (wheelDrive.handbrakeEnabled)
+            if (aircraftController.m_AirBrakes)
             {
                 Color temp = handBrakeIndicator.color;
                 temp.a = 1f;
@@ -125,7 +124,6 @@ public class AircraftController : MonoBehaviour
                     var wheel = m_Wheels[i];
                     wheel.motorTorque = 0;
                 }
-                wheelDrive.isDisabled = true;
 
                 // Fix to prevent exiting car underground
                 var pos = new Vector3(exitPoint.transform.position.x, exitPoint.transform.position.y - 1.6f, exitPoint.transform.position.z);
@@ -142,9 +140,8 @@ public class AircraftController : MonoBehaviour
                 isInside = false;
                 lowBeamsIndicator.enabled = false;
                 handBrakeIndicator.enabled = false;
-
+                aircraftController.m_AirBrakes = true;
                 aircraftController.enabled = false;
-                wheelDrive.isDisabled = true;
                 player.GetComponent<UltimateCharacterLocomotionHandler>().enabled = true;
                 cam.GetComponent<CameraControllerHandler>().enabled = true;
 
@@ -163,7 +160,6 @@ public class AircraftController : MonoBehaviour
             isInside = true;
             aircraftController.enabled = true;
             orbitCam.distance = 20;
-            wheelDrive.isDisabled = false;
 
             aircraftAudioController.StartAudio();
 
@@ -181,11 +177,7 @@ public class AircraftController : MonoBehaviour
 
             handBrakeIndicator.enabled = true;
             temp = handBrakeIndicator.color;
-
-            if (wheelDrive.handbrakeEnabled)
-                temp.a = 1f;
-            else
-                temp.a = .05f;
+            temp.a = (aircraftController.m_AirBrakes) ? 1f : .05f;
 
             handBrakeIndicator.color = temp;
 

@@ -40,8 +40,7 @@ namespace UnityStandardAssets.Vehicles.Car
                 skidTrailsDetachedParent = new GameObject("Skid Trails - Detached").transform;
             }
         }
-
-
+          
         public void EmitTyreSmoke()
         {
             skidParticles.transform.position = transform.position - transform.up*m_WheelCollider.radius;
