@@ -76,9 +76,12 @@ public class DiagnosticSlider : MonoBehaviour
         {
             switch (name)
             {
-                case "Torque": slider.value = carController.m_FullTorqueOverAllWheels; break;
+                case "Wheel Torque": slider.value = carController.m_WheelTorque; break;
+                case "Brake Torque": slider.value = carController.m_BrakeTorque; break;
                 case "Downforce": slider.value = carController.m_Downforce; break;
                 case "Slip Limit": slider.value = carController.m_SlipLimit; break;
+                case "Steerer Helper": slider.value = carController.m_SteerHelper; break;
+                case "Traction Control": slider.value = carController.m_TractionControl; break;
                 default: break;
             }
         }
@@ -119,9 +122,13 @@ public class DiagnosticSlider : MonoBehaviour
                     case "Sideways Asymptote Slip": sidewaysFriction.asymptoteSlip = val; break;
                     case "Sideways Asymptote Value": sidewaysFriction.asymptoteValue = val; break;
                     case "Sideways Stiffness": sidewaysFriction.stiffness = val; break;
-                    case "Torque": carController.m_FullTorqueOverAllWheels = val; break;
+                    case "Torque": carController.m_WheelTorque = val; break;
                     case "Downforce": carController.m_Downforce = val; break;
                     case "Slip Limit": carController.m_SlipLimit = val; break;
+                    case "Reverse Torque": carController.m_BrakeTorque = val; break;
+                    case "Brake Torque": carController.m_BrakeTorque = val; break;
+                    case "Steerer Helper": carController.m_SteerHelper = val; break;
+                    case "Traction Control": carController.m_TractionControl = val; break;
                     default: break;
                 }
                 wheels[i].forwardFriction = forwardFriction;
