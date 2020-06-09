@@ -104,7 +104,7 @@ namespace UMA
                 , Quaternion.Euler(1f, 0f, 0f), Quaternion.Euler(-163f, 0f, 0f), Quaternion.Euler(-17f, 0f, 0f), Quaternion.Euler(-184f, 0f, 0f), Quaternion.Euler(4f, 0f, 0f)  };
             twist.axisVector = new Vector3[] { Vector3.down, Vector3.up, Vector3.down, Vector3.up, Vector3.down, Vector3.up, Vector3.down, Vector3.up };
             twist.shoulderTwist = new bool[] { false, false, false, false, true, true, false, false};
-            twist.enabled = new bool[] { true, true, true, true, true, true, true, true};
+            twist.enabled1 = new bool[] { true, true, true, true, true, true, true, true};
 
         }
 	}

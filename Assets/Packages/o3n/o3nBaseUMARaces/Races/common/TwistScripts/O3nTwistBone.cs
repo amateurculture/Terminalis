@@ -11,7 +11,7 @@ public class O3nTwistBone : MonoBehaviour
     public Vector3[] axisVector;
     public Quaternion[] originalRefRotation;
     public bool[] shoulderTwist;
-    public bool[] enabled;
+    public bool[] enabled1;
 
     private float[] originalRefRotationAngle;
     private float[] twistRotation;
@@ -37,7 +37,7 @@ public class O3nTwistBone : MonoBehaviour
         twistValue = Mathf.Clamp(twistValue, 0f, 1f);
         for (int i = 0; i < twistBone.Length; i++)
         {
-            if (enabled[i])
+            if (enabled1[i])
             {
                 rotated = refBone[i].localRotation * axisVector[i];
                 twistRotation[i] = Mathf.DeltaAngle(originalRefRotationAngle[i], Mathf.Atan2(rotated.z, rotated.y) * Mathf.Rad2Deg);

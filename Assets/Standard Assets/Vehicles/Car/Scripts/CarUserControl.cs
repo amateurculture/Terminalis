@@ -1,39 +1,57 @@
-using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Vehicles.Car
 {
-    [RequireComponent(typeof (CarController))]
+    [RequireComponent(typeof(CarController))]
     public class CarUserControl : MonoBehaviour
     {
-        private CarController m_Car; // the car controller we want to use
-
+        private CarController car;
+        public bool usingHandbrake;
+        public bool isDisabled;
+        public int gearShift;
 
         private void Awake()
         {
-            // get the car controller
-            m_Car = GetComponent<CarController>();
+            car = GetComponent<CarController>();
+            usingHandbrake = true;
         }
 
-
-        private void FixedUpdate()
+        private void LateUpdate()
         {
-            // pass the input to the car!
-            float h = CrossPlatformInputManager.GetAxis("Horizontal");
-            
-            //float v = CrossPlatformInputManager.GetAxis("Vertical");
+            float h = 0;
+            float v = 0;
+            float v2 = 0;
+            float unbiased = 0;
 
-            float v = Input.GetAxis("Fire1") - Input.GetAxis("Fire2");
+            if (!isDisabled)
+            {
+                h = CrossPlatformInputManager.GetAxis("Horizontal");
 
-            float handbrake = (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Submit")) ? 1 : 0;
+                unbiased = Input.GetAxis("Fire1") - Input.GetAxis("Fire2");
+                v = (unbiased > 0) ? unbiased : 0;
+                v2 = (unbiased < 0) ? unbiased : 0;
+
+
+                v = Input.GetAxis("Fire1");
+                v2 = Input.GetAxis("Fire2");
+
+                if (Input.GetKey(KeyCode.W)) v = 1;
+                if (Input.GetKey(KeyCode.S)) v = -1;
+
+                if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Submit"))
+                    usingHandbrake = !usingHandbrake;
+
+                gearShift = 0;
+                if (Input.GetButtonDown("Equip Previous Item")) gearShift = -1;
+                if (Input.GetButtonDown("Equip Next Item")) gearShift = 1;
 
 #if !MOBILE_INPUT
-            //float handbrake = CrossPlatformInputManager.GetAxis("Jump");
-            m_Car.Move(h, v, v, handbrake);
+                car.Move(h, v, v2, (usingHandbrake) ? 1f : 0f, gearShift);
 #else
-            m_Car.Move(h, v, v, 0f);
+                car.Move(h, v, b, 0f);
 #endif
+            }
         }
     }
 }

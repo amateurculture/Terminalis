@@ -338,14 +338,18 @@ public class World : MonoBehaviour
 	private void addWorldTile(Int2 index, VisibleTile tile)
 	{
 		tiles.Add(index, tile);
-		List<TilePrefab> tileInstances = tilesPool[tile.tilePrefab.tileData.type];
-		foreach (TilePrefab tileprefab in tileInstances)
+
+		if (tilesPool != null && tilesPool.Count > 0)
 		{
-			if (tileprefab.used == false)
+			List<TilePrefab> tileInstances = tilesPool[tile.tilePrefab.tileData.type];
+			foreach (TilePrefab tileprefab in tileInstances)
 			{
-				tile.Instantiate(index, tileprefab, tileSize);
-			    
-				break;
+				if (tileprefab.used == false)
+				{
+					tile.Instantiate(index, tileprefab, tileSize);
+
+					break;
+				}
 			}
 		}
 	}

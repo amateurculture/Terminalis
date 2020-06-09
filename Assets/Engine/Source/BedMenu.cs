@@ -14,20 +14,22 @@ public class BedMenu : MonoBehaviour
     public float gradientInterval = .05f;
     public float menuInterval = .25f;
     public string[] buttonNames;
+    float scrollHeight = 200f;
 
-    float colorIndex = 0;
-
+    
     [HideInInspector]
     public List<Button> buttonList;
 
+    /*
+    float colorIndex = 0;
     int selectionIndex = 0;
     Color actualColor = Color.black;
     ColorBlock colors;
     int oldIndex = -1;
     bool dPadPressed = false;
     float timeToNextButtonPress = 0;
-    float scrollHeight = 200f;
-
+    */
+    
     private void OnEnable()
     {
         GameObject newObj;

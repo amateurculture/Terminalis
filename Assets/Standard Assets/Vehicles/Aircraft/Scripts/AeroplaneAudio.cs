@@ -35,63 +35,47 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         private AeroplaneController m_Plane;      // Reference to the aeroplane controller.
         private Rigidbody m_Rigidbody;
 
+        public void StartAudio()
+        {
+            // Set up the reference to the aeroplane controller.
+            m_Plane = GetComponent<AeroplaneController>();
+            m_Rigidbody = GetComponent<Rigidbody>();
+
+
+            // Add the audiosources and get the references.
+            m_EngineSoundSource = gameObject.AddComponent<AudioSource>();
+            m_EngineSoundSource.playOnAwake = false;
+            m_WindSoundSource = gameObject.AddComponent<AudioSource>();
+            m_WindSoundSource.playOnAwake = false;
+
+            // Assign clips to the audiosources.
+            m_EngineSoundSource.clip = m_EngineSound;
+            m_WindSoundSource.clip = m_WindSound;
+
+            // Set the parameters of the audiosources.
+            m_EngineSoundSource.minDistance = m_AdvancedSetttings.engineMinDistance;
+            m_EngineSoundSource.maxDistance = m_AdvancedSetttings.engineMaxDistance;
+            m_EngineSoundSource.loop = true;
+            m_EngineSoundSource.dopplerLevel = m_AdvancedSetttings.engineDopplerLevel;
+
+            m_WindSoundSource.minDistance = m_AdvancedSetttings.windMinDistance;
+            m_WindSoundSource.maxDistance = m_AdvancedSetttings.windMaxDistance;
+            m_WindSoundSource.loop = true;
+            m_WindSoundSource.dopplerLevel = m_AdvancedSetttings.windDopplerLevel;
+
+            // call update here to set the sounds pitch and volumes before they actually play
+            Update();
+
+            // Start the sounds playing.
+            m_EngineSoundSource.Play();
+            m_WindSoundSource.Play();
+        }
+
         public void EndAudio()
         {
             m_EngineSoundSource.Stop();
             m_WindSoundSource.Stop();
         }
-
-        bool isInitialized;
-
-        public void StartAudio()
-        {
-            if (!isInitialized)
-            {
-                isInitialized = true;
-
-                // Set up the reference to the aeroplane controller.
-                m_Plane = GetComponent<AeroplaneController>();
-                m_Rigidbody = GetComponent<Rigidbody>();
-
-                // Add the audiosources and get the references.
-                m_EngineSoundSource = gameObject.AddComponent<AudioSource>();
-                m_EngineSoundSource.playOnAwake = false;
-                m_WindSoundSource = gameObject.AddComponent<AudioSource>();
-                m_WindSoundSource.playOnAwake = false;
-
-                // Assign clips to the audiosources.
-                m_EngineSoundSource.clip = m_EngineSound;
-                m_WindSoundSource.clip = m_WindSound;
-
-                // Set the parameters of the audiosources.
-                m_EngineSoundSource.minDistance = m_AdvancedSetttings.engineMinDistance;
-                m_EngineSoundSource.maxDistance = m_AdvancedSetttings.engineMaxDistance;
-                m_EngineSoundSource.loop = true;
-                m_EngineSoundSource.dopplerLevel = m_AdvancedSetttings.engineDopplerLevel;
-
-                m_WindSoundSource.minDistance = m_AdvancedSetttings.windMinDistance;
-                m_WindSoundSource.maxDistance = m_AdvancedSetttings.windMaxDistance;
-                m_WindSoundSource.loop = true;
-                m_WindSoundSource.dopplerLevel = m_AdvancedSetttings.windDopplerLevel;
-
-                // call update here to set the sounds pitch and volumes before they actually play
-                Update();
-
-                // Start the sounds playing.
-                m_EngineSoundSource.Play();
-                m_WindSoundSource.Play();
-            } 
-            else
-            {
-                // call update here to set the sounds pitch and volumes before they actually play
-                //Update();
-
-                // Start the sounds playing.
-                m_EngineSoundSource.Play();
-                m_WindSoundSource.Play();
-            }
-        }
-
 
         private void Update()
         {

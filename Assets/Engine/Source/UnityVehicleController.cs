@@ -19,6 +19,7 @@ public class UnityVehicleController : MonoBehaviour
     public Renderer carMaterial;
     public int headLightIndex;
     public int tailLightIndex;
+    private Rigidbody rigid;
 
     CarAudio engineAudio;
     CarController carController;
@@ -29,17 +30,13 @@ public class UnityVehicleController : MonoBehaviour
     GameObject player;
     OrbitCam orbitCam;
     CameraController playerCam;
-    //WheelDrive1 wheelDrive;
     Camera cam;
-    bool isInside;
+    [HideInInspector] public bool isInside;
     bool isAtDoor;
    
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-
-        //wheelDrive = GetComponent<WheelDrive1>();
-        //wheelDrive.isDisabled = true;
 
         cam = Camera.main;
         orbitCam = cam.GetComponent<OrbitCam>();
@@ -73,12 +70,25 @@ public class UnityVehicleController : MonoBehaviour
         engineAudio = GetComponent<CarAudio>();
         carController = GetComponent<CarController>();
         carUserControl = GetComponent<CarUserControl>();
+        rigid = GetComponent<Rigidbody>();
 
+        rigid.isKinematic = false;
         engineAudio.enabled = false;
         carController.enabled = false;
-        carUserControl.enabled = false;
+        carUserControl.enabled = true;
+        carUserControl.isDisabled = true;
+    }
 
-        //soundEffects = GetComponents<AudioSource>();
+    IEnumerator WheelHack()
+    {
+        yield return new WaitForSeconds(2);
+
+        m_Wheels = GetComponentsInChildren<WheelCollider>();
+        for (int i = 0; i < m_Wheels.Length; ++i)
+        {
+            var wheel = m_Wheels[i];
+            wheel.motorTorque = 0;
+        }
     }
 
     private void TurnHeadlightsOn()
@@ -101,12 +111,8 @@ public class UnityVehicleController : MonoBehaviour
 
         if (isInside)
         {
-            /*
-            // Enable wheel drive
-            wheelDrive.isDisabled = false;
-
             // Handle hand brake indicator
-            if (wheelDrive.handbrakeEnabled)
+            if (carUserControl.usingHandbrake)
             {
                 Color temp = handBrakeIndicator.color;
                 temp.a = 1f;
@@ -119,6 +125,7 @@ public class UnityVehicleController : MonoBehaviour
                 handBrakeIndicator.color = temp;
             }
 
+            /*
             // Handle brakelights
             if (headLightIndex != tailLightIndex)
             {
@@ -173,23 +180,22 @@ public class UnityVehicleController : MonoBehaviour
                     var wheel = m_Wheels[i];
                     wheel.motorTorque = 0;
                 }
-                //wheelDrive.isDisabled = true;
                 engineAudio.enabled = false;
                 carController.enabled = false;
                 carUserControl.enabled = false;
-
                 orbitCam.enabled = false;
 
                 // Fix to prevent exiting car underground
-                var pos = new Vector3(exitPoint.transform.position.x, exitPoint.transform.position.y - 1.6f, exitPoint.transform.position.z);
-                if (pos.y < 0) pos.y = Mathf.Abs(exitPoint.transform.position.y) + carMaterial.GetComponent<MeshFilter>().mesh.bounds.size.y;
+                var pos = new Vector3(exitPoint.transform.position.x, exitPoint.transform.position.y - 1.4f, exitPoint.transform.position.z);
+                //if (pos.y < 0) pos.y = Mathf.Abs(exitPoint.transform.position.y) + carMaterial.GetComponent<MeshFilter>().mesh.bounds.size.y;
+                pos.y = pos.y < 0 ? 1f : pos.y;
 
                 player.transform.position = pos;
 
-                var euler = transform.rotation.eulerAngles;
+                var euler = cam.transform.rotation.eulerAngles;
                 var rot = Quaternion.Euler(0, euler.y, 0);
-
                 player.transform.rotation = rot;
+
                 player.SetActive(true);
                 playerCam.enabled = true;
                 isInside = false;
@@ -203,6 +209,8 @@ public class UnityVehicleController : MonoBehaviour
 
                 if (headLightIndex != tailLightIndex)
                     carMaterial.materials[tailLightIndex].DisableKeyword("_EMISSION");
+
+                Time.timeScale = 1;
             }
         }
         // Enter vehicle
@@ -216,44 +224,46 @@ public class UnityVehicleController : MonoBehaviour
             player.SetActive(false);
 
             orbitCam.focus = transform;
-            orbitCam.distance = 4;
+            orbitCam.distance = 12f; // 6.5f is good for mini, 12 is better for trucks
+            orbitCam.focusRadius = .25f;
+            orbitCam.focusCentering = .25f;
+            orbitCam.rotationSpeed = 260f;
+            orbitCam.fudge = 1f;
+
+            /*
+            var camPos = Camera.main.transform.position;
+            orbitCam.transform.position = camPos;
+            var euler = player.transform.rotation.eulerAngles;
+            var rot = Quaternion.Euler(0, euler.y, 0);
+            orbitCam.transform.rotation = rot;
+            */
             orbitCam.enabled = true;
 
-            //wheelDrive.isDisabled = false;
             engineAudio.enabled = true;
             carController.enabled = true;
             carUserControl.enabled = true;
+            carUserControl.isDisabled = false;
             isInside = true;
 
             if (dashboard) dashboard.gameObject.SetActive(true);
 
             lowBeamsIndicator.enabled = true;
             Color temp = lowBeamsIndicator.color;
-
-            if (headlights.activeSelf)
-                temp.a = 1f;
-            else
-                temp.a = .05f;
-
+            temp.a = headlights.activeSelf ? 1f : .05f;
             lowBeamsIndicator.color = temp;
-
-            /*
             handBrakeIndicator.enabled = true;
             temp = handBrakeIndicator.color;
-
-            if (wheelDrive.handbrakeEnabled)
-                temp.a = 1f;
-            else
-                temp.a = .05f;
-
+            temp.a = carUserControl.usingHandbrake ? 1f : .05f;
             handBrakeIndicator.color = temp;
-            */
 
             if (player == null) player = GameObject.FindGameObjectWithTag("Player");
             if (cam == null) cam = Camera.main;
 
             player.GetComponent<UltimateCharacterLocomotionHandler>().enabled = false;
             cam.GetComponent<CameraControllerHandler>().enabled = false;
+
+            rigid.isKinematic = true;
+            rigid.isKinematic = false;
         }
     }
 

@@ -438,6 +438,9 @@ namespace Opsive.UltimateCharacterController.Camera
                 m_Anchor = null;
             }
 
+            // TODO DON'T FORGET YOU CHANGED m_ViewTypes in CameraController.cs!!!
+            if (m_ViewTypes == null) return;
+
             // Notify the view types of the character that is being attached.
             for (int i = 0; i < m_ViewTypes.Length; ++i) {
                 m_ViewTypes[i].AttachCharacter(m_Character);
