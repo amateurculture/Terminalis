@@ -125,7 +125,6 @@ public class UnityVehicleController : MonoBehaviour
                 handBrakeIndicator.color = temp;
             }
 
-            /*
             // Handle brakelights
             if (headLightIndex != tailLightIndex)
             {
@@ -136,7 +135,6 @@ public class UnityVehicleController : MonoBehaviour
 
                 carMaterial.materials[tailLightIndex].EnableKeyword("_EMISSION");
             }
-            */
 
             if (headlights.activeSelf)
                 carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
@@ -224,19 +222,11 @@ public class UnityVehicleController : MonoBehaviour
             player.SetActive(false);
 
             orbitCam.focus = transform;
-            orbitCam.distance = 12f; // 6.5f is good for mini, 12 is better for trucks
+            orbitCam.distance = 10f; 
             orbitCam.focusRadius = .25f;
             orbitCam.focusCentering = .25f;
             orbitCam.rotationSpeed = 260f;
             orbitCam.fudge = 1f;
-
-            /*
-            var camPos = Camera.main.transform.position;
-            orbitCam.transform.position = camPos;
-            var euler = player.transform.rotation.eulerAngles;
-            var rot = Quaternion.Euler(0, euler.y, 0);
-            orbitCam.transform.rotation = rot;
-            */
             orbitCam.enabled = true;
 
             engineAudio.enabled = true;
