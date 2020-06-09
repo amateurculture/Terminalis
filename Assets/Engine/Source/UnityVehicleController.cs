@@ -224,11 +224,19 @@ public class UnityVehicleController : MonoBehaviour
             player.SetActive(false);
 
             orbitCam.focus = transform;
-            orbitCam.distance = 16.5f; // 6.5f is good for mini, 16 is better for trucks
+            orbitCam.distance = 12f; // 6.5f is good for mini, 12 is better for trucks
             orbitCam.focusRadius = .25f;
             orbitCam.focusCentering = .25f;
             orbitCam.rotationSpeed = 260f;
             orbitCam.fudge = 1f;
+
+            /*
+            var camPos = Camera.main.transform.position;
+            orbitCam.transform.position = camPos;
+            var euler = player.transform.rotation.eulerAngles;
+            var rot = Quaternion.Euler(0, euler.y, 0);
+            orbitCam.transform.rotation = rot;
+            */
             orbitCam.enabled = true;
 
             engineAudio.enabled = true;

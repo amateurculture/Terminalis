@@ -151,6 +151,9 @@ public class AircraftController : MonoBehaviour
         // Enter vehicle
         else if (isAtDoor && enterCarButtonPressed)
         {
+            var euler = player.transform.rotation.eulerAngles;
+            var rot = Quaternion.Euler(0, euler.y, 0);
+            orbitCam.transform.rotation = rot;
 
             isAtDoor = false;
             playerCam.enabled = false;
