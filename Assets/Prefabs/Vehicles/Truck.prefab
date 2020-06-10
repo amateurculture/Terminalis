@@ -383,10 +383,10 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.48
   m_SuspensionSpring:
-    spring: 90198.81
-    damper: 14431.81
+    spring: 90198.78
+    damper: 14431.805
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.1962
   m_ForceAppPointDistance: 1
   m_Mass: 113.4
   m_WheelDampingRate: 0.25
@@ -624,7 +624,7 @@ WheelCollider:
     spring: 119476.92
     damper: 19116.309
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.19620001
   m_ForceAppPointDistance: 1
   m_Mass: 113.4
   m_WheelDampingRate: 0.25
@@ -793,6 +793,7 @@ GameObject:
   - component: {fileID: 6128016305525705810}
   - component: {fileID: 6138297898619004658}
   - component: {fileID: 6169215305993125894}
+  - component: {fileID: 6160408658276772810}
   m_Layer: 8
   m_Name: TruckChassis
   m_TagString: Untagged
@@ -821,7 +822,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6160262970332490974}
-  m_Mesh: {fileID: 7673246021391805175, guid: 623e1b93497e18348bdab79be71f4102, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 7846547f1f4665446b4e6ca2f1ce32f2, type: 2}
 --- !u!23 &6138297898619004658
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -882,6 +883,34 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7673246021391805175, guid: 623e1b93497e18348bdab79be71f4102, type: 3}
+--- !u!114 &6160408658276772810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6160262970332490974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ea961b7f0a34b9a80f9f8437e0e9c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lodMeshes:
+  - {fileID: 4300000, guid: a7fbb295a8aa8ed4f856a6014f4b4467, type: 2}
+  - {fileID: 4300000, guid: f7a6ea7ef1c44a045a74201a43d68663, type: 2}
+  - {fileID: 4300000, guid: 7846547f1f4665446b4e6ca2f1ce32f2, type: 2}
+  - {fileID: 4300000, guid: 18ab4005924f4f64383cd8acff97d49c, type: 2}
+  - {fileID: 4300000, guid: de674531f75d0114aa5fbb9b5dd335ef, type: 2}
+  - {fileID: 4300000, guid: aa7468ba9425afd4dbb98906eb343c0c, type: 2}
+  lodGameObjects: []
+  lodScreenSizes:
+  - 0.8
+  - 0.6
+  - 0.4
+  - 0.2
+  - 0.1
+  deactivateAtDistance: 0
+  customCamera: {fileID: 0}
 --- !u!1 &6160262971099870658
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,7 +958,7 @@ WheelCollider:
     spring: 240159.3
     damper: 38425.484
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.1962
   m_ForceAppPointDistance: 1
   m_Mass: 113.4
   m_WheelDampingRate: 0.25
@@ -1100,10 +1129,10 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.48
   m_SuspensionSpring:
-    spring: 90308.79
-    damper: 14449.406
+    spring: 90308.83
+    damper: 14449.413
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.19620001
   m_ForceAppPointDistance: 1
   m_Mass: 113.4
   m_WheelDampingRate: 0.25
@@ -1274,10 +1303,10 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.48
   m_SuspensionSpring:
-    spring: 240269.27
-    damper: 38443.082
+    spring: 240269.31
+    damper: 38443.09
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.19619998
   m_ForceAppPointDistance: 1
   m_Mass: 113.4
   m_WheelDampingRate: 0.25
@@ -1478,10 +1507,10 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.48
   m_SuspensionSpring:
-    spring: 119586.94
-    damper: 19133.91
+    spring: 119586.914
+    damper: 19133.908
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.19620003
   m_ForceAppPointDistance: 1
   m_Mass: 113.4
   m_WheelDampingRate: 0.25
@@ -1860,7 +1889,7 @@ MonoBehaviour:
   m_SteerHelper: 0.65
   m_TractionControl: 1
   m_WheelTorque: 8000
-  m_BrakeTorque: 2000
+  m_BrakeTorque: 1200
   m_HandbrakeTorque: 1e+18
   m_Downforce: 100
   m_SpeedType: 0
@@ -1897,13 +1926,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   engineSoundStyle: 1
-  lowAccelClip: {fileID: 0}
-  lowDecelClip: {fileID: 0}
-  highAccelClip: {fileID: 0}
-  highDecelClip: {fileID: 0}
-  pitchMultiplier: 1
+  lowAccelClip: {fileID: 8300000, guid: c4d8928c75c21af43998193f0f038429, type: 3}
+  lowDecelClip: {fileID: 8300000, guid: c4d8928c75c21af43998193f0f038429, type: 3}
+  highAccelClip: {fileID: 8300000, guid: 03e3bd08a6e70684dbe299a3e185fdd2, type: 3}
+  highDecelClip: {fileID: 8300000, guid: 03bf91d88fce91c41995d27de63cc967, type: 3}
+  pitchMultiplier: 0.8
   lowPitchMin: 1
-  lowPitchMax: 6
+  lowPitchMax: 5
   highPitchMultiplier: 0.25
   maxRolloffDistance: 500
   dopplerLevel: 1
@@ -7247,15 +7276,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 992aecf7576f3fe448cbf9e64cc22168, type: 3}
---- !u!4 &2958230278023091158 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1712770124182322192, guid: 992aecf7576f3fe448cbf9e64cc22168,
-    type: 3}
-  m_PrefabInstance: {fileID: 4524223827400912838}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3468630377063386233 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1074752183069107135, guid: 992aecf7576f3fe448cbf9e64cc22168,
+    type: 3}
+  m_PrefabInstance: {fileID: 4524223827400912838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2958230278023091158 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1712770124182322192, guid: 992aecf7576f3fe448cbf9e64cc22168,
     type: 3}
   m_PrefabInstance: {fileID: 4524223827400912838}
   m_PrefabAsset: {fileID: 0}
@@ -7490,15 +7519,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b8c84c537c6f28459d5e3d8a2082aaa, type: 3}
---- !u!1 &3218012176206014533 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5134813357433701571, guid: 3b8c84c537c6f28459d5e3d8a2082aaa,
-    type: 3}
-  m_PrefabInstance: {fileID: 7776072293878361222}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3217001123276228129 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5138393832572447399, guid: 3b8c84c537c6f28459d5e3d8a2082aaa,
+    type: 3}
+  m_PrefabInstance: {fileID: 7776072293878361222}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3218012176206014533 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5134813357433701571, guid: 3b8c84c537c6f28459d5e3d8a2082aaa,
     type: 3}
   m_PrefabInstance: {fileID: 7776072293878361222}
   m_PrefabAsset: {fileID: 0}
@@ -7571,15 +7600,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b8c84c537c6f28459d5e3d8a2082aaa, type: 3}
---- !u!4 &4318273816137235601 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5138393832572447399, guid: 3b8c84c537c6f28459d5e3d8a2082aaa,
-    type: 3}
-  m_PrefabInstance: {fileID: 8980928483684455990}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4314500482907722485 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5134813357433701571, guid: 3b8c84c537c6f28459d5e3d8a2082aaa,
+    type: 3}
+  m_PrefabInstance: {fileID: 8980928483684455990}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4318273816137235601 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5138393832572447399, guid: 3b8c84c537c6f28459d5e3d8a2082aaa,
     type: 3}
   m_PrefabInstance: {fileID: 8980928483684455990}
   m_PrefabAsset: {fileID: 0}
@@ -7652,15 +7681,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 992aecf7576f3fe448cbf9e64cc22168, type: 3}
---- !u!1 &8228564399366183728 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1074752183069107135, guid: 992aecf7576f3fe448cbf9e64cc22168,
-    type: 3}
-  m_PrefabInstance: {fileID: 8997051672929597583}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7718898772750927007 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1712770124182322192, guid: 992aecf7576f3fe448cbf9e64cc22168,
+    type: 3}
+  m_PrefabInstance: {fileID: 8997051672929597583}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8228564399366183728 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1074752183069107135, guid: 992aecf7576f3fe448cbf9e64cc22168,
     type: 3}
   m_PrefabInstance: {fileID: 8997051672929597583}
   m_PrefabAsset: {fileID: 0}

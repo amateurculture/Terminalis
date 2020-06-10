@@ -5686,7 +5686,7 @@ MonoBehaviour:
   m_TractionControl: 1
   m_WheelTorque: 2500
   m_BrakeTorque: 2500
-  m_MaxHandbrakeTorque: 100000000
+  m_HandbrakeTorque: 0
   m_Downforce: 100
   m_SpeedType: 0
   m_Topspeed: 180
@@ -5758,8 +5758,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.35
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -7334,6 +7334,7 @@ GameObject:
   - component: {fileID: 8679110985290962252}
   - component: {fileID: 8679110985287538044}
   - component: {fileID: 8679110985288538044}
+  - component: {fileID: 1059705438790509268}
   m_Layer: 8
   m_Name: SkyCarBody
   m_TagString: Untagged
@@ -7402,6 +7403,34 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1059705438790509268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679110985290795378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ea961b7f0a34b9a80f9f8437e0e9c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lodMeshes:
+  - {fileID: 4300062, guid: e6fec471c20b9d148b1f87910e67bea4, type: 3}
+  - {fileID: 4300000, guid: 79c61f3246d271644a520060e2634bfc, type: 2}
+  - {fileID: 4300000, guid: 5d407cdd4defc4c448991eefba94635d, type: 2}
+  - {fileID: 4300000, guid: e23696db0604bf045b9b5c21398c7f10, type: 2}
+  - {fileID: 4300000, guid: 6c34b1e6a2cc82746815f7da620f60cb, type: 2}
+  - {fileID: 4300000, guid: 4daa75f87e8c6de4aa2eb0df50e2200b, type: 2}
+  lodGameObjects: []
+  lodScreenSizes:
+  - 0.3
+  - 0.2
+  - 0.1
+  - 0.05
+  - 0.01
+  deactivateAtDistance: 75
+  customCamera: {fileID: 0}
 --- !u!1 &8679110985290795380
 GameObject:
   m_ObjectHideFlags: 0
@@ -8172,6 +8201,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3892420220102223256, guid: 19eb5acee0b205948946eff6187c7491,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 45.30005
+      objectReference: {fileID: 0}
+    - target: {fileID: 3956715384170650271, guid: 19eb5acee0b205948946eff6187c7491,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -30.699951
+      objectReference: {fileID: 0}
     - target: {fileID: 3983275225819860512, guid: 19eb5acee0b205948946eff6187c7491,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -8557,6 +8596,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7546024941268978908, guid: 19eb5acee0b205948946eff6187c7491,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 45.30005
+      objectReference: {fileID: 0}
     - target: {fileID: 7682829037950078900, guid: 19eb5acee0b205948946eff6187c7491,
         type: 3}
       propertyPath: carController
@@ -8590,7 +8634,7 @@ PrefabInstance:
     - target: {fileID: 7902615224190756362, guid: 19eb5acee0b205948946eff6187c7491,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7942030592743096895, guid: 19eb5acee0b205948946eff6187c7491,
         type: 3}
@@ -8645,7 +8689,7 @@ PrefabInstance:
     - target: {fileID: 8438844440370473511, guid: 19eb5acee0b205948946eff6187c7491,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8633198509267776908, guid: 19eb5acee0b205948946eff6187c7491,
         type: 3}

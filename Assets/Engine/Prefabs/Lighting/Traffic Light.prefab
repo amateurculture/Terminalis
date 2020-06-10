@@ -104,6 +104,8 @@ GameObject:
   - component: {fileID: 7327779878547861176}
   - component: {fileID: 3930808576222843457}
   - component: {fileID: 6762994703750037711}
+  - component: {fileID: 419887820963761325}
+  - component: {fileID: 6743315553579890076}
   m_Layer: 28
   m_Name: Traffic Light
   m_TagString: Untagged
@@ -204,6 +206,31 @@ MonoBehaviour:
   oppositeRedLight: {fileID: 2542144445859491254}
   oppositeGreenLight: {fileID: 289846690242082030}
   oppositeYellowLight: {fileID: 114324072612232012}
+--- !u!114 &419887820963761325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3364716267733804701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692085804cdbfbe4491388a11b0134ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &6743315553579890076
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3364716267733804701}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.16685936, y: 2.333676, z: 0.18470253}
+  m_Center: {x: -0.005054626, y: 1.216874, z: -0.0031434982}
 --- !u!1 &3714505306742513820
 GameObject:
   m_ObjectHideFlags: 0
