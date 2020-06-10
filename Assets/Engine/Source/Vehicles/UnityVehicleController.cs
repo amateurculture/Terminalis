@@ -214,6 +214,8 @@ public class UnityVehicleController : MonoBehaviour
         // Enter vehicle
         else if (isAtDoor && enterCarButtonPressed)
         {
+            Cursor.lockState = CursorLockMode.Locked;
+
             foreach (var sound in GetComponents<AudioSource>()) 
                 sound.enabled = true;
 
