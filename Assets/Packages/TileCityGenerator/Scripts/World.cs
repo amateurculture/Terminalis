@@ -1,11 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System;
-using System.Runtime.Serialization;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 /** \brief Auxiliar class to store coordinates inside the world grid*/
 public struct Int2 {
@@ -153,7 +149,8 @@ public class TilePrefab
 
 public class World : MonoBehaviour 
 {
-	//public String cityName = "The City";
+	public int worldSeed;
+	public TextMeshProUGUI worldSeedText;
 
 	/** The player object */
 	[HideInInspector] public Transform player;
@@ -230,8 +227,8 @@ public class World : MonoBehaviour
 			tilesPool.Add(type, tileList);
 			
 			// move prefab out the cam
-			obj.transform.parent = poolObject.transform;
-			obj.transform.localPosition = new Vector3(0, 0, 0);
+			//obj.transform.parent = poolObject.transform;
+			//obj.transform.localPosition = new Vector3(0, 0, 0);
 			
             ++type;
 		}		
@@ -380,31 +377,15 @@ public class World : MonoBehaviour
 	*/
 	private VisibleTile generateTile(VisibleTile topTile, VisibleTile downTile, VisibleTile leftTile, VisibleTile rightTile)
 	{
-		
 		TileSide valuesTop = new TileSide(true,null);
 		TileSide valuesDown = new TileSide(true,null);
 		TileSide valuesRight = new TileSide(true,null);
 		TileSide valuesLeft = new TileSide(true,null);
 		
-		if (topTile!=null)
-		{
-			valuesTop = extractSide(topTile, 3);
-		}
-		
-		if (downTile != null)
-		{
-			valuesDown = extractSide(downTile,1);
-		}
-		
-		if (leftTile != null)
-		{
-			valuesLeft = extractSide(leftTile, 2);
-		}
-		
-		if (rightTile != null)
-		{
-			valuesRight = extractSide(rightTile, 0);
-		}
+		if (topTile!=null) valuesTop = extractSide(topTile, 3);
+		if (downTile != null) valuesDown = extractSide(downTile,1);
+		if (leftTile != null)valuesLeft = extractSide(leftTile, 2);
+		if (rightTile != null) valuesRight = extractSide(rightTile, 0);
 		
 		return matchTile(valuesLeft, valuesTop, valuesRight, valuesDown);
 	}
@@ -712,11 +693,17 @@ public class World : MonoBehaviour
 		previousPosition = 	currentPosition;
 	}
 	
-	// Use this for initialization
 	void Start () 
 	{
+		if (worldSeed < 0)
+			worldSeed = UnityEngine.Random.Range(0, int.MaxValue);
+
+		UnityEngine.Random.InitState(worldSeed);
+		worldSeedText.text = "DIMENSION SEED: " + worldSeed;
+
 		player = GameObject.FindGameObjectWithTag("Player").transform;
 		initMap();
+		Destroy(poolObject);
 	}
 
 	void deleteMap()
@@ -727,14 +714,13 @@ public class World : MonoBehaviour
 
 	void Update () 
 	{
-		if (Input.GetKeyDown(KeyCode.End) || Input.GetButtonDown("Back"))
+		if (Input.GetKeyDown(KeyCode.End))
 		{
 			deleteMap();
 			initMap();
+			Destroy(poolObject);
 		}
-		else if (Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Home))
+		else if (Input.GetKeyDown(KeyCode.Home))
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		//else
-			//updateMap();
 	}
 }
