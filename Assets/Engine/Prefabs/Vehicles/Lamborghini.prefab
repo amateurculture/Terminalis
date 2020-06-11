@@ -940,7 +940,7 @@ WheelCollider:
     spring: 24451.957
     damper: 6112.9893
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.4
   m_ForceAppPointDistance: 0.7
   m_Mass: 15
   m_WheelDampingRate: 0.3
@@ -1654,19 +1654,19 @@ MonoBehaviour:
   - {fileID: 4739968294219683902}
   - {fileID: 4946320141232533172}
   - {fileID: 6108223509630546697}
-  m_CentreOfMassOffset: {x: 0, y: 0, z: 0}
-  m_MaximumSteerAngle: 30
+  m_CentreOfMassOffset: {x: 0, y: 0.25, z: -0.35}
+  m_MaximumSteerAngle: 25
   m_SteerHelper: 0.65
   m_TractionControl: 1
-  m_WheelTorque: 2500
+  m_WheelTorque: 1768
   m_BrakeTorque: 1200
   m_HandbrakeTorque: 1e+18
   m_Downforce: 100
   m_SpeedType: 0
-  m_Topspeed: 200
+  m_Topspeed: 240
   NoOfGears: 5
   m_RevRangeBoundary: 1
-  m_SlipLimit: 0.3
+  m_SlipLimit: 1.2
   gearboxSetting: 0
 --- !u!114 &4620744688526253881
 MonoBehaviour:
@@ -1784,7 +1784,7 @@ WheelCollider:
     spring: 24608.627
     damper: 6152.1567
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.4
   m_ForceAppPointDistance: 0.7
   m_Mass: 15
   m_WheelDampingRate: 0.3
@@ -7922,7 +7922,7 @@ PrefabInstance:
     - target: {fileID: 4189600609154046521, guid: f26feff3d86571c4c893441000f17425,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.15
+      value: -0.19600001
       objectReference: {fileID: 0}
     - target: {fileID: 4189600609154046521, guid: f26feff3d86571c4c893441000f17425,
         type: 3}
@@ -8089,7 +8089,7 @@ PrefabInstance:
     - target: {fileID: 994709637795933002, guid: 46d5f9baee2f99643b64fed77a1fc9f4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.15
+      value: -0.196
       objectReference: {fileID: 0}
     - target: {fileID: 994709637795933002, guid: 46d5f9baee2f99643b64fed77a1fc9f4,
         type: 3}

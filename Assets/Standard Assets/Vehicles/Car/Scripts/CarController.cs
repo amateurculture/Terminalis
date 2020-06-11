@@ -74,7 +74,7 @@ namespace UnityStandardAssets.Vehicles.Car
             }
             m_WheelColliders[0].attachedRigidbody.centerOfMass = m_CentreOfMassOffset;
 
-            m_HandbrakeTorque = float.MaxValue;
+            //m_HandbrakeTorque = float.MaxValue;
 
             m_Rigidbody = GetComponent<Rigidbody>();
             m_CurrentTorque = (m_WheelTorque * 4) - (m_TractionControl * (m_WheelTorque * 4));
@@ -160,7 +160,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
             //clamp input values
             steering = Mathf.Clamp(steering, -1, 1);
-            AccelInput = accel = Mathf.Clamp(accel, 0, 1);
+            AccelInput = accel = Mathf.Clamp(accel, -1, 1);
             BrakeInput = footbrake = Mathf.Clamp(footbrake, 0, 1);
             handbrake = Mathf.Clamp(handbrake, 0, 1);
             //gearShift = Mathf.Clamp(gearShift, -1, 1);
@@ -174,22 +174,14 @@ namespace UnityStandardAssets.Vehicles.Car
 
             switch (gearboxSetting)
             {
-                case 0: ApplyDrive(0, 1); break; // Park
-                case 1: ApplyDrive(-accel, footbrake); break; // Reverse
-                case 2: ApplyDrive(0, footbrake); break; // Neutral
-                case 3: ApplyDrive(accel, footbrake); break; // Drive
+                case 0: ApplyDrive(0, 1, handbrake); break; // Park
+                case 1: ApplyDrive(-accel, footbrake, handbrake); break; // Reverse
+                case 2: ApplyDrive(0, footbrake, handbrake); break; // Neutral
+                case 3: ApplyDrive(accel, footbrake, handbrake); break; // Drive
                 default: break;
             }
+
             CapSpeed();
-
-            //Set the handbrake; assuming that wheels 2 and 3 are the rear wheels
-            if (handbrake > 0f)
-            {
-                var hbTorque = handbrake * m_HandbrakeTorque;
-                m_WheelColliders[2].brakeTorque = hbTorque;
-                m_WheelColliders[3].brakeTorque = hbTorque;
-            }
-
             CalculateRevs();
             GearChanging();
             AddDownForce();
@@ -219,39 +211,67 @@ namespace UnityStandardAssets.Vehicles.Car
             }
         }
 
-        private void ApplyDrive(float accel, float footbrake)
+        bool hasKilledTorque = false;
+
+        private void ApplyDrive(float accel, float footbrake, float handbrake)
         {
             float thrustTorque;
             thrustTorque = accel * m_CurrentTorque;
 
-            switch (m_CarDriveType)
+            if (handbrake > 0.1f)
             {
-                case CarDriveType.FourWheelDrive:
-
-                    for (int i = 0; i < 4; i++)
-                        m_WheelColliders[i].motorTorque = thrustTorque;
-                    break;
-
-                case CarDriveType.FrontWheelDrive:
-                    m_WheelColliders[0].motorTorque = m_WheelColliders[1].motorTorque = thrustTorque;
-                    break;
-
-                case CarDriveType.RearWheelDrive:
-                    m_WheelColliders[2].motorTorque = m_WheelColliders[3].motorTorque = thrustTorque;
-                    break;
+                var hbTorque = handbrake * m_HandbrakeTorque;
+                for (int i = 0; i < 4; i++)
+                {
+                    m_WheelColliders[i].motorTorque = 0;
+                    m_WheelColliders[i].brakeTorque = 0;
+                }
+                m_WheelColliders[2].brakeTorque = hbTorque;
+                m_WheelColliders[3].brakeTorque = hbTorque;
+                hasKilledTorque = true;
+                //Debug.Log("HAND BRAKE -- Torque: " + thrustTorque + " Brake Torque: " + m_BrakeTorque * footbrake + " Handbrake Torque: " + hbTorque);
             }
-
-            //float brakingForce = (footbrake != 0) ? -m_ReverseTorque * footbrake : 0;
-
-            for (int i = 0; i < 4; i++)
+            else if (footbrake > 0.1f)
             {
-                if (footbrake > 0)
+                //Debug.Log("BRAKING -- Torque: " + thrustTorque + " Brake Torque: " + m_BrakeTorque * footbrake);
+                hasKilledTorque = true;
+                for (int i = 0; i < 4; i++)
                 {
                     m_WheelColliders[i].brakeTorque = m_BrakeTorque * footbrake;
                     m_WheelColliders[i].motorTorque = 0;
                 }
-                else
-                    m_WheelColliders[i].brakeTorque = 0;
+            }
+            else
+            {
+                // kill all torque as soon as player accelerates, but not again until the player brakes
+                if (hasKilledTorque)
+                {
+                    //Debug.Log("KILL TORQUE -- Torque: " + thrustTorque + " Brake Torque: " + m_BrakeTorque * footbrake);
+                    for (int i = 0; i < 4; i++)
+                    {
+                        m_WheelColliders[i].brakeTorque = 0;
+                        m_WheelColliders[i].motorTorque = 0;
+                    }
+                    hasKilledTorque = false;
+                }
+
+                switch (m_CarDriveType)
+                {
+                    case CarDriveType.FourWheelDrive:
+
+                        for (int i = 0; i < 4; i++)
+                            m_WheelColliders[i].motorTorque = thrustTorque;
+                        break;
+
+                    case CarDriveType.FrontWheelDrive:
+                        m_WheelColliders[0].motorTorque = m_WheelColliders[1].motorTorque = thrustTorque;
+                        break;
+
+                    case CarDriveType.RearWheelDrive:
+                        //Debug.Log("DRIVING -- Torque: " + thrustTorque + " Brake Torque: " + m_BrakeTorque * footbrake);
+                        m_WheelColliders[2].motorTorque = m_WheelColliders[3].motorTorque = thrustTorque;
+                        break;
+                }
             }
         }
 

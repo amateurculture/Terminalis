@@ -714,13 +714,13 @@ public class World : MonoBehaviour
 
 	void Update () 
 	{
-		if (Input.GetKeyDown(KeyCode.End))
+		if (Input.GetKeyDown(KeyCode.Home))
 		{
 			deleteMap();
 			initMap();
 			Destroy(poolObject);
 		}
-		else if (Input.GetKeyDown(KeyCode.Home))
+		else if (Input.GetKeyDown(KeyCode.End))
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }
