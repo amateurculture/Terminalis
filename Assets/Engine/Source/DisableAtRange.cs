@@ -3,7 +3,7 @@
 public class DisableAtRange : MonoBehaviour
 {
     private int interval = 5;
-    private GameObject player;
+    private GameObject cam;
     public GameObject[] targets;
     public float range;
     float distanceSqr;
@@ -12,7 +12,7 @@ public class DisableAtRange : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        cam = Camera.main.gameObject;
         previousRangeSqr = rangeSqr = range * range;
     }
 
@@ -20,7 +20,7 @@ public class DisableAtRange : MonoBehaviour
     {
         if (Time.frameCount % interval == 0)
         {
-            distanceSqr = Vector3.SqrMagnitude(player.transform.position - transform.position);
+            distanceSqr = Vector3.SqrMagnitude(cam.transform.position - transform.position);
 
             if (previousRangeSqr != rangeSqr)
             {
