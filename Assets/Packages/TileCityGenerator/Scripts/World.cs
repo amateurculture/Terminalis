@@ -162,10 +162,10 @@ public class World : MonoBehaviour
 	private List<TileData> tileContainer;
 	
 	/** Size of tile ring generation zone */
-	public int initialrange = 1;
+	public int initialrange = 6;
 	
 	/** Size of tile */
-	public float tileSize = 100;
+	public float tileSize = 64;
 	
 	/** Number of connections of the tile */
 	public int tileConnections = 1;
@@ -712,7 +712,7 @@ public class World : MonoBehaviour
 		Destroy(poolObject);
 	}
 
-	void Update () 
+	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Home))
 		{
@@ -721,6 +721,9 @@ public class World : MonoBehaviour
 			Destroy(poolObject);
 		}
 		else if (Input.GetKeyDown(KeyCode.End))
+		{
+			Time.timeScale = 1;
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		}
 	}
 }
