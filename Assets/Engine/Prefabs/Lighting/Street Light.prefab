@@ -43,8 +43,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.9811321, g: 0.9448523, b: 0.89320046, a: 1}
-  m_Intensity: 0.75
-  m_Range: 15
+  m_Intensity: 1.5
+  m_Range: 16
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -76,11 +76,11 @@ Light:
     m_UseCullingMatrixOverride: 0
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
-  m_Flare: {fileID: 12100000, guid: 5edf5d1560af7084fa086e0a8af21b11, type: 2}
+  m_Flare: {fileID: 0}
   m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 3288334593
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -101,6 +101,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 98429314317246361}
+  - component: {fileID: 3963765408164676957}
+  - component: {fileID: 4725838092299469056}
+  - component: {fileID: 7180004301344647912}
   m_Layer: 0
   m_Name: Street Light
   m_TagString: Untagged
@@ -124,6 +127,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3963765408164676957
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942773930520739188}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.38331985, y: 9.007278, z: 0.3345518}
+  m_Center: {x: 0.031264782, y: 4.551361, z: -0.06303024}
+--- !u!114 &4725838092299469056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942773930520739188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692085804cdbfbe4491388a11b0134ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!205 &7180004301344647912
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942773930520739188}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -1.1912918, y: 4.6615553, z: -0.000000022351742}
+  m_Size: 9.327112
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.049748704
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 6526561703545011484}
+    - renderer: {fileID: 7923964321871574753}
+    - renderer: {fileID: 3224050003335453167}
+    - renderer: {fileID: 2148701425460364438}
+    - renderer: {fileID: 1908473391047998715}
+    - renderer: {fileID: 539601814446584991}
+  m_Enabled: 1
 --- !u!1001 &5868589234884573399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,6 +183,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 98429314317246361}
     m_Modifications:
+    - target: {fileID: -4861924686910468554, guid: 52b95f0e24319d64096cbe783c849e72,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 441a947c37ec7ca49b037fce11d5ae73, type: 2}
     - target: {fileID: -4216859302048453862, guid: 52b95f0e24319d64096cbe783c849e72,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -186,11 +243,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3815348637671979988, guid: 52b95f0e24319d64096cbe783c849e72,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 441a947c37ec7ca49b037fce11d5ae73, type: 2}
+    - target: {fileID: -3701727588016112575, guid: 52b95f0e24319d64096cbe783c849e72,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 441a947c37ec7ca49b037fce11d5ae73, type: 2}
     - target: {fileID: -927199367670048503, guid: 52b95f0e24319d64096cbe783c849e72,
         type: 3}
       propertyPath: m_Name
       value: streetlight
       objectReference: {fileID: 0}
+    - target: {fileID: -157825318150610632, guid: 52b95f0e24319d64096cbe783c849e72,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 441a947c37ec7ca49b037fce11d5ae73, type: 2}
+    - target: {fileID: 856365191234717131, guid: 52b95f0e24319d64096cbe783c849e72,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 441a947c37ec7ca49b037fce11d5ae73, type: 2}
     - target: {fileID: 6200443131042155592, guid: 52b95f0e24319d64096cbe783c849e72,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -201,6 +278,42 @@ PrefabInstance:
 --- !u!4 &1444492327616795597 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 52b95f0e24319d64096cbe783c849e72,
+    type: 3}
+  m_PrefabInstance: {fileID: 5868589234884573399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6526561703545011484 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 856365191234717131, guid: 52b95f0e24319d64096cbe783c849e72,
+    type: 3}
+  m_PrefabInstance: {fileID: 5868589234884573399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7923964321871574753 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4861924686910468554, guid: 52b95f0e24319d64096cbe783c849e72,
+    type: 3}
+  m_PrefabInstance: {fileID: 5868589234884573399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3224050003335453167 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -157825318150610632, guid: 52b95f0e24319d64096cbe783c849e72,
+    type: 3}
+  m_PrefabInstance: {fileID: 5868589234884573399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2148701425460364438 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3701727588016112575, guid: 52b95f0e24319d64096cbe783c849e72,
+    type: 3}
+  m_PrefabInstance: {fileID: 5868589234884573399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1908473391047998715 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3815348637671979988, guid: 52b95f0e24319d64096cbe783c849e72,
+    type: 3}
+  m_PrefabInstance: {fileID: 5868589234884573399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &539601814446584991 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6200443131042155592, guid: 52b95f0e24319d64096cbe783c849e72,
     type: 3}
   m_PrefabInstance: {fileID: 5868589234884573399}
   m_PrefabAsset: {fileID: 0}
