@@ -31,4 +31,40 @@ public class Border  : MonoBehaviour
 	public Side right;
 	/** down side*/
 	public Side down;
+
+	private void Reset()
+	{
+		size = 1;
+		left = new Side();
+		right = new Side();
+		down = new Side();
+		top = new Side();
+		left.values = new List<bool>() { false };
+		right.values = new List<bool>() { false };
+		top.values = new List<bool>() { false };
+		down.values = new List<bool>() { false };
+
+		switch (name)
+		{
+			case "Roundabout":
+			case "Crossroad":
+			case "Crossroads": 
+				for (var i = 0; i < left.values.Count; i ++) left.values[i] = right.values[i] = top.values[i] = down.values[i] = true; 
+				break;
+			case "Straight":
+				for (var i = 0; i < left.values.Count; i++) left.values[i] = right.values[i] = true;
+				break;
+			case "Corner":
+				for (var i = 0; i < left.values.Count; i++) right.values[i] = down.values[i] = true;
+				break;
+			case "Intersection":
+				for (var i = 0; i < left.values.Count; i++) top.values[i] = right.values[i] = down.values[i] = true;
+				break;
+			case "Culdesac":
+				for (var i = 0; i < left.values.Count; i++) right.values[i] = true;
+				break;
+			default:
+				break;
+		}
+	}
 }

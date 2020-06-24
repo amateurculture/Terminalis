@@ -699,7 +699,9 @@ public class World : MonoBehaviour
 			worldSeed = UnityEngine.Random.Range(0, int.MaxValue);
 
 		UnityEngine.Random.InitState(worldSeed);
-		worldSeedText.text = "DIMENSION SEED: " + worldSeed;
+
+		if (worldSeedText != null)
+			worldSeedText.text = "DIMENSION SEED: " + worldSeed;
 
 		player = GameObject.FindGameObjectWithTag("Player").transform;
 		initMap();
