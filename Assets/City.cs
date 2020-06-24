@@ -15,7 +15,7 @@ public class City : MonoBehaviour
 	{
 		Wild = 1 << 0,
 		Primitive = 1 << 1,
-		//Medieval = 1 << 2,
+		Medieval = 1 << 2,
 		//Baroque = 1 << 3,
 		Modern = 1 << 4,
 		//Future = 1 << 5
@@ -29,12 +29,13 @@ public class City : MonoBehaviour
 
 	[Header("Primitive")]
 	public Transform primitiveFarm;
+	public Transform primitiveResidential;
 
-	/*
 	[Header("Medieval")]
 	public Transform medievalResidential;
 	public Transform medievalCommercial;
 
+	/*
 	[Header("Baroque")]
 	public Transform baroqueRoad;
 	public Transform baroqueResidential;
@@ -61,10 +62,12 @@ public class City : MonoBehaviour
 	private void prepareTilePrefabs()
 	{
 		tileContainer = new List<TileData>();
+		
 		tilesPool = new Dictionary<int, List<TilePrefab>>();
 		poolObject = new GameObject();
 		poolObject.transform.position = poolObjectPosition;
 		poolObject.name = "poolObject";
+		
 		cityObject = new GameObject();
 		cityObject.transform.position = Vector3.zero;
 		cityObject.name = transform.name;
@@ -78,7 +81,8 @@ public class City : MonoBehaviour
 			switch (era) 
 			{ 
 				case Era.Wild: 
-				case Era.Primitive: 
+				case Era.Primitive:
+				case Era.Medieval:
 					foreach (Transform obj in wild) cityTiles.Add(obj); 
 					break;
 				case Era.Modern: 
@@ -96,7 +100,14 @@ public class City : MonoBehaviour
 					break;
 				case Era.Primitive:
 					foreach (Transform obj in wild) cityTiles.Add(obj);
-					foreach (Transform obj in primitiveFarm) cityTiles.Add(obj); 
+					foreach (Transform obj in primitiveFarm) cityTiles.Add(obj);
+					foreach (Transform obj in primitiveResidential) cityTiles.Add(obj);
+					break;
+				case Era.Medieval:
+					foreach (Transform obj in wild) cityTiles.Add(obj);
+					foreach (Transform obj in primitiveFarm) cityTiles.Add(obj);
+					foreach (Transform obj in medievalResidential) cityTiles.Add(obj);
+					foreach (Transform obj in medievalCommercial) cityTiles.Add(obj);
 					break;
 				case Era.Modern: 
 					foreach (Transform obj in road) cityTiles.Add(obj);
@@ -138,15 +149,9 @@ public class City : MonoBehaviour
 		public TilePrefab tilePrefab;
 		public int rotation;
 
-		/** Default constructor */
 		public VisibleTile()
 		{
 			tilePrefab = new TilePrefab();
-		}
-
-		public void Insantiate(Int2 index, TilePrefab newPrefab, float tileSize)
-		{
-
 		}
 
 		public void Instantiate(Int2 index, TilePrefab newprefab, float tileSize)
@@ -156,16 +161,6 @@ public class City : MonoBehaviour
 			tilePrefab.prefab.transform.position = new Vector3(index.y * tileSize, 0, index.x * tileSize);
 			tilePrefab.prefab.transform.rotation = Quaternion.Euler(0, 90 * rotation, 0);
 			tilePrefab.used = true;
-		}
-
-		/** Remove tile from visible world grid and update the poolObject */
-		public void Destroy()
-		{
-			tilePrefab.prefab.transform.parent = poolObject.transform;
-			tilePrefab.prefab.transform.localPosition = new Vector3(0, 0, 0);
-			tilePrefab.prefab.transform.rotation = Quaternion.Euler(0, 0, 0);
-			tilePrefab.used = false;
-			tilePrefab = null;
 		}
 	}
 
@@ -237,13 +232,6 @@ public class City : MonoBehaviour
 				}
 			}
 		}
-	}
-
-	private void removeWorldTile(Int2 index)
-	{
-		VisibleTile tile = visibleTiles[index];
-		tile.Destroy();
-		visibleTiles.Remove(index);
 	}
 
 	private TileSide extractSide(VisibleTile tile, int offset)
@@ -393,171 +381,25 @@ public class City : MonoBehaviour
 		return position;
 	}
 
-	void generateDown(Int2 previousPosition, Int2 currentPosition)
-	{
-		Int2 index = new Int2(0, 0);
-		for (int i = -radius; i <= radius; ++i)
-		{
-			index.x = previousPosition.x + radius;
-			index.y = previousPosition.y + i;
-
-			removeWorldTile(index);
-		}
-
-		index.x = currentPosition.x - radius;
-		index.y = currentPosition.y - radius;
-		Int2 indexL = new Int2(0, 0);
-		Int2 indexT = new Int2(index.x + 1, index.y);
-
-		addWorldTile(index, generateTile(visibleTiles[indexT], null, null, null));
-
-		for (int i = -radius + 1; i <= radius; ++i)
-		{
-			index.y = currentPosition.y + i;
-			index.x = currentPosition.x - radius;
-
-			indexL.y = index.y - 1;
-			indexL.x = index.x;
-
-			indexT.y = index.y;
-			indexT.x = index.x + 1;
-
-			addWorldTile(index, generateTile(visibleTiles[indexT], null, visibleTiles[indexL], null));
-		}
-	}
-
-	void generateTop(Int2 previousPosition, Int2 currentPosition)
-	{
-		Int2 index = new Int2(0, 0);
-		for (int i = -radius; i <= radius; ++i)
-		{
-			index.x = previousPosition.x - radius;
-			index.y = previousPosition.y + i;
-
-			removeWorldTile(index);
-		}
-
-		index.x = currentPosition.x + radius;
-		index.y = currentPosition.y - radius;
-		Int2 indexL = new Int2(0, 0);
-		Int2 indexD = new Int2(index.x - 1, index.y);
-
-		addWorldTile(index, generateTile(null, visibleTiles[indexD], null, null));
-
-		for (int i = -radius + 1; i <= radius; ++i)
-		{
-			index.y = currentPosition.y + i;
-			index.x = currentPosition.x + radius;
-
-			indexL.y = index.y - 1;
-			indexL.x = index.x;
-
-			indexD.y = index.y;
-			indexD.x = index.x - 1;
-
-			addWorldTile(index, generateTile(null, visibleTiles[indexD], visibleTiles[indexL], null));
-		}
-	}
-
-	void generateLeft(Int2 previousPosition, Int2 currentPosition)
-	{
-		Int2 index = new Int2(0, 0);
-		for (int i = -radius; i <= radius; ++i)
-		{
-			index.x = previousPosition.x + i;
-			index.y = previousPosition.y + radius;
-
-			removeWorldTile(index);
-		}
-
-		index.x = currentPosition.x - radius;
-		index.y = currentPosition.y - radius;
-		Int2 indexR = new Int2(index.x, index.y + 1);
-		Int2 indexD = new Int2(0, 0);
-
-		addWorldTile(index, generateTile(null, null, null, visibleTiles[indexR]));
-
-		for (int i = -radius + 1; i <= radius; ++i)
-		{
-			index.y = currentPosition.y - radius;
-			index.x = currentPosition.x + i;
-
-			indexR.y = index.y + 1;
-			indexR.x = index.x;
-
-			indexD.y = index.y;
-			indexD.x = index.x - 1;
-
-			addWorldTile(index, generateTile(null, visibleTiles[indexD], null, visibleTiles[indexR]));
-		}
-	}
-
-	void generateRight(Int2 previousPosition, Int2 currentPosition)
-	{
-		Int2 index = new Int2(0, 0);
-		for (int i = -radius; i <= radius; ++i)
-		{
-			index.x = previousPosition.x + i;
-			index.y = previousPosition.y - radius;
-
-			removeWorldTile(index);
-		}
-
-		index.x = currentPosition.x - radius;
-		index.y = currentPosition.y + radius;
-		Int2 indexL = new Int2(index.x, index.y - 1);
-		Int2 indexD = new Int2(0, 0);
-
-		addWorldTile(index, generateTile(null, null, visibleTiles[indexL], null));
-
-		for (int i = -radius + 1; i <= radius; ++i)
-		{
-			index.y = currentPosition.y + radius;
-			index.x = currentPosition.x + i;
-
-			indexL.y = index.y - 1;
-			indexL.x = index.x;
-
-			indexD.y = index.y;
-			indexD.x = index.x - 1;
-
-			addWorldTile(index, generateTile(null, visibleTiles[indexD], visibleTiles[indexL], null));
-		}
-	}
-
 	public void initMap()
 	{
 		visibleTiles = new Dictionary<Int2, VisibleTile>();
 		previousPosition = new Int2(0, 0);
 		prepareTilePrefabs();
 		generateInitialWorld();
-	}
-
-	public void updateMap()
-	{
-		Int2 currentPosition = calculatePosition();
-		if (previousPosition.x < currentPosition.x) generateTop(previousPosition, currentPosition);
-		if (previousPosition.x > currentPosition.x) generateDown(previousPosition, currentPosition);
-		if (previousPosition.y > currentPosition.y) generateLeft(previousPosition, currentPosition);
-		if (previousPosition.y < currentPosition.y) generateRight(previousPosition, currentPosition);
-		previousPosition = currentPosition;
+		Destroy(poolObject);
 	}
 
 	void Start()
 	{
 		player = GameObject.FindGameObjectWithTag("Player").transform;
+
+		// todo global seed value should be set somewhere... more global?
 		if (randomSeed < 0) randomSeed = Random.Range(0, int.MaxValue);
 		if (seedText != null) seedText.text = "DIMENSION SEED: " + randomSeed;
 		Random.InitState(randomSeed);
 
 		initMap();
-		Destroy(poolObject);
-	}
-
-	void deleteMap()
-	{
-		Destroy(cityObject);
-		Destroy(poolObject);
 	}
 
 	void Update()
@@ -565,9 +407,9 @@ public class City : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Home))
 		{
 			Time.timeScale = 0f;
-			deleteMap();
-			initMap();
+			Destroy(cityObject);
 			Destroy(poolObject);
+			initMap();
 			Time.timeScale = 1f;
 		}
 		else if (Input.GetKeyDown(KeyCode.End))
