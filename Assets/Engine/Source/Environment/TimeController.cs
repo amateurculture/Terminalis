@@ -6,6 +6,7 @@ public class TimeController : MonoBehaviour
     public GameObject atmosphere;
     FogController fogController;
 
+    public float year;
     public float day;
     public float hour;
     public float minute;
@@ -28,6 +29,7 @@ public class TimeController : MonoBehaviour
 
     private void Reset()
     {
+        year = 2020;
         day = 0;
         hour = currentHour = 0;
         minute = currentMinute = 0;

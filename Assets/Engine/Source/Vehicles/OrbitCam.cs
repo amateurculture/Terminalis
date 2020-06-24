@@ -8,7 +8,7 @@ public class OrbitCam : MonoBehaviour
 	[SerializeField]
 	public Transform focus = default;
 
-	[SerializeField, Range(1f, 20f)]
+	[SerializeField, Range(1f, 50f)]
 	public float distance = 5f;
 
 	[SerializeField, Min(0f)]

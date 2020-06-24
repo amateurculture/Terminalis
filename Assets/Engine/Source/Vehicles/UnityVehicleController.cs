@@ -184,15 +184,15 @@ public class UnityVehicleController : MonoBehaviour
                 orbitCam.enabled = false;
 
                 // Fix to prevent exiting car underground
-                var pos = new Vector3(exitPoint.transform.position.x, exitPoint.transform.position.y - 1.4f, exitPoint.transform.position.z);
+                //var pos = new Vector3(exitPoint.transform.position.x, exitPoint.transform.position.y, exitPoint.transform.position.z);
                 //if (pos.y < 0) pos.y = Mathf.Abs(exitPoint.transform.position.y) + carMaterial.GetComponent<MeshFilter>().mesh.bounds.size.y;
-                pos.y = pos.y < 0 ? 1f : pos.y;
+                //pos.y = pos.y < 0 ? 1f : pos.y;
 
-                player.transform.position = pos;
+                player.transform.position = exitPoint.transform.position;
 
-                var euler = cam.transform.rotation.eulerAngles;
-                var rot = Quaternion.Euler(0, euler.y, 0);
-                player.transform.rotation = rot;
+                //var euler = cam.transform.rotation.eulerAngles;
+                //var rot = Quaternion.Euler(0, euler.y, 0);
+                //player.transform.rotation = rot;
 
                 player.SetActive(true);
                 playerCam.enabled = true;
@@ -224,10 +224,11 @@ public class UnityVehicleController : MonoBehaviour
             player.SetActive(false);
 
             orbitCam.focus = transform;
-            orbitCam.distance = 10f; 
+            orbitCam.distance = carMaterial.GetComponent<MeshFilter>().mesh.bounds.size.z * 2f; 
             orbitCam.focusRadius = .25f;
-            orbitCam.focusCentering = .25f;
-            orbitCam.rotationSpeed = 260f;
+            orbitCam.focusCentering = 1f;
+            orbitCam.rotationSpeed = 180f;
+            orbitCam.alignDelay = 1f;
             orbitCam.fudge = 1f;
             orbitCam.enabled = true;
 
