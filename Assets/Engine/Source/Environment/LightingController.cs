@@ -4,6 +4,7 @@ public class LightingController : MonoBehaviour
 {
     public Gradient skyColor;
     public Gradient sunLight;
+    public Gradient moonLight;
     public Gradient ambientLight;
     public FogController fogController;
     public TimeController timeController;
@@ -118,7 +119,7 @@ public class LightingController : MonoBehaviour
     void UpdateSunLight()
     {
         gradientIndex = GetGradientIndex();
-        lightLevel = RenderSettings.sun.intensity = sunLight.Evaluate(gradientIndex).grayscale;
+        lightLevel = RenderSettings.sun.intensity = sunLight.Evaluate(gradientIndex).grayscale * 1.25f;
 
         RenderSettings.sun.enabled = (lightLevel <= 0) ? false : true;
 

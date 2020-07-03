@@ -48,8 +48,13 @@ MonoBehaviour:
   radius: 16
   tileSize: 64
   tileConnections: 1
+  allowDeadEnds: 0
+  population: 0
+  wealth: 0
+  food: 0
+  pollution: 0
   era: 16
-  cityDensity: 100
+  zoningDensity: 50
   wild: {fileID: 808738726431162837, guid: dd1eba88286bca24baa270df51489dea, type: 3}
   primitiveFarm: {fileID: 9052178651935920558, guid: 67dd54ab49a44104e86ac854d2dcc2f4,
     type: 3}
@@ -63,8 +68,13 @@ MonoBehaviour:
   farm: {fileID: 9052178651935920558, guid: dc5f2d71bd4850846847b53976a15dbc, type: 3}
   residential: {fileID: 2452543274282148703, guid: 5ff9b15045cda404d89e0093d050f1f0,
     type: 3}
-  commercial: {fileID: 1902101813746697070, guid: 778fb1a932d96c1499427b991bbe330a,
+  residentialDense: {fileID: 2452543274282148703, guid: e657a88c298b2884e9a900eeb158cea0,
     type: 3}
-  industrial: {fileID: 4406895283085590933, guid: 78a41f0e9e2750346bf4828086fd2930,
+  commercial: {fileID: 4406895283085590933, guid: 78a41f0e9e2750346bf4828086fd2930,
     type: 3}
-  player: {fileID: 0}
+  commercialDense: {fileID: 4406895283085590933, guid: 78a41f0e9e2750346bf4828086fd2930,
+    type: 3}
+  industrial: {fileID: 1902101813746697070, guid: bc7ec9d4dfb9e984d973fbda7450a00f,
+    type: 3}
+  industrialDense: {fileID: 1902101813746697070, guid: 778fb1a932d96c1499427b991bbe330a,
+    type: 3}

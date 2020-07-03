@@ -151,6 +151,22 @@ public class Globals
         Restaurant
     }
 
+    public enum Month
+    {
+        January,
+        February,
+        March,
+        April,
+        May,
+        June,
+        July,
+        August,
+        September,
+        October,
+        November,
+        December
+    }
+
     internal static float _ai_wait = 2f;
 
     #endregion
@@ -246,22 +262,6 @@ public class Globals
         mindcontrol = 1 << 2,
         masscontrol = 1 << 3,
         shield = 1 << 4
-    }
-
-    public enum Month
-    {
-        January,
-        February,
-        March,
-        April,
-        May,
-        June,
-        July,
-        August,
-        September,
-        October,
-        November,
-        December
     }
 
     public enum Day

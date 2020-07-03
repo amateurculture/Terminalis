@@ -7,7 +7,7 @@ using TMPro;
 public class Radio_FM : MonoBehaviour
 {
     public AudioClip[] audioFiles;
-    public TextMeshProUGUI text;
+    //public TextMeshProUGUI text;
 
     int currentSongIndex;
     AudioSource audioSource;
@@ -21,7 +21,7 @@ public class Radio_FM : MonoBehaviour
         currentSongIndex = Random.Range(0, audioFiles.Length - 1);
         clip = audioFiles[currentSongIndex];
         audioSource.PlayOneShot(clip);
-        text.text = FrequencyString();
+        //text.text = FrequencyString();
     }
 
     public float Frequency(int index)
@@ -37,21 +37,23 @@ public class Radio_FM : MonoBehaviour
     void IncrementStation()
     {
         audioSource.Stop();
+        audioSource.clip = null;
         currentSongIndex++;
         currentSongIndex = currentSongIndex % audioFiles.Length;
         clip = audioFiles[currentSongIndex];
         audioSource.PlayOneShot(clip);
-        text.text = FrequencyString();
+        //text.text = FrequencyString();
     }
 
     void DecrementStation()
     {
         audioSource.Stop();
+        audioSource.clip = null;
         currentSongIndex--;
         if (currentSongIndex < 0) currentSongIndex = audioFiles.Length - 1;
         clip = audioFiles[currentSongIndex];
         audioSource.PlayOneShot(clip);
-        text.text = FrequencyString();
+        //text.text = FrequencyString();
     }
 
     void RaiseVolume()
@@ -66,21 +68,9 @@ public class Radio_FM : MonoBehaviour
 
     void Update()
     {
-        if (dpad.left)
-        {
-            DecrementStation();
-        }
-        if (dpad.right)
-        {
-            IncrementStation();
-        }
-        if (dpad.down)
-        {
-            LowerVolume();
-        }
-        if (dpad.up)
-        {
-            RaiseVolume();
-        }
+        if (dpad.left) DecrementStation();
+        if (dpad.right) IncrementStation();
+        if (dpad.down) LowerVolume();
+        if (dpad.up) RaiseVolume();
     }
 }

@@ -41,6 +41,8 @@ public class TimeController : MonoBehaviour
 
     private void Start()
     {
+        QualitySettings.SetQualityLevel(6);
+
         planetaryRotation = 15f * ((hour + (minute / 60f)) - 6f);
         gameTime = hour + (minute / 60f);
         secondsRemainingInMinute = Time.time + (secondsInHour / 60);

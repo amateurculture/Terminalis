@@ -77,6 +77,9 @@ public class UnityVehicleController : MonoBehaviour
         carController.enabled = false;
         carUserControl.enabled = true;
         carUserControl.isDisabled = true;
+
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player");
     }
 
     IEnumerator WheelHack()
@@ -194,7 +197,12 @@ public class UnityVehicleController : MonoBehaviour
                 //var rot = Quaternion.Euler(0, euler.y, 0);
                 //player.transform.rotation = rot;
 
+                foreach (MonoBehaviour v in player.GetComponents<MonoBehaviour>())
+                {
+                    v.enabled = true;
+                }
                 player.SetActive(true);
+
                 playerCam.enabled = true;
                 isInside = false;
                 lowBeamsIndicator.enabled = false;
@@ -214,23 +222,38 @@ public class UnityVehicleController : MonoBehaviour
         // Enter vehicle
         else if (isAtDoor && enterCarButtonPressed)
         {
+            Debug.Log("Entering car");
             Cursor.lockState = CursorLockMode.Locked;
 
+            Debug.Log("Turning on engine audio");
             foreach (var sound in GetComponents<AudioSource>()) 
                 sound.enabled = true;
 
             isAtDoor = false;
             playerCam.enabled = false;
+            
+            if (player == null) player = GameObject.FindGameObjectWithTag("Player");
+
+            Debug.Log("Found player: " + player.name + " -- Turning off all scripts");
+            foreach (MonoBehaviour v in player.GetComponents<MonoBehaviour>())
+            {
+                Debug.Log(v.name);
+                v.enabled = false;
+            }
+
             player.SetActive(false);
+            Debug.Log("Player turned off");
 
             orbitCam.focus = transform;
             orbitCam.distance = carMaterial.GetComponent<MeshFilter>().mesh.bounds.size.z * 2f; 
             orbitCam.focusRadius = .25f;
             orbitCam.focusCentering = 1f;
-            orbitCam.rotationSpeed = 180f;
+            orbitCam.rotationSpeed = 256f;
             orbitCam.alignDelay = 1f;
             orbitCam.fudge = 1f;
             orbitCam.enabled = true;
+
+            Debug.Log("Turned on orbit camera");
 
             engineAudio.enabled = true;
             carController.enabled = true;
@@ -249,11 +272,16 @@ public class UnityVehicleController : MonoBehaviour
             temp.a = carUserControl.usingHandbrake ? 1f : .05f;
             handBrakeIndicator.color = temp;
 
-            if (player == null) player = GameObject.FindGameObjectWithTag("Player");
+            Debug.Log("Setup car properties and lights");
+
             if (cam == null) cam = Camera.main;
 
-            player.GetComponent<UltimateCharacterLocomotionHandler>().enabled = false;
+            Debug.Log("If camera main was null, find it again");
+
+            //player.GetComponent<UltimateCharacterLocomotionHandler>().enabled = false;
             cam.GetComponent<CameraControllerHandler>().enabled = false;
+
+            Debug.Log("Turned on camera controller handler");
 
             rigid.isKinematic = true;
             rigid.isKinematic = false;

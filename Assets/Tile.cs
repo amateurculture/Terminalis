@@ -2,26 +2,23 @@
 
 public class Tile : MonoBehaviour
 {
-    [Header("Primitive")]
-    public GameObject wild;
-    public GameObject foliage;
-    public GameObject farm;
+    // Each family can have any pairing (or not) of 2 parents and up to 3 children; each head of household family marker represents between 100-500 people
 
-    [Header("Medieval")]
-    public GameObject medievalResidential;
-    public GameObject medievalCommercial;
+    [SerializeField] [Tooltip("100's of people")] public int population;
+    [SerializeField] [Tooltip("100's of people")] public int vacancies;
+    [SerializeField] [Tooltip("100's of people per month")] public int immigration;
 
-    [Header("Baroque")]
-    public GameObject baroqueRoad;
-    public GameObject baroqueResidential;
-    public GameObject baroqueCommercial;
-    public GameObject barqoueIndustrial;
-    public GameObject baroqueTrafficLights;
+    [Space(10)]
+    [SerializeField] [Tooltip("Bushels per month")] public int foodProduction;
+    [SerializeField] public float foodPrice;
+    [SerializeField] [Tooltip("Widgets per month")] public int widgetProduction;
+    [SerializeField] public float widgetPrice;
 
-    [Header("Modern")]
-    public GameObject road;
-    public GameObject residential;
-    public GameObject commercial;
-    public GameObject industrial;
-    public GameObject trafficLights;
+    [Space(10)]
+    [SerializeField] 
+    [Tooltip("AQI Index -- 0-50 Good : 51-100 Moderate : 101-150 Sensitive : 151-200 Unhealthy : 201-300 Very Unhealthy : 301+ Hazardous")] 
+    [Range(0, 500)] public int pollution;
+
+    [Space(10)]
+    public Globals.Government philosophy;
 }

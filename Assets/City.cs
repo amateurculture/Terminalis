@@ -2,14 +2,116 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
+using UnityEditor;
+
+public struct Int2
+{
+	public int x;
+	public int y;
+
+	public Int2(int x, int y) { this.x = x; this.y = y; }
+	public int sqrMagnitude { get { return x * x + y * y; } }
+	public long sqrMagnitudeLong { get { return x * (long)x + y * (long)y; } }
+	public static Int2 operator +(Int2 a, Int2 b) { return new Int2(a.x + b.x, a.y + b.y); }
+	public static Int2 operator -(Int2 a, Int2 b) { return new Int2(a.x - b.x, a.y - b.y); }
+	public static bool operator ==(Int2 a, Int2 b) { return a.x == b.x && a.y == b.y; }
+	public static bool operator !=(Int2 a, Int2 b) { return a.x != b.x || a.y != b.y; }
+	public static int Dot(Int2 a, Int2 b) { return a.x * b.x + a.y * b.y; }
+	public static long DotLong(Int2 a, Int2 b) { return a.x * (long)b.x + a.y * (long)b.y; }
+	public override bool Equals(object o)
+	{
+		if (o == null) return false;
+		Int2 rhs = (Int2)o;
+		return x == rhs.x && y == rhs.y;
+	}
+	public override int GetHashCode() { return x * 49157 + y * 98317; }
+}
+
+public class TileSide
+{
+	public bool noCheck;
+	public List<bool> tilePattern;
+
+	public TileSide(bool dontCare, List<bool> pattern)
+	{
+		noCheck = dontCare;
+		tilePattern = pattern;
+	}
+
+	public string patternString()
+	{
+		if (noCheck) return "X";
+
+		string pattern = "";
+		foreach (bool connection in tilePattern)
+		{
+			if (connection)
+				pattern += "1";
+			else
+				pattern += "0";
+		}
+		return pattern;
+	}
+}
+
+public class TileData
+{
+	public int type;
+	public List<TileSide> border;
+	public Transform prefab;
+
+	public TileData(int tileType, List<bool> left, List<bool> top, List<bool> right, List<bool> down)
+	{
+		type = tileType;
+		border = new List<TileSide>(4);
+		border.Add(new TileSide(false, left));
+		border.Add(new TileSide(false, top));
+		border.Add(new TileSide(false, right));
+		border.Add(new TileSide(false, down));
+	}
+
+	public TileData(int tileType, List<bool> left, List<bool> top, List<bool> right, List<bool> down, Transform tilePrefab)
+	{
+		type = tileType;
+		border = new List<TileSide>(4);
+		border.Add(new TileSide(false, left));
+		border.Add(new TileSide(false, top));
+		border.Add(new TileSide(false, right));
+		border.Add(new TileSide(false, down));
+		prefab = tilePrefab;
+	}
+}
+
+public class TilePrefab
+{
+	public GameObject prefab;
+	public TileData tileData;
+	public bool used;
+}
+
+[Serializable]
+public class Movement
+{
+	public float moveV;
+	public float moveH;
+	public bool isRunning;
+	public bool isLooking;
+}
 
 public class City : MonoBehaviour
 {
 	public TextMeshProUGUI seedText;
 	[Tooltip("Set to -1 if you want a random seed")] public int randomSeed = -1;
-	[Range(0,16)] public int radius = 6;
+	[Range(0,32)] public int radius = 6;
 	public float tileSize = 64;
 	public int tileConnections = 1;
+	public bool allowDeadEnds = false;
+
+	[HideInInspector] [Tooltip("Each person on the screen represents 100 people")] public long population;
+	[HideInInspector] [Tooltip("Credits -- generic unit of money")] public float wealth;
+	[HideInInspector] [Tooltip("Bushel -- One bushel feeds 100 people")] public float food;
+	[HideInInspector] [Tooltip("AQI Index -- 0-50 Good : 51-100 Moderate : 101-150 Sensitive : 151-200 Unhealthy : 201-300 Very Unhealthy : 301+ Hazardous")] [Range(0,500)] public float pollution;
 
 	public enum Era
 	{
@@ -20,10 +122,20 @@ public class City : MonoBehaviour
 		Modern = 1 << 4,
 		//Future = 1 << 5
 	}
+
+	[Header("Tile Sets")]
 	public Era era = Era.Primitive;
 
-	[Range(0, 100)] public int cityDensity;
+	public enum EconomicClass
+	{
+		low,
+		medium,
+		high
+	}
+	public EconomicClass economicClass = EconomicClass.medium;
 
+	[Range(0, 100)] public int zoningDensity = 50;
+	
 	[Header("Wild")]
 	public Transform wild;
 
@@ -50,98 +162,94 @@ public class City : MonoBehaviour
 	public Transform commercial;
 	public Transform industrial;
 
-	[HideInInspector] public Transform player;
-	private Vector3 poolObjectPosition = new Vector3(10000f, 10000f, 10000f);
-	private List<TileData> tileContainer;
-	private Dictionary<int, List<TilePrefab>> tilesPool;
-	private Int2 previousPosition;
+	private List<TileData> wildContainer;
+	private List<TileData> primitiveFarmContainer;
+	private List<TileData> primitiveResidentialContainer;
+	private List<TileData> medievalResidentialContainer;
+	private List<TileData> medievalCommercialContainer;
+	private List<TileData> farmContainer;
+	private List<TileData> roadContainer;
+	private List<TileData> residentialContainer;
+	private List<TileData> commercialContainer;
+	private List<TileData> industrialContainer;
+
 	private Dictionary<Int2, VisibleTile> visibleTiles;
-	static private GameObject poolObject;
 	static private GameObject cityObject;
+
+	public int AggregateFood()
+	{
+		int food = 0;
+		Tile[] tiles = cityObject.GetComponentsInChildren<Tile>();
+		foreach (var tile in tiles) food += tile.foodProduction;
+		return food;
+	}
+
+	public int AggregateWidgets()
+	{
+		int widgets = 0;
+		Tile[] tiles = cityObject.GetComponentsInChildren<Tile>();
+		foreach (var tile in tiles) widgets += tile.widgetProduction;
+		return widgets;
+	}
+
+	public float AggregateWealth()
+	{
+		float wealth = 0;
+		Tile[] tiles = cityObject.GetComponentsInChildren<Tile>();
+		foreach (var tile in tiles) wealth += (tile.widgetProduction * tile.widgetPrice) + (tile.foodProduction * tile.foodPrice);
+		return wealth;
+	}
+
+	public int AggregatePopulation()
+	{
+		int population = 0;
+		Tile[] tiles = cityObject.GetComponentsInChildren<Tile>();
+		foreach(var tile in tiles) population += tile.population;
+		return population * 500;
+	}
+
+	public int AggregatePollution()
+	{
+		int pollution = 0;
+		Tile[] tiles = cityObject.GetComponentsInChildren<Tile>();
+		foreach (var tile in tiles) pollution += tile.pollution;
+		return (tiles.Length > 0) ? pollution / tiles.Length : 0;
+	}
+
+	private void Reset()
+	{
+		
+	}
+
+	private void InstallPack(Transform pack, ref List<TileData> tileDataList) {
+		tileDataList = new List<TileData>();
+		int type = 0;
+
+		foreach (Transform obj in pack)
+		{
+			Border other = obj.GetComponent<Border>();
+			TileData tileData = new TileData(type, other.left.values, other.top.values, other.right.values, other.down.values, obj);
+			tileDataList.Add(tileData);
+			++type;
+		}
+	}
 
 	private void prepareTilePrefabs()
 	{
-		tileContainer = new List<TileData>();
-		
-		tilesPool = new Dictionary<int, List<TilePrefab>>();
-		poolObject = new GameObject();
-		poolObject.transform.position = poolObjectPosition;
-		poolObject.name = "poolObject";
-		
 		cityObject = new GameObject();
 		cityObject.transform.position = Vector3.zero;
 		cityObject.name = transform.name;
 
-		int type = 0;
-		int maxVisibleTiles = (radius+1) * (radius+1); // ((radius * 2) + 1) * ((radius * 2) + 2);
-
-		List<Transform> cityTiles = new List<Transform>();
-		if (cityDensity == 0)
-		{
-			switch (era) 
-			{ 
-				case Era.Wild: 
-				case Era.Primitive:
-				case Era.Medieval:
-					foreach (Transform obj in wild) cityTiles.Add(obj); 
-					break;
-				case Era.Modern: 
-					foreach (Transform obj in road) cityTiles.Add(obj); 
-					break;
-				default: break;
-			}
-		} 
-		else
-		{
-			switch (era)
-			{
-				case Era.Wild:
-					foreach (Transform obj in wild) cityTiles.Add(obj);
-					break;
-				case Era.Primitive:
-					foreach (Transform obj in wild) cityTiles.Add(obj);
-					foreach (Transform obj in primitiveFarm) cityTiles.Add(obj);
-					foreach (Transform obj in primitiveResidential) cityTiles.Add(obj);
-					break;
-				case Era.Medieval:
-					foreach (Transform obj in wild) cityTiles.Add(obj);
-					foreach (Transform obj in primitiveFarm) cityTiles.Add(obj);
-					foreach (Transform obj in medievalResidential) cityTiles.Add(obj);
-					foreach (Transform obj in medievalCommercial) cityTiles.Add(obj);
-					break;
-				case Era.Modern: 
-					foreach (Transform obj in road) cityTiles.Add(obj);
-					foreach (Transform obj in farm) cityTiles.Add(obj);
-					foreach (Transform obj in residential) cityTiles.Add(obj);
-					foreach (Transform obj in commercial) cityTiles.Add(obj);
-					foreach (Transform obj in industrial) cityTiles.Add(obj);
-					break;
-				default: break;
-			}
-		}
-		
-		foreach (Transform obj in cityTiles)
-		{
-			Border other = obj.GetComponent<Border>();
-			TileData tileData = new TileData(type, other.left.values, other.top.values, other.right.values, other.down.values);
-			tileContainer.Add(tileData);
-			List<TilePrefab> tileList = new List<TilePrefab>();
-
-			for (int count = 0; count < maxVisibleTiles; ++count)
-			{
-				TilePrefab tilePrefab = new TilePrefab();
-				tilePrefab.tileData = new TileData(type, other.left.values, other.top.values, other.right.values, other.down.values);
-				Vector3 position = new Vector3(0, 0, 0);
-				GameObject objInstance = Instantiate(obj.gameObject, position, Quaternion.Euler(0, 0, 0)) as GameObject;
-				objInstance.transform.parent = poolObject.transform;
-				objInstance.transform.localPosition = new Vector3(0, 0, 0);
-				tilePrefab.prefab = objInstance;
-				tilePrefab.used = false;
-				tileList.Add(tilePrefab);
-			}
-			tilesPool.Add(type, tileList);
-			++type;
-		}
+		InstallPack(wild, ref wildContainer);
+		InstallPack(primitiveFarm, ref primitiveFarmContainer);
+		InstallPack(primitiveResidential, ref primitiveResidentialContainer);
+		InstallPack(medievalResidential, ref medievalResidentialContainer);
+		InstallPack(medievalCommercial, ref medievalCommercialContainer);
+		InstallPack(road, ref roadContainer);
+		InstallPack(farm, ref farmContainer);
+		InstallPack(residential, ref residentialContainer);
+		InstallPack(commercial, ref commercialContainer);
+		InstallPack(industrial, ref industrialContainer);
 	}
 
 	class VisibleTile
@@ -156,11 +264,16 @@ public class City : MonoBehaviour
 
 		public void Instantiate(Int2 index, TilePrefab newprefab, float tileSize)
 		{
-			tilePrefab = newprefab;
-			tilePrefab.prefab.transform.parent = cityObject.transform;
-			tilePrefab.prefab.transform.position = new Vector3(index.y * tileSize, 0, index.x * tileSize);
-			tilePrefab.prefab.transform.rotation = Quaternion.Euler(0, 90 * rotation, 0);
-			tilePrefab.used = true;
+			try
+			{
+				tilePrefab = newprefab;
+				tilePrefab.prefab = UnityEngine.Object.Instantiate(newprefab.prefab, new Vector3(index.y * tileSize, 0, index.x * tileSize), Quaternion.Euler(0, 90 * rotation, 0)) as GameObject;
+				tilePrefab.prefab.transform.parent = cityObject.transform;
+			}
+			catch (Exception e)
+			{
+				Debug.Log(e.Message);
+			}
 		}
 	}
 
@@ -184,13 +297,10 @@ public class City : MonoBehaviour
 			{
 				index.y = col;
 				index.x = row;
-
 				indexR.y = col + 1;
 				indexR.x = row;
-
 				indexD.y = col;
 				indexD.x = row - 1;
-
 				addWorldTile(index, generateTile(null, visibleTiles[indexD], null, visibleTiles[indexR]));
 			}
 		}
@@ -204,34 +314,19 @@ public class City : MonoBehaviour
 			{
 				index.y = col;
 				index.x = row;
-
 				indexL.y = col - 1;
 				indexL.x = row;
-
 				indexT.y = col;
 				indexT.x = row + 1;
-
 				addWorldTile(index, generateTile(visibleTiles[indexT], null, visibleTiles[indexL], null));
 			}
 		}
 	}
 
-	private void addWorldTile(Int2 index, VisibleTile tile)
+	private void addWorldTile(Int2 gridPosition, VisibleTile tile)
 	{
-		visibleTiles.Add(index, tile);
-
-		if (tilesPool != null && tilesPool.Count > 0)
-		{
-			List<TilePrefab> tileInstances = tilesPool[tile.tilePrefab.tileData.type];
-			foreach (TilePrefab tileprefab in tileInstances)
-			{
-				if (tileprefab.used == false)
-				{
-					tile.Instantiate(index, tileprefab, tileSize);
-					break;
-				}
-			}
-		}
+		visibleTiles.Add(gridPosition, tile);
+		tile.Instantiate(gridPosition, tile.tilePrefab, tileSize);
 	}
 
 	private TileSide extractSide(VisibleTile tile, int offset)
@@ -262,8 +357,7 @@ public class City : MonoBehaviour
 	{
 		for (int i = 0; i < tileConnections; ++i)
 		{
-			if (bits1[i] != bits2[i])
-				return false;
+			if (bits1[i] != bits2[i]) return false;
 		}
 		return true;
 	}
@@ -271,39 +365,32 @@ public class City : MonoBehaviour
 	private bool match(TileData tileData, List<TileSide> matchSide, ref int rotation)
 	{
 		rotation = 0;
-
 		int startIndexA = 0;
-		int startIndexB = 0;
-
 		TileSide side = matchSide[startIndexA];
+
 		while (matchSide.Count > startIndexA)
 		{
 			side = matchSide[startIndexA];
-			if (!side.noCheck)
-			{
-				break;
-			}
+			if (!side.noCheck) break;
 			++startIndexA;
 		}
 
 		if (matchSide.Count > startIndexA)
 		{
+			int startIndexB;
 			for (startIndexB = 0; startIndexB < 4; ++startIndexB)
 			{
 				if (equalSide(tileData.border[startIndexB].tilePattern, side.tilePattern))
 				{
 					// first side match, check the rest of the border
-					int rest = 1;
+					int rest;
 					for (rest = 1; rest < 4; ++rest)
 					{
 						TileSide mathTileSide = matchSide[(startIndexA + rest) % 4];
 						TileSide tileSide = tileData.border[(startIndexB + rest) % 4];
 						if (!mathTileSide.noCheck)
 						{
-							if (!equalSide(tileSide.tilePattern, mathTileSide.tilePattern))
-							{
-								break;
-							}
+							if (!equalSide(tileSide.tilePattern, mathTileSide.tilePattern)) break;
 						}
 					}
 
@@ -315,7 +402,6 @@ public class City : MonoBehaviour
 					}
 				}
 			}
-			// tile dont match
 			return false;
 		}
 		else
@@ -328,76 +414,170 @@ public class City : MonoBehaviour
 
 	private VisibleTile matchTile(TileSide valuesLeft, TileSide valuesTop, TileSide valuesRight, TileSide valuesDown)
 	{
-		VisibleTile tile = new VisibleTile();
+		VisibleTile tile = null;
+		List<VisibleTile> tilesFound = new List<VisibleTile>();
+		List<TileData> tileContainer = new List<TileData>();
+		List<String> tileContainerNames = new List<String>();
 
-		//Split container search randomly
-		int startSearch = UnityEngine.Random.Range(0, tileContainer.Count);
+		int dieRoll = UnityEngine.Random.Range(0, 101);
+		if (dieRoll >= zoningDensity+1)
+		{
+			switch (era)
+			{
+				case Era.Wild:
+				case Era.Primitive:
+				case Era.Medieval: tileContainer = wildContainer;  break;
+				case Era.Modern: tileContainer = roadContainer; break;
+				default: break;
+			}
+		}
+		else
+		{
+			switch (era)
+			{
+				case Era.Wild:
+					tileContainer = wildContainer;
+					break;
+				case Era.Primitive:
+					dieRoll = UnityEngine.Random.Range(0, 2);
+					switch (dieRoll)
+					{
+						case 0: tileContainer = primitiveFarmContainer; break;
+						case 1: tileContainer = primitiveResidentialContainer; break;
+					}
+					break;
+				case Era.Medieval:
+					dieRoll = UnityEngine.Random.Range(0, 3);
+					switch (dieRoll)
+					{
+						case 0: tileContainer = primitiveFarmContainer; break;
+						case 1: tileContainer = medievalResidentialContainer; break;
+						case 2: tileContainer = medievalCommercialContainer; break;
+					}
+					break;
+				case Era.Modern:
+					dieRoll = UnityEngine.Random.Range(0, 4);
+					switch (dieRoll)
+					{
+						case 0: tileContainer = farmContainer; break;
+						case 1: tileContainer = residentialContainer; break;
+						case 2: tileContainer = commercialContainer; break;
+						case 3: tileContainer = industrialContainer; break;
+					}
+					break;
+				default: break;
+			}
+		}
+
+		tilesFound = new List<VisibleTile>();
 		List<TileSide> matchSide = new List<TileSide>();
 		matchSide.Add(valuesLeft);
 		matchSide.Add(valuesTop);
 		matchSide.Add(valuesRight);
 		matchSide.Add(valuesDown);
-		bool found = false;
-
 		int rotation = 0;
-		for (int i = startSearch; i < tileContainer.Count; i++)
+
+		for (int i = 0; i < tileContainer.Count; i++)
 		{
 			TileData tileData = tileContainer[i];
 			if (match(tileData, matchSide, ref rotation))
 			{
-				found = true;
-				tile.tilePrefab.tileData = tileData;
-				tile.rotation = rotation;
-				break;
+				var t = new VisibleTile();
+				t.tilePrefab.prefab = tileData.prefab.gameObject;
+				t.tilePrefab.tileData = tileData;
+				t.rotation = rotation;
+				tilesFound.Add(t);
 			}
 		}
+		
+		int index = 0; 
+		bool foundCorner = false;
+		bool foundCuldesac = false;
+		VisibleTile cornerTile = new VisibleTile();
+		VisibleTile culdesacTile = new VisibleTile();
 
-		//search in the rest of container
-		if (!found)
+		// Strip culdesacs and corners to make more city like maps
+		if (!allowDeadEnds)
 		{
-			for (int i = 0; i < startSearch; i++)
+			foreach (var tl in tilesFound)
 			{
-				TileData tileData = tileContainer[i];
-				if (match(tileData, matchSide, ref rotation))
+				if (tl.tilePrefab.tileData.prefab.name.Contains("Corner"))
 				{
-					found = true;
-					tile.tilePrefab.tileData = tileData;
-					tile.rotation = rotation;
+					foundCorner = true;
+					cornerTile = tl;
+					cornerTile.tilePrefab.prefab = tl.tilePrefab.prefab;
+					cornerTile.tilePrefab.tileData = tl.tilePrefab.tileData;
+					cornerTile.rotation = tl.rotation; 
+					Debug.Log("Found corner tile! index = " + index);
 					break;
 				}
+				index++;
 			}
+			if (foundCorner) tilesFound.RemoveAt(index);
+
+			index = 0;
+			foreach (var tl in tilesFound)
+			{
+				if (tl.tilePrefab.tileData.prefab.name.Contains("Culdesac"))
+				{
+					foundCuldesac = true;
+					culdesacTile = tl;
+					culdesacTile.tilePrefab.prefab = tl.tilePrefab.prefab;
+					culdesacTile.tilePrefab.tileData = tl.tilePrefab.tileData;
+					culdesacTile.rotation = tl.rotation; 
+					Debug.Log("Found culdesac tile! index = " + index);
+					break;
+				}
+				index++;
+			}
+			if (foundCuldesac) tilesFound.RemoveAt(index);
 		}
 
-		if (!found)
-			Debug.Log("<color=red>Fatal error:</color> Missing tile with pattern: " + valuesLeft.patternString() + " " + valuesTop.patternString() + " " + valuesRight.patternString() + " " + valuesDown.patternString());
-		return tile;
-	}
+		if (tilesFound.Count > 0)
+		{
+			dieRoll = UnityEngine.Random.Range(0, tilesFound.Count);
+			Debug.Log("Chose index " + dieRoll + " -- Range(0, " + (tilesFound.Count - 1) + ")");
 
-	Int2 calculatePosition()
-	{
-		Int2 position = new Int2(0, 0);
-		position.x = Mathf.FloorToInt((player.transform.position.z + (tileSize / 2)) / tileSize);
-		position.y = Mathf.FloorToInt((player.transform.position.x + (tileSize / 2)) / tileSize);
-		return position;
+			VisibleTile tle = null;
+			if (tilesFound.Count > 0) tle = tilesFound[dieRoll];
+
+			//Debug.Log("" + dieRoll + " : " + string.Join(" ; ", new List<VisibleTile>(tilesFound).ConvertAll(i => i.tilePrefab.prefab.name.ToString()).ToArray()));
+
+			tile = tle;
+			tile.tilePrefab.prefab = tle.tilePrefab.prefab;
+			tile.tilePrefab.tileData = tle.tilePrefab.tileData;
+			tile.rotation = tle.rotation;
+		}
+		else if (foundCorner)
+		{
+			tile = cornerTile;
+			tile.tilePrefab.prefab = cornerTile.tilePrefab.prefab;
+			tile.tilePrefab.tileData = cornerTile.tilePrefab.tileData;
+			tile.rotation = cornerTile.rotation;
+		}
+
+		if (tile == null) Debug.Log("<color=red>Fatal error:</color> Missing tile with pattern: " + valuesLeft.patternString() + " " + valuesTop.patternString() + " " + valuesRight.patternString() + " " + valuesDown.patternString());
+
+		return tile;
 	}
 
 	public void initMap()
 	{
 		visibleTiles = new Dictionary<Int2, VisibleTile>();
-		previousPosition = new Int2(0, 0);
 		prepareTilePrefabs();
 		generateInitialWorld();
-		Destroy(poolObject);
 	}
 
 	void Start()
 	{
-		player = GameObject.FindGameObjectWithTag("Player").transform;
+		//player = GameObject.FindGameObjectWithTag("Player").transform;
 
 		// todo global seed value should be set somewhere... more global?
-		if (randomSeed < 0) randomSeed = Random.Range(0, int.MaxValue);
+		if (randomSeed < 0) randomSeed = UnityEngine.Random.Range(0, int.MaxValue);
 		if (seedText != null) seedText.text = "DIMENSION SEED: " + randomSeed;
-		Random.InitState(randomSeed);
+		UnityEngine.Random.InitState(randomSeed);
+
+
 
 		initMap();
 	}
@@ -408,7 +588,6 @@ public class City : MonoBehaviour
 		{
 			Time.timeScale = 0f;
 			Destroy(cityObject);
-			Destroy(poolObject);
 			initMap();
 			Time.timeScale = 1f;
 		}

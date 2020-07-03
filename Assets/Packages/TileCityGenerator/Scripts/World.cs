@@ -3,200 +3,30 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-/** \brief Auxiliar class to store coordinates inside the world grid*/
-public struct Int2 {
-	/** x coordinate */
-	public int x;
-	/** y coordinate */
-	public int y;
-	
-	/** Constructor */
-	public Int2 (int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-	
-	/** Module */
-	public int sqrMagnitude {
-		get {
-			return x*x+y*y;
-		}
-	}
-	
-	/** Module(long) */
-	public long sqrMagnitudeLong {
-		get {
-			return (long)x*(long)x+(long)y*(long)y;
-		}
-	}
-	/** + override */
-	public static Int2 operator + (Int2 a, Int2 b) {
-		return new Int2 (a.x+b.x, a.y+b.y);
-	}
-	/** - override */
-	public static Int2 operator - (Int2 a, Int2 b) {
-		return new Int2 (a.x-b.x, a.y-b.y);
-	}
-	/** == override */
-	public static bool operator == (Int2 a, Int2 b) {
-		return a.x == b.x && a.y == b.y;
-	}
-	/** != override */
-	public static bool operator != (Int2 a, Int2 b) {
-		return a.x != b.x || a.y != b.y;
-	}
-	/** dot override */
-	public static int Dot (Int2 a, Int2 b) {
-		return a.x*b.x + a.y*b.y;
-	}
-	/** dot(long) override */
-	public static long DotLong (Int2 a, Int2 b) {
-		return (long)a.x*(long)b.x + (long)a.y*(long)b.y;
-	}
-	
-	/** Equals override */
-	public override bool Equals (System.Object o) {
-		if (o == null) return false;
-		Int2 rhs = (Int2)o;
-		
-		return x == rhs.x && y == rhs.y;
-	}
-	
-	/** Hash override */
-	public override int GetHashCode () {
-		return x*49157+y*98317;
-	}
-}
-
-/** \brief Side pattern*/
-public class TileSide
-{
-	/** Indicates if has a valid pattern that must be checked */
-	public bool noCheck;
-	
-	/** The side pattern */
-	public List<bool> tilePattern;
-
-	/** Constructor
-	*\param dontCare 	invalidates pattern
-	*\param pattern 	pattern
-	*/
-	public TileSide(bool dontCare, List<bool> pattern)
-	{
-		noCheck = dontCare;
-		tilePattern = pattern;
-	}
-	
-	/** Generates a string representation of pattern */
-	public string patternString()
-	{
-		if(noCheck)
-			return "X";
-		
-		string pattern = "";
-		foreach (bool connection in tilePattern)
-		{
-			if(connection)
-				pattern +="1";
-			else
-				pattern +="0";
-		}
-		return pattern;
-	}
-}
-
-/** \brief Tile border pattern*/
-public class TileData
-{
-	/** Tile type */
-	public int type;
-	
-	/** list of side patterns */
-	public List<TileSide> border;
-	
-	/** Constructor
-	*\param tileType tile type
-	*\param left 	left border pattern
-	*\param top 	top border pattern
-	*\param right 	right border pattern
-	*\param down 	down border pattern
-	*/
-	public TileData(int tileType, List<bool> left, List<bool> top, List<bool> right, List<bool> down)
-	{
-		type = tileType;
-		border = new List<TileSide>(4);
-		
-		border.Add(new TileSide(false, left));
-		border.Add(new TileSide(false, top));
-		border.Add(new TileSide(false, right));
-		border.Add(new TileSide(false, down));
-	}
-}
-
-/** \brief Tile in game*/
-
-public class TilePrefab
-{
-	/** GameObject representation */
-	public GameObject prefab;
-	/** Tipe info */
-	public TileData tileData;
-	/** Is visible in game */
-	public bool used;
-}
-
-/** \brief Game world representation */
-
 public class World : MonoBehaviour 
 {
 	public int worldSeed;
 	public TextMeshProUGUI worldSeedText;
-
-	/** The player object */
 	[HideInInspector] public Transform player;
-	
-	/** Tile prefabs */
 	public GameObject[] prefabs;
-	
-	/** The instantiated tiles container */
 	private List<TileData> tileContainer;
-	
-	/** Size of tile ring generation zone */
 	public int initialrange = 6;
-	
-	/** Size of tile */
 	public float tileSize = 64;
-	
-	/** Number of connections of the tile */
 	public int tileConnections = 1;
-	
-	/** The pool object position (away from the camera) */
 	public Vector3 poolObjectPosition;
-
-	/** The pool object. */
 	static private GameObject poolObject;
-
 	static private GameObject cityObject;
-
-	/** The tiles pool. */
 	private Dictionary<int, List<TilePrefab>> tilesPool;
-
-	/** Previous player position in world grid*/
 	private Int2 previousPosition;
-	
-	/** Visible tiles in world grid*/
 	private Dictionary<Int2, VisibleTile> tiles;
 	
-	/** Instantiate pool tiles */
 	private void prepareTilePrefabs()
 	{
 		tileContainer 	= new List<TileData>();
 		tilesPool 		= new Dictionary<int, List<TilePrefab>>();
-		
 		poolObject = new GameObject();
 		poolObject.transform.position = poolObjectPosition;
 		poolObject.name = "poolObject";
-
 		cityObject = new GameObject();
 		cityObject.transform.position = Vector3.zero;
 		cityObject.name = transform.name;
@@ -223,13 +53,7 @@ public class World : MonoBehaviour
 				tile.used = false;
 				tileList.Add(tile);
 			}
-			
 			tilesPool.Add(type, tileList);
-			
-			// move prefab out the cam
-			//obj.transform.parent = poolObject.transform;
-			//obj.transform.localPosition = new Vector3(0, 0, 0);
-			
             ++type;
 		}		
 	}

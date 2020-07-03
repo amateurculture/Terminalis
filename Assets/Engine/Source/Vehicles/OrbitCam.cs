@@ -78,7 +78,7 @@ public class OrbitCam : MonoBehaviour
 		}
 		catch (Exception e)
 		{
-			Console.WriteLine("{0} Exception caught.", e);
+            System.Console.WriteLine("{0} Exception caught.", e);
 		}
 	}
 

@@ -9,6 +9,7 @@ public class Agent : Container
     #region public variables
 
     [Header("Details")]
+    public Globals.Month birthMonth = Globals.Month.January;
     [EnumFlags] public Globals.Sex sex = Globals.Sex.Female;
     [EnumFlags] public Globals.Sex expression = Globals.Sex.Female;
     [EnumFlags] public Globals.Sex attraction = Globals.Sex.Male;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7408228593486880772}
   m_Layer: 0
   m_Name: Desert City
-  m_TagString: Untagged
+  m_TagString: City
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,8 +48,14 @@ MonoBehaviour:
   radius: 8
   tileSize: 64
   tileConnections: 1
-  era: 4
-  cityDensity: 100
+  allowDeadEnds: 0
+  population: 10000
+  wealth: 1000000
+  food: 100
+  pollution: 50
+  era: 16
+  economicClass: 0
+  zoningDensity: 50
   wild: {fileID: 2862295387095675651, guid: cb91d93249ac45a48a4c08ad8a4d5718, type: 3}
   primitiveFarm: {fileID: 9052178651935920558, guid: 67dd54ab49a44104e86ac854d2dcc2f4,
     type: 3}
@@ -63,8 +69,7 @@ MonoBehaviour:
   farm: {fileID: 9052178651935920558, guid: dc5f2d71bd4850846847b53976a15dbc, type: 3}
   residential: {fileID: 2452543274282148703, guid: cc567ca4ffa133f47bd2a75b3dcedec2,
     type: 3}
-  commercial: {fileID: 1902101813746697070, guid: 778fb1a932d96c1499427b991bbe330a,
+  commercial: {fileID: 4406895283085590933, guid: 78a41f0e9e2750346bf4828086fd2930,
     type: 3}
-  industrial: {fileID: 4406895283085590933, guid: 78a41f0e9e2750346bf4828086fd2930,
+  industrial: {fileID: 1902101813746697070, guid: 86ac77f1c11a7474e844b6c75d0f83df,
     type: 3}
-  player: {fileID: 0}
