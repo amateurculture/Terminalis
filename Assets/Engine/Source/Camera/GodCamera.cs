@@ -6,14 +6,18 @@ public class GodCamera : MonoBehaviour
 {
     public GameObject hud;
     [Range(64, 256)] public float height = 128f;
+    public Vector2 rotationClamp = new Vector2(35, 85);
 
     Camera cam;
     GameObject player;
     UltimateCharacterLocomotion loco;
     bool godCamEnabled;
     bool isOrbitCam;
-
-    public Vector2 rotationClamp = new Vector2(35, 85); 
+    Vector3 rot, pos, moveDirection;
+    float leftStickHorizontal, leftStickVertical;
+    float rightStickHorizontal, rightStickVertical;
+    float zoomSpeed;
+    float scrollInput;
 
     void Start()
     {
@@ -23,14 +27,15 @@ public class GodCamera : MonoBehaviour
         hud.SetActive(false);
     }
 
-    void LateUpdate()
+    void Update()
     {
-        if (Input.GetButtonDown("Back"))
+        if (Input.GetButtonDown("Start"))
         {
             godCamEnabled = !godCamEnabled;
 
             if (godCamEnabled)
             {
+                QualitySettings.SetQualityLevel(0);
                 hud.SetActive(true);
 
                 loco.enabled = false;
@@ -54,7 +59,7 @@ public class GodCamera : MonoBehaviour
                     cam.GetComponent<CameraControllerHandler>().enabled = false;
                 }
 
-                Vector3 t = player.transform.position;
+                Vector3 t = cam.transform.position;
                 t.y = height;
                 t.x -= height / 2;
                 transform.position = t;
@@ -62,6 +67,7 @@ public class GodCamera : MonoBehaviour
             } 
             else
             {
+                QualitySettings.SetQualityLevel(6);
                 hud.SetActive(false);
 
                 foreach (MonoBehaviour v in player.GetComponents<MonoBehaviour>())
@@ -83,46 +89,46 @@ public class GodCamera : MonoBehaviour
         if (godCamEnabled)
         {
             // Gamepad input
-            float hinput = Input.GetAxis("Horizontal");
-            float vinput = Input.GetAxis("Vertical");
-            float hinput1 = Input.GetAxis("Mouse X");
-            float vinput1 = Input.GetAxis("Mouse Y");
-            float zoomSpeed = 256f * (height / 256f);
+            leftStickHorizontal = Input.GetAxis("Horizontal");
+            leftStickVertical = Input.GetAxis("Vertical");
+            rightStickHorizontal = Input.GetAxis("Mouse X");
+            rightStickVertical = Input.GetAxis("Mouse Y");
+            zoomSpeed = height; // 256f * (height / 256f);
             
             // Gamepad zoom
-            height = Mathf.Clamp(height + ((Input.GetAxis("Fire2") - Input.GetAxis("Fire1") * zoomSpeed * Time.deltaTime)), 64, 256);
+            height = Mathf.Clamp(height + ((Input.GetAxis("Fire1") - Input.GetAxis("Fire2") * zoomSpeed * Time.deltaTime)), 64, 256);
             
             // Key Input
-            if (Input.GetKey(KeyCode.W)) vinput = 1;
-            else if (Input.GetKey(KeyCode.S)) vinput = -1;
-            else if (Input.GetKey(KeyCode.A)) hinput = -1;
-            else if (Input.GetKey(KeyCode.D)) hinput = 1;
-            else if (Input.GetKey(KeyCode.Q)) height -= zoomSpeed * Time.deltaTime;
-            else if (Input.GetKey(KeyCode.E)) height += zoomSpeed * Time.deltaTime;
+            if (Input.GetKey(KeyCode.W)) leftStickVertical = 1;
+            if (Input.GetKey(KeyCode.S)) leftStickVertical = -1;
+            if (Input.GetKey(KeyCode.A)) leftStickHorizontal = -1;
+            if (Input.GetKey(KeyCode.D)) leftStickHorizontal = 1;
+            if (Input.GetKey(KeyCode.Q)) height -= zoomSpeed * Time.deltaTime;
+            if (Input.GetKey(KeyCode.E)) height += zoomSpeed * Time.deltaTime;
 
             // Mouse scroll zoom
-            var d = Input.GetAxis("Mouse ScrollWheel");
-            if (d > 0f) height -= zoomSpeed * Time.deltaTime * d * 50f;
-            else if (d < 0f) height -= zoomSpeed * Time.deltaTime * d * 50f;
+            scrollInput = Input.GetAxis("Mouse ScrollWheel");
+            if (scrollInput > 0f) height -= zoomSpeed * Time.deltaTime * scrollInput * 50f;
+            else if (scrollInput < 0f) height -= zoomSpeed * Time.deltaTime * scrollInput * 50f;
             height = Mathf.Clamp(height, 64, 256);
 
-            // Move camera
-            var rot = transform.eulerAngles;
-            var pos = transform.position;
-            if (vinput != 0)
+            // Move and rotate camera
+            rot = transform.eulerAngles;
+            pos = transform.position;
+            if (leftStickVertical != 0)
             {
-                var moveDirection = transform.forward;
+                moveDirection = transform.forward;
                 moveDirection.y = 0.0f;
                 moveDirection = Vector3.Normalize(moveDirection);
-                pos += moveDirection * Time.deltaTime * (vinput * zoomSpeed);
+                pos += moveDirection * Time.deltaTime * leftStickVertical * zoomSpeed;
                 pos.y = height;
             }
             pos.y = height;
             transform.position = pos;
 
-            if (hinput != 0) transform.position += transform.right * Time.deltaTime * (hinput * zoomSpeed);
-            if (hinput1 != 0) rot.y += (hinput1);
-            if (vinput1 != 0) rot.x += vinput1;
+            if (leftStickHorizontal != 0) transform.position += transform.right * Time.deltaTime * (leftStickHorizontal * zoomSpeed);
+            if (rightStickHorizontal != 0) rot.y += rightStickHorizontal * Time.deltaTime * 128f;
+            if (rightStickVertical != 0) rot.x += rightStickVertical * Time.deltaTime * 128f;
             if (rot.x > rotationClamp.y) rot.x = rotationClamp.y;
             if (rot.x < rotationClamp.x) rot.x = rotationClamp.x;
             transform.eulerAngles = rot;

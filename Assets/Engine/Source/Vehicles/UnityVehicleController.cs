@@ -144,7 +144,7 @@ public class UnityVehicleController : MonoBehaviour
 
             // Handle horn
             bool hornButtonPressed = Input.GetButtonDown("Toggle Perspective");
-            if (hornButtonPressed) hornAudio.Play();
+            if (hornButtonPressed && hornAudio != null) hornAudio.Play();
 
             // Handle headlights
             bool headlightButtonPressed = Input.GetButtonDown("Crouch");
@@ -187,12 +187,13 @@ public class UnityVehicleController : MonoBehaviour
                 orbitCam.enabled = false;
 
                 // Fix to prevent exiting car underground
-                //var pos = new Vector3(exitPoint.transform.position.x, exitPoint.transform.position.y, exitPoint.transform.position.z);
+                var pos = new Vector3(transform.position.x - exitPoint.transform.position.x, transform.position.x - exitPoint.transform.position.y, transform.position.x - exitPoint.transform.position.z);
                 //if (pos.y < 0) pos.y = Mathf.Abs(exitPoint.transform.position.y) + carMaterial.GetComponent<MeshFilter>().mesh.bounds.size.y;
-                //pos.y = pos.y < 0 ? 1f : pos.y;
+                
+                pos.y = pos.y < 0 ? 1f : pos.y;
 
                 player.transform.position = exitPoint.transform.position;
-
+                
                 //var euler = cam.transform.rotation.eulerAngles;
                 //var rot = Quaternion.Euler(0, euler.y, 0);
                 //player.transform.rotation = rot;
@@ -237,7 +238,7 @@ public class UnityVehicleController : MonoBehaviour
             Debug.Log("Found player: " + player.name + " -- Turning off all scripts");
             foreach (MonoBehaviour v in player.GetComponents<MonoBehaviour>())
             {
-                Debug.Log(v.name);
+                Debug.Log(v.ToString());
                 v.enabled = false;
             }
 
@@ -278,7 +279,6 @@ public class UnityVehicleController : MonoBehaviour
 
             Debug.Log("If camera main was null, find it again");
 
-            //player.GetComponent<UltimateCharacterLocomotionHandler>().enabled = false;
             cam.GetComponent<CameraControllerHandler>().enabled = false;
 
             Debug.Log("Turned on camera controller handler");
@@ -297,22 +297,22 @@ public class UnityVehicleController : MonoBehaviour
     {
         if (other.tag == "Player") isAtDoor = false;
     }
-
-    /*
-    IEnumerator DisableWheels()
-    {
-        m_Wheels = GetComponentsInChildren<WheelCollider>();
-
-        yield return new WaitForSeconds(3);
-
-        for (int i = 0; i < m_Wheels.Length; ++i)
-        {
-            var wheel = m_Wheels[i];
-            wheel.motorTorque = 0;
-        }
-
-        carController.enabled = false;
-        carUserControl.enabled = false;
-    }
-    */
 }
+
+/*
+IEnumerator DisableWheels()
+{
+    m_Wheels = GetComponentsInChildren<WheelCollider>();
+
+    yield return new WaitForSeconds(3);
+
+    for (int i = 0; i < m_Wheels.Length; ++i)
+    {
+        var wheel = m_Wheels[i];
+        wheel.motorTorque = 0;
+    }
+
+    carController.enabled = false;
+    carUserControl.enabled = false;
+}
+*/

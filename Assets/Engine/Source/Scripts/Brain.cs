@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine.SceneManagement;
 
-/*** 
- * Class Brain
- * 
- * Developer: Fiona Schultz
- * Last modified: Oct-12-2019
- * 
- * It's like, the brain. Man, woman, or something, you don't know!
- *
- */
+/// <summary>
+/// Brain
+/// 
+/// Developer: Fiona Schultz
+/// Last modified: Oct-12-2019
+///
+/// It's like, the brain. Man, woman, or something, you don't know!
+/// 
+/// </summary>
 
 [System.Serializable]
 public class Brain : MonoBehaviour
@@ -24,12 +24,12 @@ public class Brain : MonoBehaviour
     public Color hoverColor;
     public Color equippedColor;
     public Color unusableColor;
-    public Agent player;
     public TextAsset maleNames;
     public TextAsset femaleNames;
     public TextAsset lastNames;
     public Texture2D cursorTexture;
 
+    [HideInInspector] public Agent player;
     [HideInInspector] public string sceneName = "Main";
     [HideInInspector] public Color colorCycle1;
     [HideInInspector] public Color colorCycle2;
@@ -43,8 +43,8 @@ public class Brain : MonoBehaviour
 
     private void Reset()
     {
-        this.name = "Brain";
-        this.tag = "Brain";
+        name = "Brain";
+        tag = "Brain";
     }
 
     void Awake()
@@ -57,14 +57,10 @@ public class Brain : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
 
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Agent>();
         automataList.AddRange(FindObjectsOfType<Agent>());
-        
-        //baseScene = SceneManager.GetActiveScene();
-
         QualitySettings.SetQualityLevel(6, true);
-
-        if (cursorTexture != null)
-            Cursor.SetCursor(cursorTexture, new Vector2(32f, 155f), CursorMode.Auto);
+        if (cursorTexture != null) Cursor.SetCursor(cursorTexture, new Vector2(32f, 155f), CursorMode.Auto);
     }    
 
     public void TrackableEvent(Meme meme) 
@@ -139,20 +135,12 @@ public class Brain : MonoBehaviour
         return CultureInfo.CurrentCulture.TextInfo.ToTitleCase((firstName + " " + Brain.instance.getLastName()).ToLower());
     }
 
-    /*
-    IEnumerator EnviroPatch()
-    {
-        yield return new WaitForSeconds(10);
-    }
-    */
-
     private void OnEnable()
     {
         //SceneManager.sceneLoaded += OnSceneLoaded;
         //SceneManager.sceneUnloaded += OnSceneUnloaded;
        
         /*
-        EnviroProfile p = e.profile;
         e.SaveProfile();
         e.ApplyProfile(p);
         */
@@ -216,12 +204,15 @@ public class Brain : MonoBehaviour
 
     private void Update()
     {
-        incrementer += Time.unscaledDeltaTime * .05f;
-        incrementer = incrementer > 1f ? 0 : incrementer;
-        colorCycle1 = colorGradient.Evaluate(incrementer);
+        if (Time.frameCount % 2 == 0)
+        {
+            incrementer += Time.unscaledDeltaTime * .05f;
+            incrementer = incrementer > 1f ? 0 : incrementer;
+            colorCycle1 = colorGradient.Evaluate(incrementer);
 
-        fastIncrementer += Time.unscaledDeltaTime * .5f;
-        fastIncrementer = fastIncrementer > 1f ? 0 : fastIncrementer;
-        colorCycle2 = colorGradient.Evaluate(fastIncrementer);
+            fastIncrementer += Time.unscaledDeltaTime * .5f;
+            fastIncrementer = fastIncrementer > 1f ? 0 : fastIncrementer;
+            colorCycle2 = colorGradient.Evaluate(fastIncrementer);
+        }
     }
 }

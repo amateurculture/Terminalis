@@ -1,5 +1,5 @@
 ﻿using UnityEngine;public class CarDiagnosticsInputHandler : MonoBehaviour{    public GameObject diagnosticsPanel;    public UnityVehicleController vehicleController;    private void Start()    {        diagnosticsPanel.SetActive(false);        vehicleController = GetComponent<UnityVehicleController>();    }    void Update()    {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Start"))
+        if (Input.GetKeyDown(KeyCode.F2))
         {
             diagnosticsPanel.SetActive(!diagnosticsPanel.activeSelf);
 

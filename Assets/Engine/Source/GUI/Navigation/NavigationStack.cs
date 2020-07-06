@@ -3,22 +3,19 @@ using UnityEngine;
 
 public class NavigationStack : Singleton<NavigationStack>
 {
-    protected NavigationStack() { }
-    protected bool menuActive;
-    protected bool hudActive;
-
-    protected List<GameObject> viewControllers;
-    protected GameObject player;
-
     public GameObject startMenu;
     public GameObject gameMenu;
     public GameObject background;
-
-    [Header("============================")]
-    public GameObject events;
+    [Space(10)]
     public GameObject hud;
     public Stack<GameObject> stack;
     public bool startEnabled = false;
+
+    protected NavigationStack() { }
+    protected bool menuActive;
+    protected bool hudActive;
+    protected List<GameObject> viewControllers;
+    protected GameObject player;
 
     private void Awake()
     {
@@ -39,47 +36,31 @@ public class NavigationStack : Singleton<NavigationStack>
 
         if (startEnabled)
         {
-            events.SetActive(false);
             hud.SetActive(false);
             PushView(startMenu);
         }
-        else
-            CloseMenu();
+        else CloseMenu();
     }
 
     internal void PushView(GameObject view)
     {
         Time.timeScale = 1f;
 
-        if (background != null)
-            background?.SetActive(true);
-
-        if (stack.Count > 0)
-            stack.Peek()?.SetActive(false);
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+        if (background != null) background?.SetActive(true);
+        if (stack.Count > 0) stack.Peek()?.SetActive(false);
+        
         stack.Push(view);
         stack.Peek().SetActive(true);
-
         menuActive = true;
         Time.timeScale = 0f;
     }
 
     internal void PopView()
     {
-        if (stack.Peek() == startMenu)
-            return;
-
+        if (stack.Peek() == startMenu) return;
         stack.Peek()?.SetActive(false);
         stack.Pop();
-
-        if (stack.Count > 0)
-            stack.Peek()?.SetActive(true);
-        else
-            CloseMenu();
+        if (stack.Count > 0) stack.Peek()?.SetActive(true); else CloseMenu();
     }
 
     internal void CloseMenu()
@@ -88,13 +69,7 @@ public class NavigationStack : Singleton<NavigationStack>
         menuActive = false;
         hudActive = false;
         hud.SetActive(true);
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        foreach (GameObject view in viewControllers)
-            view.SetActive(false);
-        
+        foreach (GameObject view in viewControllers) view.SetActive(false);
         stack.Clear();
     }
 
@@ -102,26 +77,12 @@ public class NavigationStack : Singleton<NavigationStack>
     {
         if (!menuActive)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("Back"))
             {
-                if (Cursor.lockState == CursorLockMode.None)
-                {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                }
-                else
-                {
-                    if (!hud.activeSelf)
-                        hud.SetActive(true);
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                }
+                hud.SetActive(!hud.activeSelf);
+                Cursor.lockState = CursorLockMode.Locked;
             }
         }
-        else
-        {
-            if (stack.Peek() != startMenu && Input.GetKeyDown(KeyCode.Escape))
-                CloseMenu();
-        }
+        else if (stack.Peek() != startMenu && (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("Back"))) CloseMenu();
     }
 }
