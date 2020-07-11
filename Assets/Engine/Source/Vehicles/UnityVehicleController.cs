@@ -7,40 +7,39 @@ using UnityStandardAssets.Vehicles.Car;
 
 public class UnityVehicleController : MonoBehaviour
 {
+    public AudioSource hornAudio;
     public Transform lookAtTarget;
     public Transform positionTarget;
     public Transform sideView;
     public GameObject exitPoint;
     public GameObject headlights;
     public GameObject dashboard;
-    public AudioSource hornAudio;
+    public Renderer carMaterial;
     public Image lowBeamsIndicator;
     public Image handBrakeIndicator;
-    public Renderer carMaterial;
     public int headLightIndex;
     public int tailLightIndex;
-    private Rigidbody rigid;
+    
+    [HideInInspector] public bool isInside;
 
+    NavigationStack navStack;
     CarAudio engineAudio;
     CarController carController;
     CarUserControl carUserControl;
-
-    private WheelCollider[] m_Wheels;
-
+    CameraController playerCam;
     GameObject player;
     OrbitCam orbitCam;
-    CameraController playerCam;
     Camera cam;
-    [HideInInspector] public bool isInside;
+    private WheelCollider[] m_Wheels;
+    private Rigidbody rigid;
     bool isAtDoor;
    
     void Start()
     {
+        navStack = FindObjectOfType<NavigationStack>();
         player = GameObject.FindGameObjectWithTag("Player");
-
         cam = Camera.main;
         orbitCam = cam.GetComponent<OrbitCam>();
-
         playerCam = cam.GetComponent<CameraController>();
         isInside = false;
         isAtDoor = false;
@@ -203,12 +202,10 @@ public class UnityVehicleController : MonoBehaviour
                     v.enabled = true;
                 }
                 player.SetActive(true);
-
                 playerCam.enabled = true;
                 isInside = false;
                 lowBeamsIndicator.enabled = false;
                 handBrakeIndicator.enabled = false;
-
                 player.GetComponent<UltimateCharacterLocomotionHandler>().enabled = true;
                 cam.GetComponent<CameraControllerHandler>().enabled = true;
 
@@ -218,11 +215,14 @@ public class UnityVehicleController : MonoBehaviour
                     carMaterial.materials[tailLightIndex].DisableKeyword("_EMISSION");
 
                 Time.timeScale = 1;
+
+                navStack.ExitVehicle();
             }
         }
         // Enter vehicle
         else if (isAtDoor && enterCarButtonPressed)
         {
+            navStack.EnterVehicle();
             Debug.Log("Entering car");
             Cursor.lockState = CursorLockMode.Locked;
 

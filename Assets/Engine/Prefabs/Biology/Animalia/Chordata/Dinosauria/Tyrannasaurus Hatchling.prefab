@@ -925,7 +925,7 @@ SkinnedMeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0.20387536
+  m_ScaleInLightmap: 0.05169768
   m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
@@ -1156,27 +1156,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   sprite: {fileID: 0}
-  price: 1
-  health: 1
+  vitality: 100
+  value: 1
   inventory: []
-  currency: 100
+  birthMonth: 0
   sex: 2
-  gender: 2
+  expression: 2
   attraction: 1
-  status: 0
+  disease: 0
   hunger: 0
   fatigue: 0
-  anxiety: 0
-  strength: 50
+  stress: 0
   home: {fileID: 0}
   work: {fileID: 0}
   playerController: {fileID: 0}
   isWorking: 0
   isEating: 0
   isSleeping: 0
-  sightRange: 25
-  hearingRange: 10
-  fov: 120
 --- !u!114 &2398518342061524791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1189,17 +1185,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1783729da62d0746bbcbdb9caf3ddc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifespan: 0
+  sightRange: 25
+  hearingRange: 10
+  fov: 120
   aiStyle: 3
-  age: 1
   sizeClass: 1
-  owner: {fileID: 0}
   mother: {fileID: 0}
   father: {fileID: 0}
+  spouse: {fileID: 0}
   diet: 4
+  stapleFood: {fileID: 0}
   show: 0
-  health: 100
   isRagdollEnabled: 0
   isAttacking: 0
+  isRunning: 0
 --- !u!114 &7300264073204121674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1220,7 +1220,7 @@ LODGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2398518342061524790}
   serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.29832268, y: 1.9547882, z: -0.9434061}
+  m_LocalReferencePoint: {x: -0.29834986, y: 1.9547958, z: -0.9434633}
   m_Size: 12.582365
   m_FadeMode: 0
   m_AnimateCrossFading: 1

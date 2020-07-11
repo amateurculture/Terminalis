@@ -42,6 +42,12 @@ public class SlideTransition : MonoBehaviour
                 targetPosition.x = marginWidth;
                 break;
         }
+        OpenWindow();
+    }
+
+    private void OnDisable()
+    {
+        CloseWindow();
     }
 
     public void OpenWindow()
@@ -53,11 +59,9 @@ public class SlideTransition : MonoBehaviour
 
     public void CloseWindow()
     {
-        if (isVisible)
-        {
-            setPosition = originalPosition;
-            StartCoroutine(SlideTransitionCoroutine());
-        }
+        setPosition = originalPosition;
+        rect.anchoredPosition = setPosition;
+        isVisible = false;
     }
 
     public void ToggleSlide()

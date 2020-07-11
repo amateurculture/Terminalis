@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -133,6 +134,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -657,19 +659,19 @@ NavMeshAgent:
   m_GameObject: {fileID: 4245577906990917332}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.3
-  m_Speed: 4
+  m_Radius: 0.25
+  m_Speed: 2
   m_Acceleration: 8
-  avoidancePriority: 45
-  m_AngularSpeed: 120
+  avoidancePriority: 50
+  m_AngularSpeed: 240
   m_StoppingDistance: 1
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0
+  m_Height: 1.8
+  m_BaseOffset: -0.2
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 2
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &4245577906990917291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,17 +686,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   sprite: {fileID: 0}
-  health: 100
+  vitality: 100
   value: 1
   inventory: []
+  birthMonth: 0
   sex: 2
-  gender: 2
+  expression: 2
   attraction: 1
-  status: 0
+  disease: 0
   hunger: 0
   fatigue: 0
   stress: 0
-  strength: 50
   home: {fileID: 0}
   work: {fileID: 0}
   playerController: {fileID: 0}
@@ -722,12 +724,13 @@ MonoBehaviour:
   mother: {fileID: 0}
   father: {fileID: 0}
   spouse: {fileID: 0}
-  stapleFood: {fileID: 0}
   diet: 8
+  stapleFood: {fileID: 0}
   show: 0
   isRagdollEnabled: 0
   isAttacking: 0
   isRunning: 0
+  maxWanderRange: 25
 --- !u!65 &8166790672471331753
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -737,7 +740,7 @@ BoxCollider:
   m_GameObject: {fileID: 4245577906990917332}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 1, z: -1.2}
@@ -748,7 +751,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4245577906990917332}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c5556b746ed45f4e86df97ad801fe80, type: 3}
   m_Name: 
@@ -775,7 +778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6836394472960576974
 RectTransform:
   m_ObjectHideFlags: 0
@@ -928,6 +931,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1091,6 +1095,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1207,6 +1212,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

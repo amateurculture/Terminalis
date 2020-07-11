@@ -1,20 +1,14 @@
-﻿using Opsive.UltimateCharacterController.Camera;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnterBuilding : MonoBehaviour
 {
-    public Transform lightGroup;
-    Camera cam;
-    CameraController camController;
+    public Transform stuff;
 
     private void Start()
     {
-        cam = Camera.main;
-        camController = cam.GetComponent<CameraController>();
-
-        foreach(Transform light in lightGroup)
+        foreach(Transform obj in stuff)
         {
-            light.gameObject.SetActive(false);
+            obj.gameObject.SetActive(false);
         }
     }
 
@@ -22,10 +16,7 @@ public class EnterBuilding : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            foreach(Transform light in lightGroup)
-            {
-                light.gameObject.SetActive(true);
-            }
+            foreach(Transform obj in stuff) obj.gameObject.SetActive(true);
         }
     }
 
@@ -33,10 +24,7 @@ public class EnterBuilding : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            foreach(Transform light in lightGroup)
-            {
-                light.gameObject.SetActive(false);
-            }
+            foreach(Transform obj in stuff) obj.gameObject.SetActive(false);
         }
     }
 }

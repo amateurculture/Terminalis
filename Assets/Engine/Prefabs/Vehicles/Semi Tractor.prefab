@@ -45,7 +45,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 50
+  m_Range: 150
   m_SpotAngle: 80
   m_InnerSpotAngle: 5
   m_CookieSize: 10
@@ -81,7 +81,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3221225729
+    m_Bits: 3221226241
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -1694,16 +1694,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e2c8967ef62ed42b233fc711b15a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hornAudio: {fileID: 4948004983175976611}
   lookAtTarget: {fileID: 7257316822286006973}
   positionTarget: {fileID: 7257316820054031555}
   sideView: {fileID: 7257316821506300469}
   exitPoint: {fileID: 4604478678562763533}
   headlights: {fileID: 4026222211924557484}
   dashboard: {fileID: 5964161741164385201}
-  hornAudio: {fileID: 4948004983175976611}
+  carMaterial: {fileID: 7271247059353227989}
   lowBeamsIndicator: {fileID: 5165630053921505020}
   handBrakeIndicator: {fileID: 4679773435032631190}
-  carMaterial: {fileID: 7271247059353227989}
   headLightIndex: 7
   tailLightIndex: 6
   isInside: 0
@@ -2013,7 +2013,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 50
+  m_Range: 150
   m_SpotAngle: 80
   m_InnerSpotAngle: 5
   m_CookieSize: 10
@@ -2049,7 +2049,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3221225729
+    m_Bits: 3221226241
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -7040,16 +7040,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3892420220102223256, guid: 19eb5acee0b205948946eff6187c7491,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 45.30005
-      objectReference: {fileID: 0}
-    - target: {fileID: 3956715384170650271, guid: 19eb5acee0b205948946eff6187c7491,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -30.699951
-      objectReference: {fileID: 0}
     - target: {fileID: 3983275225819860512, guid: 19eb5acee0b205948946eff6187c7491,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -7199,11 +7189,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7546024941268978908, guid: 19eb5acee0b205948946eff6187c7491,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 45.30005
       objectReference: {fileID: 0}
     - target: {fileID: 7752393209262394421, guid: 19eb5acee0b205948946eff6187c7491,
         type: 3}

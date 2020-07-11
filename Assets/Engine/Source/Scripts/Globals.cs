@@ -1,33 +1,19 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using System;
 using System.Linq;
+using System.Globalization;
+using Random = UnityEngine.Random;
 
 public class Globals
 {
     #region Initialization
 
-#if ENVIRO_HD && ENVIRO_LW
-    [HideInInspector]
-    public EnviroCore enviro;
-#endif
-
     public static Globals Instance { get { return Nested.instance; } }
     private class Nested { static Nested() { } internal static readonly Globals instance = new Globals(); }
-    
-    public Globals()
-    { 
-#if ENVIRO_HD && ENVIRO_LW
-        enviro = GameObject.FindObjectOfType<EnviroSkyLite>();
-        if (enviro == null)
-            enviro = GameObject.FindObjectOfType<EnviroSky>();
-#endif
-    }
     
     #endregion
 
     #region Game Types
-
     // todo move through governments every hundred years in order (barring interference); Each change of governments has a period of revolution where the game rules change and all in-groups fight each other for a year.
 
     public enum Government
@@ -516,19 +502,6 @@ public class Globals
     #endregion
 
     #region Helper Functions
-
-    public int GetMonth(int currentDay)
-    {
-#if ENVIRO_HD && ENVIRO_LW
-        int accumulatedDays = 0;
-        for (int month = 1; month <= 12; month++)
-        {
-            accumulatedDays += DateTime.DaysInMonth((int)enviro.currentYear, month);
-            if (currentDay <= accumulatedDays) return month;
-        }
-#endif
-        return -1;
-    }
 
     public List<GameObject> AgentListPlusPlayer()
     {

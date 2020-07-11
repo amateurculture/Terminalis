@@ -107,6 +107,9 @@ public class LightingController : MonoBehaviour
     void UpdateSkyColor()
     {
         gradientIndex = GetGradientIndex();
+
+        if (cameraMain == null || skyColor == null) return;
+
         cameraMain.backgroundColor = skyColor.Evaluate(GetGradientIndex());
     }
 

@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 416077500517805505}
   - component: {fileID: 4675166561395833545}
+  - component: {fileID: 3258815022920280846}
+  - component: {fileID: 3245626909460660841}
+  - component: {fileID: 257966007810926352}
   m_Layer: 9
   m_Name: Roundabout
   m_TagString: Untagged
@@ -44,21 +47,82 @@ LODGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799183675886004645}
   serializedVersion: 2
-  m_LocalReferencePoint: {x: 6.82526, y: 7.197837, z: 6.509186}
+  m_LocalReferencePoint: {x: 0, y: 0.20007499, z: 0}
   m_Size: 64
   m_FadeMode: 0
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.14856808
+  - screenRelativeHeight: 0.09836201
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 7562476431125392756}
-    - renderer: {fileID: 5016797803523349196}
-    - renderer: {fileID: 5295448447400584141}
-    - renderer: {fileID: 2175765245190430945}
-    - renderer: {fileID: 1661825928496466601}
+    - renderer: {fileID: 3258815022920280846}
   m_Enabled: 1
+--- !u!23 &3258815022920280846
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799183675886004645}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: f2cdd81f3709cb34487899f561427872, type: 2}
+  - {fileID: 2100000, guid: fdd7073f756929f4a8de8a004ad28e15, type: 2}
+  - {fileID: 2100000, guid: acbb1354949616c4f95c3336d9e3d1db, type: 2}
+  - {fileID: 2100000, guid: d0db9ee53037e114d89d27d16bbea9de, type: 2}
+  - {fileID: 4404839247605695133, guid: 4fff66e90af30a94c979617c690eac51, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &3245626909460660841
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799183675886004645}
+  m_Mesh: {fileID: 4300000, guid: 21c4624e3f1b6e544ad26666ea083e4e, type: 2}
+--- !u!64 &257966007810926352
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799183675886004645}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 21c4624e3f1b6e544ad26666ea083e4e, type: 2}
 --- !u!1 &4606068392079652868
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5044184343895630804
 Transform:
   m_ObjectHideFlags: 0
@@ -171,7 +235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2197395119491760043
 Transform:
   m_ObjectHideFlags: 0
@@ -265,7 +329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &584405977525292163
 Transform:
   m_ObjectHideFlags: 0
@@ -359,7 +423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7330835371707052238
 Transform:
   m_ObjectHideFlags: 0
@@ -453,7 +517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &797238944646934765
 Transform:
   m_ObjectHideFlags: 0

@@ -235,11 +235,6 @@ public class City : MonoBehaviour
 		return (tiles.Length > 0) ? pollution / tiles.Length : 0;
 	}
 
-	private void Reset()
-	{
-		
-	}
-
 	private void InstallPack(Transform pack, ref List<TileData> tileDataList) {
 		tileDataList = new List<TileData>();
 		int type = 0;
@@ -618,15 +613,12 @@ public class City : MonoBehaviour
 
 	public void InitMap()
 	{
+		Time.timeScale = 0f;
 		UpdateSeed();
 		visibleTiles = new Dictionary<Int2, VisibleTile>();
 		prepareTilePrefabs();
 		generateInitialWorld();
-	}
-
-	void Start()
-	{
-		InitMap();
+		Time.timeScale = 1f;
 	}
 
 	void Update()
@@ -636,7 +628,6 @@ public class City : MonoBehaviour
 			Time.timeScale = 0f;
 			Destroy(cityObject);
 			InitMap();
-			Time.timeScale = 1f;
 		}
 		else if (Input.GetKeyDown(KeyCode.End))
 		{

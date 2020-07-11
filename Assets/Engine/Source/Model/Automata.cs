@@ -40,7 +40,7 @@ public class Automata : MonoBehaviour
     protected Spawner spawner;
     protected float minWanderRange;
     protected float chargeRange;
-    protected float maxWanderRange;
+    public float maxWanderRange;
     protected bool isDead;
     protected GameObject navigationLocus;
     protected NavMeshAgent navMeshAgent;
@@ -584,13 +584,13 @@ public class Automata : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider collider) {
-        if (collider.transform.tag == "Player" || collider.transform.name.Contains("Arrow")) 
-            agent.vitality = 0; 
+        //if (collider.transform.tag == "Player" || collider.transform.name.Contains("Arrow")) 
+        //    agent.vitality = 0; 
     }
 
     private void OnCollisionEnter(Collision collision) {
-         if (collision.transform.tag == "Player" || collision.transform.name.Contains("Arrow"))
-            agent.vitality = 0; 
+         //if (collision.transform.tag == "Player" || collision.transform.name.Contains("Arrow"))
+         //   agent.vitality = 0; 
     }
 
     #endregion

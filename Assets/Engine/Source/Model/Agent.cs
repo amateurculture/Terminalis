@@ -47,11 +47,15 @@ public class Agent : Container
         memory = new List<Meme>();
     }
 
-    IEnumerator refreshLocomotionController() 
+    IEnumerator refreshLocomotionController()
     {
-        GetComponent<UltimateCharacterLocomotion>().enabled = false;    
-        yield return new WaitForSeconds(.1f);
-        GetComponent<UltimateCharacterLocomotion>().enabled = true;
+        var f = GetComponent<UltimateCharacterLocomotion>();
+
+        if (f != null) {
+            GetComponent<UltimateCharacterLocomotion>().enabled = false;
+            yield return new WaitForSeconds(.1f);
+            GetComponent<UltimateCharacterLocomotion>().enabled = true;
+        } 
     }
 
     private void OnEnable()

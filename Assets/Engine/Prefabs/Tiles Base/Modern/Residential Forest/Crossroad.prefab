@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7385438706776004327
 Transform:
   m_ObjectHideFlags: 0
@@ -114,7 +114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6425906467095053785
 Transform:
   m_ObjectHideFlags: 0
@@ -208,7 +208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4045452812118884407
 Transform:
   m_ObjectHideFlags: 0
@@ -302,7 +302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7691355028327423741
 Transform:
   m_ObjectHideFlags: 0
@@ -388,6 +388,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3122609703682000415}
   - component: {fileID: 8418881589010244617}
+  - component: {fileID: 9158517673179690277}
+  - component: {fileID: 3975093927497325964}
+  - component: {fileID: 4934345915165459729}
   m_Layer: 0
   m_Name: Crossroad
   m_TagString: Untagged
@@ -422,21 +425,81 @@ LODGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2093862819013440524}
   serializedVersion: 2
-  m_LocalReferencePoint: {x: 0, y: 0.19999084, z: 0}
+  m_LocalReferencePoint: {x: 0, y: 0.20002499, z: 0}
   m_Size: 64.000015
   m_FadeMode: 0
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.15287198
+  - screenRelativeHeight: 0.09836201
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 3524855347072422432}
-    - renderer: {fileID: 2821553807328719337}
-    - renderer: {fileID: 7765229051564743823}
-    - renderer: {fileID: 4311034571609873871}
-    - renderer: {fileID: 8427723032890222890}
+    - renderer: {fileID: 9158517673179690277}
   m_Enabled: 1
+--- !u!23 &9158517673179690277
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093862819013440524}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: fdd7073f756929f4a8de8a004ad28e15, type: 2}
+  - {fileID: 2100000, guid: acbb1354949616c4f95c3336d9e3d1db, type: 2}
+  - {fileID: 2100000, guid: d0db9ee53037e114d89d27d16bbea9de, type: 2}
+  - {fileID: 2100000, guid: f2cdd81f3709cb34487899f561427872, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &3975093927497325964
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093862819013440524}
+  m_Mesh: {fileID: 4300000, guid: 40d7e6d0fc0c6674ab26d37c3cf1d075, type: 2}
+--- !u!64 &4934345915165459729
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093862819013440524}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 40d7e6d0fc0c6674ab26d37c3cf1d075, type: 2}
 --- !u!1 &4674055311949082669
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3779632629527432120
 Transform:
   m_ObjectHideFlags: 0

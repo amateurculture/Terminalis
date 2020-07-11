@@ -15,6 +15,7 @@ public class CityHUD : MonoBehaviour
 
     public void UpdateStatistics()
     {
+        if (city == null) return;
         populationText.text = city.AggregatePopulation().ToString("n0");
         wealthText.text = "$" + city.wealth.ToString("n0");
         productionText.text = "$" + city.AggregateRevenue().ToString("n0") + " / Month";

@@ -98,21 +98,21 @@ public class OrbitCam : MonoBehaviour
 
 	void LateUpdate()
 	{
+		if (focus == null) return;
+
 		UpdateFocusPoint();
 		Quaternion lookRotation;
+
 		if (ManualRotation() || AutomaticRotation())
 		{
 			ConstrainAngles();
 			lookRotation = Quaternion.Euler(orbitAngles);
 		}
 		else
-		{
 			lookRotation = transform.localRotation;
-		}
 
 		Vector3 lookDirection = lookRotation * Vector3.forward;
 		Vector3 lookPosition = focusPoint - lookDirection * distance;
-
 		Vector3 rectOffset = lookDirection * regularCamera.nearClipPlane;
 		Vector3 rectPosition = lookPosition + rectOffset;
 		Vector3 castFrom = focus.position;
@@ -120,15 +120,11 @@ public class OrbitCam : MonoBehaviour
 		float castDistance = castLine.magnitude;
 		Vector3 castDirection = castLine / castDistance;
 
-		if (Physics.BoxCast(
-			castFrom, CameraHalfExtends, castDirection, out RaycastHit hit,
-			lookRotation, castDistance, obstructionMask
-		))
+		if (Physics.BoxCast(castFrom, CameraHalfExtends, castDirection, out RaycastHit hit, lookRotation, castDistance, obstructionMask))
 		{
 			rectPosition = castFrom + castDirection * hit.distance;
 			lookPosition = rectPosition - rectOffset;
 		}
-
 		transform.SetPositionAndRotation(lookPosition, lookRotation);
 	}
 
