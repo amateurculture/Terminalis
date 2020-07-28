@@ -77,7 +77,7 @@ namespace OrbCreationExtensions
 
 		public static TextureFormat GetWritableFormat(TextureFormat format) {
 			if(format != TextureFormat.Alpha8 && format != TextureFormat.RGB24 && format != TextureFormat.ARGB32 && format != TextureFormat.RGBA32) {
-				if(format == TextureFormat.RGB24 || format == TextureFormat.DXT1 || format == TextureFormat.PVRTC_RGB2 || format == TextureFormat.PVRTC_RGB4 || format == TextureFormat.ETC_RGB4 || format == TextureFormat.ETC_RGB4 || format == TextureFormat.ETC2_RGBA8 || format == TextureFormat.ETC2_RGB || format == TextureFormat.ASTC_RGB_4x4 || format == TextureFormat.ASTC_RGB_5x5 || format == TextureFormat.ASTC_RGB_5x5 || format == TextureFormat.ASTC_RGB_5x5 || format == TextureFormat.ASTC_RGB_6x6 || format == TextureFormat.ASTC_RGB_10x10 || format == TextureFormat.ASTC_RGB_12x12) format = TextureFormat.RGB24;
+				if(format == TextureFormat.RGB24 || format == TextureFormat.DXT1 || format == TextureFormat.PVRTC_RGB2 || format == TextureFormat.PVRTC_RGB4 || format == TextureFormat.ETC_RGB4 || format == TextureFormat.ETC_RGB4 || format == TextureFormat.ETC2_RGBA8 || format == TextureFormat.ETC2_RGB || format == TextureFormat.ASTC_4x4 || format == TextureFormat.ASTC_5x5 || format == TextureFormat.ASTC_5x5 || format == TextureFormat.ASTC_5x5 || format == TextureFormat.ASTC_6x6 || format == TextureFormat.ASTC_10x10 || format == TextureFormat.ASTC_12x12) format = TextureFormat.RGB24;
 				else format = TextureFormat.RGBA32;
 			}
 			return format;

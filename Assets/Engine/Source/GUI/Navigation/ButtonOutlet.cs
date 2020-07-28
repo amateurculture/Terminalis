@@ -1,6 +1,10 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+
+/// <summary>
+/// Author: Fiona Schultz
+/// Last Modified: July-26-2019
+/// </summary>
 
 public class ButtonOutlet : MonoBehaviour
 {

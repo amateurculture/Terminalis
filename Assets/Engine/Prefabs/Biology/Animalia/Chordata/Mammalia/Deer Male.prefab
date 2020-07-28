@@ -1215,27 +1215,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   sprite: {fileID: 0}
-  price: -1
-  health: 100
+  vitality: 100
+  value: 1
   inventory: []
-  currency: 100
+  birthMonth: 0
   sex: 1
-  gender: 1
+  expression: 2
   attraction: 1
-  status: 0
+  disease: 0
   hunger: 0
   fatigue: 0
-  anxiety: 0
-  strength: 50
+  stress: 0
   home: {fileID: 0}
   work: {fileID: 0}
   playerController: {fileID: 0}
   isWorking: 0
   isEating: 0
   isSleeping: 0
-  sightRange: 25
-  hearingRange: 10
-  fov: 120
 --- !u!114 &7868806085915758955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1248,16 +1244,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1783729da62d0746bbcbdb9caf3ddc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifespan: 0
+  sightRange: 25
+  hearingRange: 10
+  fov: 120
   aiStyle: 2
   sizeClass: 2
-  owner: {fileID: 0}
   mother: {fileID: 0}
   father: {fileID: 0}
+  spouse: {fileID: 0}
   diet: 1
+  stapleFood: {fileID: 0}
   show: 0
   isRagdollEnabled: 0
   isAttacking: 0
   isRunning: 0
+  maxWanderRange: 0
 --- !u!205 &4397408135423963205
 LODGroup:
   m_ObjectHideFlags: 0
@@ -1266,22 +1268,21 @@ LODGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7868806085915758954}
   serializedVersion: 2
-  m_LocalReferencePoint: {x: 0.0000014901161, y: 0.9756723, z: 0.21142131}
-  m_Size: 2.02041
+  m_LocalReferencePoint: {x: 0.0000014901161, y: 0.9756718, z: 0.21142131}
+  m_Size: 2.020409
   m_FadeMode: 1
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.2983948
+  - screenRelativeHeight: 0.19750993
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 7844727904816824174}
     - renderer: {fileID: 7845120200814661558}
-  - screenRelativeHeight: 0.014536598
+  - screenRelativeHeight: 0.049365435
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 7844727904816824174}
-    - renderer: {fileID: 7845120200814661558}
   - screenRelativeHeight: 0.002210041
     fadeTransitionWidth: 0
     renderers:
@@ -1527,7 +1528,7 @@ SkinnedMeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.19750993
   m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
@@ -1931,8 +1932,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8916876526523238624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0034, y: 0.5156, z: 0.0416}
-  m_LocalScale: {x: 0.23106775, y: 1.0439904, z: 0.990486}
+  m_LocalPosition: {x: 0.0062, y: 0.8391, z: 0.0367}
+  m_LocalScale: {x: 0.30817252, y: 0.41629216, z: 1.0967377}
   m_Children: []
   m_Father: {fileID: 7865007575369658756}
   m_RootOrder: 3
@@ -1970,7 +1971,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.05814639
   m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0

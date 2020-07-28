@@ -1,0 +1,314 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1009112133259324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4825587288788972}
+  - component: {fileID: 114322999770842056}
+  - component: {fileID: 54483300255674244}
+  - component: {fileID: 114663049141663428}
+  - component: {fileID: 114617702366774172}
+  m_Layer: 0
+  m_Name: StunnerJaneWithPhysics
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4825587288788972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009112133259324}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114322999770842056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009112133259324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcffb0a198605474c8a4d1c67c1515fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  context: {fileID: 0}
+  umaData: {fileID: 0}
+  defaultRendererAsset: {fileID: 0}
+  umaRecipe: {fileID: 0}
+  umaAdditionalRecipes:
+  - {fileID: 11400000, guid: 1f292487d7383514f97c491cadfb0442, type: 2}
+  - {fileID: 11400000, guid: 62143f78738394945a3a22145d8c0a70, type: 2}
+  umaGenerator: {fileID: 0}
+  animationController: {fileID: 0}
+  CharacterCreated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  CharacterBegun:
+    m_PersistentCalls:
+      m_Calls: []
+  CharacterDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
+  CharacterUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  CharacterDnaUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  DelayUnload: 2
+  BundleCheck: 1
+  KeepAnimatorController: 0
+  RecipeUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  hide: 0
+  loadBlendShapes: 0
+  keepAvatar: 0
+  activeRace:
+    name: o3n Stunner Jane
+  defaultChangeRaceOptions: 8
+  cacheCurrentState: 1
+  rebuildSkeleton: 1
+  preloadWardrobeRecipes:
+    loadDefaultRecipes: 1
+    recipes:
+    - _recipeName: st_female_eyebrows_Recipe
+      _compatibleRaces:
+      - o3n Stunner Jane
+    - _recipeName: st_female_long_hair_Recipe
+      _compatibleRaces:
+      - o3n Stunner Jane
+    - _recipeName: st_female_skirt_Recipe
+      _compatibleRaces:
+      - o3n Stunner Jane
+    - _recipeName: st_female_underwear_01_Base_Bra
+      _compatibleRaces:
+      - o3n Stunner Jane
+    - _recipeName: st_female_underwear_01_Base_Undies
+      _compatibleRaces:
+      - o3n Stunner Jane
+    - _recipeName: st_female_pullover_01_Recipe
+      _compatibleRaces:
+      - o3n Stunner Jane
+    - _recipeName: Utility_st_female_hide_socks_slot_Recipe
+      _compatibleRaces:
+      - o3n Stunner Jane
+    - _recipeName: st_female_sneakers_01_Recipe
+      _compatibleRaces:
+      - o3n Stunner Jane
+  raceAnimationControllers:
+    defaultAnimationController: {fileID: 9100000, guid: d4dfc4da1a94244448a43860e8afcd69,
+      type: 2}
+    animators: []
+    dynamicallyAddFromResources: 0
+    resourcesFolderPath: 
+  characterColors:
+    _colors:
+    - name: Hair
+      channelMask:
+      - {r: 0.5058824, g: 0.26666668, b: 0.13725491, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      channelAdditiveMask:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      _name: 
+      _color: {r: 0.3529412, g: 0.21568629, b: 0.14117648, a: 1}
+      _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
+      Raw: 0
+      valuesConverted: 0
+    - name: Eyes
+      channelMask:
+      - {r: 0.46666667, g: 0.8117647, b: 0.8901961, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      channelAdditiveMask:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      _name: 
+      _color: {r: 0.28627452, g: 0.40784317, b: 1, a: 1}
+      _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
+      Raw: 0
+      valuesConverted: 0
+    - name: Skin
+      channelMask:
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      channelAdditiveMask:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      _name: 
+      _color: {r: 0.9450981, g: 0.91372555, b: 0.7686275, a: 1}
+      _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
+      Raw: 0
+      valuesConverted: 0
+    - name: Pants1
+      channelMask:
+      - {r: 0.3529412, g: 0.4156863, b: 0.6392157, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      - {r: 1, g: 1, b: 1, a: 1}
+      channelAdditiveMask:
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      - {r: 0, g: 0, b: 0, a: 0}
+      _name: 
+      _color: {r: 0.3529412, g: 0.4156863, b: 0.6392157, a: 1}
+      _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
+      Raw: 0
+      valuesConverted: 0
+  predefinedDNA:
+    PreloadValues: []
+  loadPathType: 2
+  loadPath: CharacterRecipes
+  loadFilename: 
+  loadString: 
+  loadFileOnStart: 1
+  AtlasResolutionScale: 1
+  defaultLoadOptions: 31
+  savePathType: 0
+  savePath: CharacterRecipes
+  saveFilename: 
+  makeUniqueFilename: 0
+  ensureSharedColors: 0
+  defaultSaveOptions: 15
+  BoundsOffset: {x: 0, y: 0, z: 0}
+  showPlaceholder: 1
+  previewModel: 2
+  customModel: {fileID: 100330, guid: 41ece815781ae4e4da55024ab2ebee2d, type: 3}
+  customRotation: {x: -90, y: 0, z: 0}
+  previewColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _buildCharacterEnabled: 1
+--- !u!54 &54483300255674244
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009112133259324}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &114663049141663428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009112133259324}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c88fba981e04b49b91569af1c372a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableBlinking: 0
+  blinkDuration: 0.1
+  minBlinkDelay: 3
+  maxBlinkDelay: 15
+  enableSaccades: 0
+  gazeTarget: {x: 0, y: 0, z: 0}
+  gazeWeight: 0
+  gazeMode: 0
+  overrideMecanimEyes: 1
+  overrideMecanimJaw: 1
+  overrideMecanimNeck: 0
+  overrideMecanimHead: 0
+  neckUp_Down: 0
+  neckLeft_Right: 0
+  neckTiltLeft_Right: 0
+  headUp_Down: 0
+  headLeft_Right: 0
+  headTiltLeft_Right: 0
+  jawOpen_Close: 0
+  jawForward_Back: 0
+  jawLeft_Right: 0
+  mouthLeft_Right: 0
+  mouthUp_Down: 0
+  mouthNarrow_Pucker: 0
+  tongueOut: 0
+  tongueCurl: 0
+  tongueUp_Down: 0
+  tongueLeft_Right: 0
+  tongueWide_Narrow: 0
+  leftMouthSmile_Frown: 0
+  rightMouthSmile_Frown: 0
+  leftLowerLipUp_Down: 0
+  rightLowerLipUp_Down: 0
+  leftUpperLipUp_Down: 0
+  rightUpperLipUp_Down: 0
+  leftCheekPuff_Squint: 0
+  rightCheekPuff_Squint: 0
+  noseSneer: 0
+  leftEyeOpen_Close: 0
+  rightEyeOpen_Close: 0
+  leftEyeUp_Down: 0
+  rightEyeUp_Down: 0
+  leftEyeIn_Out: 0
+  rightEyeIn_Out: 0
+  browsIn: 0
+  leftBrowUp_Down: 0
+  rightBrowUp_Down: 0
+  midBrowUp_Down: 0
+  expressionSet: {fileID: 0}
+  minWeight: 0
+  logResetErrors: 0
+  useDisableDistance: 0
+  disableDistance: 10
+  eyeMovementRange: 30
+  mutualGazeRange: 0.1
+  MinSaccadeDelay: 0.25
+  MaxSaccadeMagnitude: 15
+--- !u!114 &114617702366774172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009112133259324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b5d39ea58489b42985b76682b492f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lodDistance: 5
+  swapSlots: 0
+  lodOffset: 0
+  maxLOD: 5
+  maxReduction: 8
+  useSlotDropping: 0
+  BufferZone: 0.5

@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityStandardAssets.Vehicles.Car;
 
+/// <summary>
+/// Author: Fiona Schultz
+/// Last Modified: July-26-2019
+/// </summary>
+
 namespace UnityStandardAssets.Vehicles.Aeroplane
 {
     [RequireComponent(typeof (AeroplaneController))]
@@ -27,7 +32,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             float roll = Input.GetAxis("Horizontal");
             float pitch = Input.GetAxis("Vertical");
 
-            if (Input.GetButtonDown("Jump"))  
+            if (Input.GetButtonDown("Toggle Perspective"))  
                 m_AirBrakes = !m_AirBrakes;
 
             if (Input.GetButtonDown("Equip Next Item"))

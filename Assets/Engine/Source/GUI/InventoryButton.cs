@@ -1,6 +1,11 @@
 ﻿using UnityEngine.EventSystems;
 using TMPro;
 
+/// <summary>
+/// Author: Fiona Schultz
+/// Last Modified: July-26-2019
+/// </summary>
+
 namespace UnityEngine.UI
 {
     public class InventoryButton : Button
@@ -90,7 +95,7 @@ namespace UnityEngine.UI
                     if (equipment != null)
                     {
                         var slidePanel = equipment.slidePanel;
-                        if (slidePanel != null) slidePanel.CloseWindow();
+                        if (slidePanel != null) slidePanel.Close();
                     }
 
                     UMAMountObject mount = Brain.instance.player.GetComponent<UMAMountObject>();

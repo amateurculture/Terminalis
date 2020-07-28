@@ -14,7 +14,7 @@ namespace UnityStandardAssets.Vehicles.Car
         private void Awake()
         {
             car = GetComponent<CarController>();
-            usingHandbrake = true;
+            //usingHandbrake = true;
         }
 
         private void LateUpdate()
@@ -39,7 +39,7 @@ namespace UnityStandardAssets.Vehicles.Car
                 if (Input.GetKey(KeyCode.W)) v = 1;
                 if (Input.GetKey(KeyCode.S)) v = -1;
 
-                if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Submit"))
+                if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Toggle Perspective"))
                     usingHandbrake = !usingHandbrake;
 
                 gearShift = 0;

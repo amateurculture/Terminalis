@@ -2,9 +2,8 @@
 
 public class TimeController : MonoBehaviour
 {
-    public LightingController lightingController;
-    public GameObject atmosphere;
-    FogController fogController;
+    public SunController sun;
+    public FogController fogController;
 
     public float year;
     public float day;
@@ -47,13 +46,6 @@ public class TimeController : MonoBehaviour
         gameTime = hour + (minute / 60f);
         secondsRemainingInMinute = Time.time + (secondsInHour / 60);
         adjustedSecondsInHour = secondsInHour / 60;
-
-        if (atmosphere != null)
-        {
-            lightingController = atmosphere.GetComponent<LightingController>();
-            fogController = atmosphere.GetComponent<FogController>();
-        }
-
         currentHour = hour;
         currentMinute = minute;
 
@@ -116,7 +108,7 @@ public class TimeController : MonoBehaviour
             day += 1;
         }
     }
-    void UpdateLighting() { if (lightingController != null) lightingController.UpdateLighting(); }
+    void UpdateLighting() { if (sun != null) sun.UpdateLighting(); }
 
     void UpdateFog() { if (fogController != null) fogController.UpdateFogColor(); }
 }

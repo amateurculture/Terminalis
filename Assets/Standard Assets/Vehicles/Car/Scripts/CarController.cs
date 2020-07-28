@@ -229,16 +229,31 @@ namespace UnityStandardAssets.Vehicles.Car
                 m_WheelColliders[2].brakeTorque = hbTorque;
                 m_WheelColliders[3].brakeTorque = hbTorque;
                 hasKilledTorque = true;
-                //Debug.Log("HAND BRAKE -- Torque: " + thrustTorque + " Brake Torque: " + m_BrakeTorque * footbrake + " Handbrake Torque: " + hbTorque);
             }
             else if (footbrake > 0.1f)
             {
-                //Debug.Log("BRAKING -- Torque: " + thrustTorque + " Brake Torque: " + m_BrakeTorque * footbrake);
                 hasKilledTorque = true;
-                for (int i = 0; i < 4; i++)
+                
+                switch (m_CarDriveType)
                 {
-                    m_WheelColliders[i].brakeTorque = m_BrakeTorque * footbrake;
-                    m_WheelColliders[i].motorTorque = 0;
+                    case CarDriveType.FourWheelDrive:
+
+                        for (int i = 0; i < 4; i++)
+                        {
+                            m_WheelColliders[i].brakeTorque = m_BrakeTorque * footbrake;
+                            m_WheelColliders[i].motorTorque = 0;
+                        }
+                        break;
+
+                    case CarDriveType.FrontWheelDrive:
+                        m_WheelColliders[0].motorTorque = m_WheelColliders[1].motorTorque = 0;
+                        m_WheelColliders[0].brakeTorque = m_WheelColliders[1].brakeTorque = m_BrakeTorque * footbrake;
+                        break;
+
+                    case CarDriveType.RearWheelDrive:
+                        m_WheelColliders[2].motorTorque = m_WheelColliders[3].motorTorque = 0;
+                        m_WheelColliders[2].brakeTorque = m_WheelColliders[3].brakeTorque = m_BrakeTorque * footbrake;
+                        break;
                 }
             }
             else
@@ -246,7 +261,6 @@ namespace UnityStandardAssets.Vehicles.Car
                 // kill all torque as soon as player accelerates, but not again until the player brakes
                 if (hasKilledTorque)
                 {
-                    //Debug.Log("KILL TORQUE -- Torque: " + thrustTorque + " Brake Torque: " + m_BrakeTorque * footbrake);
                     for (int i = 0; i < 4; i++)
                     {
                         m_WheelColliders[i].brakeTorque = 0;

@@ -21,10 +21,10 @@ MonoBehaviour:
     value: 2
   aperture:
     overrideState: 1
-    value: 15
+    value: 16.8
   focalLength:
     overrideState: 1
-    value: 60
+    value: 66
   kernelSize:
     overrideState: 0
     value: 1
@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
   m_Name: Vignette(Clone)
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -55,7 +55,7 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.25
+    value: 0.45
   smoothness:
     overrideState: 0
     value: 0.2
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
   m_Name: ChromaticAberration(Clone)
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -94,7 +94,7 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0.15
+    value: 0.1
   fastMode:
     overrideState: 0
     value: 0
@@ -119,6 +119,7 @@ MonoBehaviour:
   - {fileID: 8682894256589334802}
   - {fileID: -7775500136230035759}
   - {fileID: -8330911345517642920}
+  - {fileID: 7997158760441471812}
 --- !u!114 &4271436247221390563
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -137,7 +138,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 3.5
+    value: 1
   threshold:
     overrideState: 1
     value: 0.75
@@ -236,13 +237,35 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 1
+    value: 0.5
   size:
     overrideState: 1
-    value: 0.5
+    value: 1
   lumContrib:
     overrideState: 0
     value: 0.8
+--- !u!114 &7997158760441471812
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94fcd11afffcb142908bfcb1e261fba, type: 3}
+  m_Name: MotionBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  shutterAngle:
+    overrideState: 1
+    value: 270
+  sampleCount:
+    overrideState: 1
+    value: 10
 --- !u!114 &8682894256589334802
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -268,7 +291,7 @@ MonoBehaviour:
     defaultState: 1
   tonemapper:
     overrideState: 1
-    value: 2
+    value: 1
   toneCurveToeStrength:
     overrideState: 0
     value: 0.25
@@ -295,11 +318,11 @@ MonoBehaviour:
     overrideState: 0
     value: 1
   temperature:
-    overrideState: 0
-    value: -10
+    overrideState: 1
+    value: -5
   tint:
     overrideState: 0
-    value: 10
+    value: 1
   colorFilter:
     overrideState: 0
     value: {r: 1, g: 1, b: 1, a: 1}
@@ -313,11 +336,11 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   postExposure:
-    overrideState: 1
-    value: 1
+    overrideState: 0
+    value: -0.84
   contrast:
     overrideState: 0
-    value: 25
+    value: 1
   mixerRedOutRedIn:
     overrideState: 0
     value: 100

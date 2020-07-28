@@ -12,8 +12,8 @@ public class ExitCursorLockOnPress : MonoBehaviour
 
     void Action()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
         //cam.enabled = true;
     }
 }

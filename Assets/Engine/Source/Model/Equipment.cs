@@ -21,7 +21,7 @@ public class Equipment : Thing
 
         if (slidePanel != null)
         {
-            slidePanel.OpenWindow();
+            slidePanel.Open();
         }
     }
 }

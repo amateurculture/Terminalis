@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class SlideTransition : MonoBehaviour
+public class SlideTransition : Transition
 {
     public float marginWidth = 0f;
-    private Vector3 targetPosition;
-    private Vector3 originalPosition;
-    private Vector3 setPosition;
+    private Vector3 openPosition;
+    private Vector3 closePosition;
+    private Vector3 target;
     private RectTransform rect;
-    private bool isVisible = false;
+    public bool isVisible;
     public float speed = 10f;
     
     public enum Dir
@@ -20,68 +20,79 @@ public class SlideTransition : MonoBehaviour
     }
     public Dir direction = Dir.FromRight;
 
-    private void OnEnable()
+    private void Start()
     {
-        rect = gameObject.GetComponent<RectTransform>();
-        originalPosition = rect.anchoredPosition;
-        targetPosition = originalPosition;
-        setPosition = targetPosition;
+        closePosition = rect.anchoredPosition;
+        openPosition = closePosition;
 
         switch (direction)
         {
-            case Dir.FromTop:
-                targetPosition.y = marginWidth;
-                break;
-            case Dir.FromBottom:
-                targetPosition.y = marginWidth;
-                break;
-            case Dir.FromRight:
-                targetPosition.x = marginWidth;
-                break;
-            case Dir.FromLeft:
-                targetPosition.x = marginWidth;
-                break;
+            case Dir.FromTop: openPosition.y = marginWidth; break;
+            case Dir.FromBottom: openPosition.y = marginWidth; break;
+            case Dir.FromRight: openPosition.x = marginWidth; break;
+            case Dir.FromLeft: openPosition.x = marginWidth; break;
         }
-        OpenWindow();
+        target = openPosition;
     }
 
-    private void OnDisable()
+    private void OnEnable()
     {
-        CloseWindow();
+        rect = gameObject.GetComponent<RectTransform>();
+        Open();
     }
 
-    public void OpenWindow()
+    public override void Open()
     {
-        setPosition = originalPosition;
-        setPosition = targetPosition;
-        StartCoroutine(SlideTransitionCoroutine());
+        StopAllCoroutines();
+        gameObject.SetActive(true);
+        target = openPosition;
+        StartCoroutine(PushTransitionCoroutine());
     }
 
-    public void CloseWindow()
+    public override void Close()
     {
-        setPosition = originalPosition;
-        rect.anchoredPosition = setPosition;
-        isVisible = false;
+        if (!gameObject.activeSelf) return;
+        
+        StopAllCoroutines();
+        target = closePosition;
+        StartCoroutine(PopTransitionCoroutine());
     }
 
     public void ToggleSlide()
     {
-        if (isVisible)
-            setPosition = originalPosition;
-        else
-            setPosition = targetPosition;
-
-        StartCoroutine(SlideTransitionCoroutine());
+        StopAllCoroutines();
+        if (isVisible) target = closePosition; else target = openPosition;
+        StartCoroutine(PushTransitionCoroutine());
     }
-    
-    private IEnumerator SlideTransitionCoroutine()
+
+    private IEnumerator PopTransitionCoroutine()
     {
-        while (Vector3.Distance(rect.anchoredPosition, setPosition) > 2)
+        float i = 0;
+        while (i < .8f)
         {
-            rect.anchoredPosition = Vector3.Lerp(rect.anchoredPosition, setPosition, Time.deltaTime * speed);
+            rect.anchoredPosition = Vector3.Lerp(rect.anchoredPosition, target, i);
+            i += Time.deltaTime * speed;
             yield return new WaitForEndOfFrame();
         }
-        rect.anchoredPosition = setPosition;
-        isVisible = (isVisible) ? false : true;
+        rect.anchoredPosition = target;
+        isVisible = false;
+        gameObject.SetActive(false);
+
+        NavigationStack.Instance.CompletePop();
+    }
+
+    private IEnumerator PushTransitionCoroutine()
+    {
+        float i = 0;
+        while (i < .8f)
+        {
+            rect.anchoredPosition = Vector3.Lerp(rect.anchoredPosition, target, i);
+            i += Time.deltaTime * speed;
+            yield return new WaitForEndOfFrame();
+        }
+        rect.anchoredPosition = target;
+        isVisible = true;
+        //if (!isVisible) gameObject.SetActive(false);
+        //NavigationStack.Instance.CompletePush();
     }
 }

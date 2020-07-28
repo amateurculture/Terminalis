@@ -275,9 +275,8 @@ namespace UMA
 							var channel = asset.material.channels[i];
 							if (!asset.material.material.HasProperty(channel.materialPropertyName))
 							{
-								if (Debug.isDebugBuild)
-									Debug.LogError(string.Format("Slot '{0}' Material Channel {1} refers to material property '{2}' but no such property exists.", asset.slotName, i, channel.materialPropertyName), asset);
-								valid = false;
+								//if (Debug.isDebugBuild) Debug.LogError(string.Format("Slot '{0}' Material Channel {1} refers to material property '{2}' but no such property exists.", asset.slotName, i, channel.materialPropertyName), asset);
+								//valid = false;
 							}
 						}
 					}

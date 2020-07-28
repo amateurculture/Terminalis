@@ -1,0 +1,223 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2226519152235464651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6403443061399487868}
+  - component: {fileID: 4467399270132668413}
+  m_Layer: 0
+  m_Name: Deer Family
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6403443061399487868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2226519152235464651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 9064911263084693800}
+  - {fileID: 1583117196085140822}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4467399270132668413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2226519152235464651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eaabf7f2f7f7414aa4d40aafa5a77c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets:
+  - {fileID: 9068150741222500806}
+  - {fileID: 1580164761078562232}
+  range: 125
+--- !u!1001 &5786467358016522368
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6403443061399487868}
+    m_Modifications:
+    - target: {fileID: 3278798252298600872, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3278798252298600872, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3278798252298600872, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 3278798252298600872, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3278798252298600872, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3278798252298600872, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3278798252298600872, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3278798252298600872, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3278798252298600872, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3278798252298600872, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3278798252298600872, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284569344695394630, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: m_Name
+      value: Deer Female
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284569344695394631, guid: 76fe063f18652ca4cb1a62376acd927d,
+        type: 3}
+      propertyPath: spouse
+      value: 
+      objectReference: {fileID: 1580164761078562232}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 76fe063f18652ca4cb1a62376acd927d, type: 3}
+--- !u!1 &9068150741222500806 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3284569344695394630, guid: 76fe063f18652ca4cb1a62376acd927d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5786467358016522368}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9064911263084693800 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3278798252298600872, guid: 76fe063f18652ca4cb1a62376acd927d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5786467358016522368}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8709471347142405330
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6403443061399487868}
+    m_Modifications:
+    - target: {fileID: 7865007575369658756, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865007575369658756, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.010014951
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865007575369658756, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865007575369658756, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865007575369658756, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865007575369658756, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865007575369658756, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865007575369658756, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865007575369658756, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865007575369658756, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865007575369658756, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868806085915758954, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: m_Name
+      value: Deer Male
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868806085915758955, guid: f82e6f5bd67e70148949ad1987afa16d,
+        type: 3}
+      propertyPath: spouse
+      value: 
+      objectReference: {fileID: 9068150741222500806}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f82e6f5bd67e70148949ad1987afa16d, type: 3}
+--- !u!1 &1580164761078562232 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7868806085915758954, guid: f82e6f5bd67e70148949ad1987afa16d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8709471347142405330}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1583117196085140822 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7865007575369658756, guid: f82e6f5bd67e70148949ad1987afa16d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8709471347142405330}
+  m_PrefabAsset: {fileID: 0}

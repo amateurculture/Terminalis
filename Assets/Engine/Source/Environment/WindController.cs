@@ -32,7 +32,6 @@ public class WindController : MonoBehaviour
         currentSpeed = speed;
         currentDirection = direction; 
         frameSkip = 60;
-        windZone = GetComponent<WindZone>();
 
         UpdateWind();
     }

@@ -49,7 +49,7 @@ public class EasySuspension : MonoBehaviour
 		}
 	}
 
-    // Uncomment this to observe how parameters change.
+   // Uncomment this to observe how parameters change.
 	/*
     void OnGUI()
     {
@@ -61,5 +61,6 @@ public class EasySuspension : MonoBehaviour
         GUILayout.Label ("Mass: " + m_Rigidbody.mass);
         GUILayout.Label ("Center: " + m_Rigidbody.centerOfMass);
     }
-	*/
+   
+    */
 }

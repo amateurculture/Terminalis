@@ -2,7 +2,7 @@
 
 public class WaterController : FluidsController
 {
-    public LightingController lightingController;
+    public SunController lightingController;
     bool isDaytime;
 
     private void Reset()

@@ -5,6 +5,11 @@ using UnityEngine.UI;
 using UnityStandardAssets.Vehicles.Aeroplane;
 using UnityStandardAssets.Vehicles.Car;
 
+/// <summary>
+/// Author: Fiona Schultz
+/// Last Modified: July-26-2019
+/// </summary>
+
 public class AircraftController : MonoBehaviour
 {
     public Transform lookAtTarget;
@@ -21,6 +26,7 @@ public class AircraftController : MonoBehaviour
     public AeroplaneUserControl4Axis aircraftController;
     public AeroplaneAudio aircraftAudioController;
 
+    NavigationStack navStack;
     GameObject player;
     OrbitCam orbitCam;
     CameraController playerCam;
@@ -31,6 +37,7 @@ public class AircraftController : MonoBehaviour
 
     void Start()
     {
+        navStack = FindObjectOfType<NavigationStack>();
         player = GameObject.FindGameObjectWithTag("Player");
 
         cam = Camera.main;
@@ -87,7 +94,7 @@ public class AircraftController : MonoBehaviour
             }
 
             // Handle horn
-            bool hornButtonPressed = Input.GetButtonDown("Toggle Perspective");
+            bool hornButtonPressed = Input.GetButtonDown("Y");
             if (hornButtonPressed) audioSource.Play();
 
             // Handle headlights
@@ -145,12 +152,14 @@ public class AircraftController : MonoBehaviour
                 player.GetComponent<UltimateCharacterLocomotionHandler>().enabled = true;
                 cam.GetComponent<CameraControllerHandler>().enabled = true;
 
+                navStack.ExitVehicle();
                 //TurnHeadlightsOff();
             }
         }
         // Enter vehicle
         else if (isAtDoor && enterCarButtonPressed)
         {
+            navStack.EnterVehicle();
             var euler = player.transform.rotation.eulerAngles;
             var rot = Quaternion.Euler(0, euler.y, 0);
             orbitCam.transform.rotation = rot;

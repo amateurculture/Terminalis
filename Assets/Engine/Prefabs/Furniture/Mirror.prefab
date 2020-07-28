@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -135,6 +136,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -223,6 +225,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -279,7 +282,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8500302844585636784}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.99999976
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -344,6 +347,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -369,6 +373,7 @@ GameObject:
   - component: {fileID: 7230272926269213021}
   - component: {fileID: 3306827948827949161}
   - component: {fileID: 2472407521556209784}
+  - component: {fileID: 4518371177043568248}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -498,6 +503,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b05780a5cfd626b4dbb6887a82bcc011, type: 2}
   - {fileID: 11400000, guid: 2d06e3c1bd8afe94e888fb91f41cd147, type: 2}
   buttonList: []
+--- !u!114 &4518371177043568248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975888521092097791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7addaabfeefdba49a2c17be5106d71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left: 0
+  right: 0
+  up: 0
+  down: 0
 --- !u!1 &2072155884978677567
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,7 +756,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
@@ -830,7 +851,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
@@ -1158,8 +1179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eaabf7f2f7f7414aa4d40aafa5a77c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targets: []
-  range: 16
+  targets:
+  - {fileID: 6687284376902185570}
+  - {fileID: 6687284377015356332}
+  range: 32
 --- !u!1 &6852726602009795098
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,6 +1248,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.011764706}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1343,6 +1367,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1398,7 +1423,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3711076155311006895}
   m_HandleRect: {fileID: 5152963527240016209}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(LightingController))]
-
 public class FogController : MonoBehaviour
 {
     [Range(0, 1)] public float fogDensity;
     public Gradient fogColor;
 
     [Range(0, 1)] float gradientIndex;
-    LightingController lightingController;
+    public SunController sunController;
     float fogLerp;
     float currentFogDensity = 0;
     float t1;
@@ -38,7 +36,6 @@ public class FogController : MonoBehaviour
 
     private void Start()
     {
-        lightingController = GetComponent<LightingController>();
         fogLerp = .05f;
         frameSkip = 60;
         isLerping = false;
@@ -53,15 +50,16 @@ public class FogController : MonoBehaviour
 
     public float GetGradientIndex()
     {
-        gradientIndex = lightingController.timeController.minute * .017f;
-        gradientIndex += lightingController.timeController.hour;
+        gradientIndex = sunController.timeController.minute * .017f;
+        gradientIndex += sunController.timeController.hour;
         gradientIndex *= 0.04f;
         return gradientIndex;
     }
 
     public void UpdateFogColor()
     {
-        if (RenderSettings.sun == null || lightingController == null) return;
+        if (RenderSettings.sun == null || sunController == null) 
+            return;
 
         RenderSettings.fogColor = fogColor.Evaluate(GetGradientIndex());
     }
@@ -69,7 +67,6 @@ public class FogController : MonoBehaviour
     void UpdateFogDensity()
     {
         currentFogDensity = Mathf.Lerp(originalDensity, fogDensity, t1);
-        //print("Fog density: " + currentFogDensity);
 
         if (Mathf.Abs(currentFogDensity - fogDensity) <= .0001f)
         {

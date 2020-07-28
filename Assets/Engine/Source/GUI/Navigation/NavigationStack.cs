@@ -1,42 +1,53 @@
 ﻿using Opsive.UltimateCharacterController.Camera;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Character.Abilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// GUI stack navigation including support for HUDs, interstitial screens, and menus.
+/// GUI stack navigation for HUDs, interstitial screens, God camera, and menus.
+/// 
+/// Author: Fiona Schultz
+/// Last Modified: July-26-2019
 /// </summary>
 
 public class NavigationStack : Singleton<NavigationStack>
 {
     public GameObject startMenu;
     public GameObject gameMenu;
-    public GameObject background;
     [Space(10)]
     public GameObject hud;
     public GameObject god;
+    public GameObject smartphone;
     public GameObject loadingScreen;
+    public GameObject eventMessage;
     public Stack<GameObject> stack;
     public bool startEnabled = false;
-
-    protected NavigationStack() { }
+    
     protected bool menuActive;
     protected bool hudActive;
-    protected List<GameObject> viewControllers;
-    protected GameObject player;
-    protected bool previousHudSetting;
+    List<GameObject> viewControllers;
+    public GameObject player;
     GodCamera godCam;
     bool usingOrbitCam;
     bool previousHud;
     bool previousGod;
+    bool inTransition;
+    bool inCar;
+
+    protected NavigationStack() { }
+    UltimateCharacterLocomotion loco;
+    Ability[] abilities;
 
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        player = GameObject.FindGameObjectWithTag("Player");
         viewControllers = new List<GameObject>();
         stack = new Stack<GameObject>();
         godCam = Camera.main.GetComponent<GodCamera>();
+        previousHud = true;
+        loco = player.GetComponent<UltimateCharacterLocomotion>();
+        abilities = loco.Abilities;
     }
 
     private void OnEnable()
@@ -56,119 +67,163 @@ public class NavigationStack : Singleton<NavigationStack>
             hud.SetActive(false);
             PushView(startMenu);
         }
-        else CloseMenu();
+        else 
+            CloseMenu();
     }
 
-    IEnumerator actionWait(GameObject outlet)
+    IEnumerator DelayedAction(GameObject outlet)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSecondsRealtime(2);
 
-        // If a nav action exists on the panel, call DoAction()
         NavAction n = outlet.GetComponent<NavAction>();
         if (n != null) 
             n.DoAction();
+
     }
 
     internal void PushView(GameObject outlet)
     {
+        foreach (var f in abilities)
+        {
+            if (f.ToString().Contains("Jump"))
+            {
+                f.Enabled = false;
+                break;
+            }
+        }
+
+        inTransition = true;
         previousHud = hud.activeSelf;
         previousGod = god.activeSelf;
         hud.SetActive(false);
         god.SetActive(false);
-        if (background != null) background?.SetActive(true);
         if (stack.Count > 0) stack.Peek()?.SetActive(false);
         stack.Push(outlet);
         stack.Peek().SetActive(true);
         menuActive = true;
+        inTransition = false;
 
-        StartCoroutine(actionWait(outlet));
+        StartCoroutine(DelayedAction(outlet));
+    }
+
+    public void CompletePop()
+    {
+        if (stack.Count <= 0) return;
+
+        stack.Pop();
+
+        if (stack.Count > 0)
+            stack.Peek()?.SetActive(true);
+        else
+            CloseMenu();
+
+        inTransition = false;
     }
 
     internal void PopView()
     {
-        if (stack.Peek() == startMenu) return;
-        stack.Peek()?.SetActive(false);
-        stack.Pop();
-        if (stack.Count > 0) stack.Peek()?.SetActive(true); else CloseMenu();
+        if (stack.Count <= 0) return;
+
+        inTransition = true;
+        GameObject p = stack.Peek();
+        if (p == startMenu) return;
+
+        Transition m = p.GetComponent<Transition>();
+
+        if (m != null) 
+            m.Close(); 
+        else 
+        { 
+            p.SetActive(false); 
+            CompletePop(); 
+        }
     }
 
     internal void CloseMenu()
     {
+        inTransition = true;
         menuActive = false;
-
-        //hudActive = false;
-        //hud.SetActive(true);
-
         hud.SetActive(previousHud);
         god.SetActive(previousGod);
         hudActive = false;
-        
-        foreach (GameObject view in viewControllers) view.SetActive(false);
+
+        foreach (GameObject view in viewControllers) 
+        {
+            Transition m = view.GetComponent<Transition>();
+            if (m != null) m.Close(); else view.SetActive(false); 
+        }
         stack.Clear();
-        Time.timeScale = 1f;
+        Time.timeScale = 1;
+        inTransition = false;
+
+        foreach (var f in abilities)
+        {
+            if (f.ToString().Contains("Jump"))
+            {
+                f.Enabled = true;
+                break;
+            }
+        }
     }
 
     public void EnterVehicle()
     {
+        inCar = true;
+        CloseMenu();
         hud.SetActive(false);
     }
 
     public void ExitVehicle()
     {
-        hud.SetActive(previousHudSetting);
+        inCar = false;
+        hud.SetActive(previousHud);
+    }
+
+    void DisableGodCamera()
+    {
+        QualitySettings.SetQualityLevel(2);
+        god.SetActive(false);
+        hud.SetActive(previousHud);
+        foreach (MonoBehaviour v in player.GetComponents<MonoBehaviour>()) v.enabled = true;
+
+        if (usingOrbitCam)
+            godCam.GetComponent<OrbitCam>().enabled = true;
+        else
+        {
+            godCam.GetComponent<CameraController>().enabled = true;
+            godCam.GetComponent<CameraControllerHandler>().enabled = true;
+        }
+    }
+
+    void EnableGodCamera()
+    {
+        CloseMenu();
+        usingOrbitCam = godCam.GetComponent<OrbitCam>().enabled;
+        QualitySettings.SetQualityLevel(0);
+        hud.SetActive(false);
+        god.SetActive(true);
+        foreach (MonoBehaviour v in player.GetComponents<MonoBehaviour>()) v.enabled = false;
+        godCam.GetComponent<OrbitCam>().enabled = false;
+        godCam.GetComponent<CameraController>().enabled = false;
+        godCam.GetComponent<CameraControllerHandler>().enabled = false;
+        Vector3 t = Camera.main.transform.position;
+        t.y = godCam.height;
+        t.x -= godCam.height / 2;
+        godCam.transform.position = t;
+        godCam.transform.eulerAngles = new Vector3(65, 90, 0);
     }
 
     private void Update()
     {
-        if (Time.frameCount % 30 == 0) Cursor.lockState = CursorLockMode.Locked;
-
-        if (!menuActive)
+        if (!inCar && !menuActive && player.activeSelf && Input.GetButtonDown("Start"))
         {
-            if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("Back"))
-            {
-                if (!godCam.enabled && player.activeSelf)
-                {
-                    hud.SetActive(!hud.activeSelf);
-                    previousHudSetting = hud.activeSelf;
-                }
-            }
-            else if (Input.GetButtonDown("Start") && player.activeSelf)
-            {
-                godCam.enabled = !godCam.enabled;
-
-                if (godCam.enabled)
-                {
-                    usingOrbitCam = godCam.GetComponent<OrbitCam>().enabled;
-                    QualitySettings.SetQualityLevel(0);
-                    hud.SetActive(false);
-                    god.SetActive(true);
-                    foreach (MonoBehaviour v in player.GetComponents<MonoBehaviour>()) v.enabled = false;
-                    godCam.GetComponent<OrbitCam>().enabled = false;
-                    godCam.GetComponent<CameraController>().enabled = false;
-                    godCam.GetComponent<CameraControllerHandler>().enabled = false;
-                    Vector3 t = Camera.main.transform.position;
-                    t.y = godCam.height;
-                    t.x -= godCam.height / 2;
-                    godCam.transform.position = t;
-                    godCam.transform.eulerAngles = new Vector3(65, 90, 0);
-                }
-                else
-                {
-                    QualitySettings.SetQualityLevel(6);
-                    god.SetActive(false);
-                    hud.SetActive(previousHudSetting);
-                    foreach (MonoBehaviour v in player.GetComponents<MonoBehaviour>()) v.enabled = true;
-
-                    if (usingOrbitCam)
-                        godCam.GetComponent<OrbitCam>().enabled = true;
-                    else
-                    {
-                        godCam.GetComponent<CameraController>().enabled = true;
-                        godCam.GetComponent<CameraControllerHandler>().enabled = true;
-                    }
-                }
-            }
+            godCam.enabled = !godCam.enabled;
+            if (godCam.enabled) EnableGodCamera(); else DisableGodCamera();
         }
-        else if (stack.Peek() != startMenu && (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("Back"))) CloseMenu();
+        else if (!inCar && !menuActive && !godCam.enabled && !inTransition && (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("Back")))
+        {
+            if (player.activeSelf && smartphone.activeSelf) CloseMenu(); else PushView(smartphone);
+        }
+        else if (stack.Count > 0 && stack.Peek() != startMenu && (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("Back"))) CloseMenu();
     }
 }

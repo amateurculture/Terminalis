@@ -44,7 +44,7 @@ public class CollisionRigidbody : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!alreadyHit && collision.transform.tag == "Vehicle")
+        if (!alreadyHit && collision.gameObject.layer == LayerMask.NameToLayer("Vehicle"))
         {
             alreadyHit = true;
             if (co == null) co = StartCoroutine(Respawn(collision));

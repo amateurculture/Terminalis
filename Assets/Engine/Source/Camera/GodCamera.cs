@@ -1,5 +1,10 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Author: Fiona Schultz
+/// Last Modified: July-26-2019
+/// </summary>
+
 public class GodCamera : MonoBehaviour
 {
     public GameObject hud;
@@ -9,8 +14,12 @@ public class GodCamera : MonoBehaviour
     Vector3 rot, pos, moveDirection;
     float leftStickHorizontal, leftStickVertical;
     float rightStickHorizontal, rightStickVertical;
+    float mouseWheel;
     float zoomSpeed;
+    float scrollSpeed;
     float scrollInput;
+    float rotationRate;
+    float scrollValue;
 
     private void Reset()
     {
@@ -25,44 +34,62 @@ public class GodCamera : MonoBehaviour
         leftStickVertical = Input.GetAxis("Vertical");
         rightStickHorizontal = Input.GetAxis("Mouse X");
         rightStickVertical = Input.GetAxis("Mouse Y");
-        zoomSpeed = height;
+        scrollInput = Input.GetAxis("Fire1") - Input.GetAxis("Fire2");
 
-        // Gamepad zoom
-        height = Mathf.Clamp(height + ((Input.GetAxis("Fire1") - Input.GetAxis("Fire2") * zoomSpeed * Time.deltaTime)), 8, 256);
+        // Mouse Input
+        mouseWheel = Input.GetAxis("Mouse ScrollWheel");
+        if (Mathf.Abs(mouseWheel) > 0) scrollInput = mouseWheel;
 
         // Key Input
         if (Input.GetKey(KeyCode.W)) leftStickVertical = 1;
         if (Input.GetKey(KeyCode.S)) leftStickVertical = -1;
         if (Input.GetKey(KeyCode.A)) leftStickHorizontal = -1;
         if (Input.GetKey(KeyCode.D)) leftStickHorizontal = 1;
-        if (Input.GetKey(KeyCode.Q)) height -= zoomSpeed * Time.deltaTime;
-        if (Input.GetKey(KeyCode.E)) height += zoomSpeed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.Q)) scrollInput = -1;
+        if (Input.GetKey(KeyCode.E)) scrollInput = 1;
 
-        // Mouse scroll zoom
-        scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        if (scrollInput > 0f) height -= zoomSpeed * Time.deltaTime * scrollInput * 50f;
-        else if (scrollInput < 0f) height -= zoomSpeed * Time.deltaTime * scrollInput * 50f;
-        height = Mathf.Clamp(height, 8, 256);
+        // Pre-Calculate Values
+        zoomSpeed = scrollSpeed = rotationRate = 0;
 
-        // Move and rotate camera
-        rot = transform.eulerAngles;
-        pos = transform.position;
-        if (leftStickVertical != 0)
-        {
-            moveDirection = transform.forward;
-            moveDirection.y = 0.0f;
-            moveDirection = Vector3.Normalize(moveDirection);
-            pos += moveDirection * Time.deltaTime * leftStickVertical * zoomSpeed;
-            pos.y = height;
+        // Move camera
+        if (Mathf.Abs(leftStickHorizontal) > 0 || Mathf.Abs(leftStickVertical) > 0) {
+            zoomSpeed = height * Time.deltaTime;
+            pos = transform.position;
+
+            if (leftStickVertical != 0)
+            {
+                moveDirection = transform.forward;
+                moveDirection.y = 0.0f;
+                moveDirection = Vector3.Normalize(moveDirection);
+                pos += moveDirection * leftStickVertical * zoomSpeed;
+                transform.position = pos;
+            }
+
+            if (leftStickHorizontal != 0) 
+                transform.position += transform.right * leftStickHorizontal * zoomSpeed;
         }
-        pos.y = height;
-        transform.position = pos;
 
-        if (leftStickHorizontal != 0) transform.position += transform.right * Time.deltaTime * (leftStickHorizontal * zoomSpeed);
-        if (rightStickHorizontal != 0) rot.y += rightStickHorizontal * Time.deltaTime * 128f;
-        if (rightStickVertical != 0) rot.x += rightStickVertical * Time.deltaTime * 128f;
-        if (rot.x > rotationClamp.y) rot.x = rotationClamp.y;
-        if (rot.x < rotationClamp.x) rot.x = rotationClamp.x;
-        transform.eulerAngles = rot;
+        // Zoom Camera
+        if (scrollInput != 0)
+        {
+            pos = transform.position;
+            scrollSpeed = height * Time.deltaTime;
+            scrollValue = scrollSpeed * scrollInput;
+            height = Mathf.Clamp(height + scrollValue, 8, 256);
+            pos.y = height;
+            transform.position = pos;
+        }
+
+        // Rotate Camera
+        if (rightStickHorizontal != 0 || rightStickVertical != 0)
+        {
+            rotationRate = Time.deltaTime * 128f;
+            rot = transform.eulerAngles;
+            if (rightStickHorizontal != 0) rot.y += rightStickHorizontal * rotationRate;
+            if (rightStickVertical != 0) rot.x += rightStickVertical * rotationRate;
+            if (rot.x > rotationClamp.y) rot.x = rotationClamp.y;
+            if (rot.x < rotationClamp.x) rot.x = rotationClamp.x;
+            transform.eulerAngles = rot;
+        }
     }
 }

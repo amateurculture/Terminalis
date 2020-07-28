@@ -5,6 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.Vehicles.Car;
 
+/// <summary>
+/// Author: Fiona Schultz
+/// Last Modified: July-26-2019
+/// </summary>
+
 public class UnityVehicleController : MonoBehaviour
 {
     public AudioSource hornAudio;
@@ -19,42 +24,44 @@ public class UnityVehicleController : MonoBehaviour
     public Image handBrakeIndicator;
     public int headLightIndex;
     public int tailLightIndex;
-    
+    public bool startInCar;
+
     [HideInInspector] public bool isInside;
 
     NavigationStack navStack;
-    CarAudio engineAudio;
-    CarController carController;
-    CarUserControl carUserControl;
-    CameraController playerCam;
-    GameObject player;
-    OrbitCam orbitCam;
+    public CarAudio engineAudio;
+    public CarController carController;
+    public CarUserControl carUserControl;
+    public CameraControllerHandler cameraControllerHandler;
+    public CameraController playerCam;
+    public GameObject player;
+    public OrbitCam orbitCam;
+    public UltimateCharacterLocomotionHandler loco; 
     Camera cam;
     private WheelCollider[] m_Wheels;
-    private Rigidbody rigid;
+    public Rigidbody rigid;
     bool isAtDoor;
-   
+    public MeshFilter meshFilter;
+
     void Start()
     {
         navStack = FindObjectOfType<NavigationStack>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
         cam = Camera.main;
-        orbitCam = cam.GetComponent<OrbitCam>();
-        playerCam = cam.GetComponent<CameraController>();
-        isInside = false;
+        //orbitCam = cam.GetComponent<OrbitCam>();
+        //playerCam = cam.GetComponent<CameraController>();
         isAtDoor = false;
-        headlights.SetActive(false);
 
         if (carMaterial)
         {
+            isInside = false;
+            headlights.SetActive(false);
             carMaterial.materials[tailLightIndex].SetColor("_EmissionColor", Color.white);
             carMaterial.materials[headLightIndex].SetColor("_EmissionColor", Color.white);
             carMaterial.materials[headLightIndex].DisableKeyword("_EMISSION");
             carMaterial.materials[tailLightIndex].DisableKeyword("_EMISSION");
             if (headLightIndex != tailLightIndex) carMaterial.materials[tailLightIndex].SetColor("_EmissionColor", new Color(.1f, 0, 0, 1));
         }
-
-        if (dashboard) dashboard.gameObject.SetActive(false);
 
         Color temp = lowBeamsIndicator.color;
         temp.a = 5;
@@ -66,19 +73,71 @@ public class UnityVehicleController : MonoBehaviour
         handBrakeIndicator.color = temp;
         handBrakeIndicator.enabled = false;
 
-        engineAudio = GetComponent<CarAudio>();
-        carController = GetComponent<CarController>();
-        carUserControl = GetComponent<CarUserControl>();
-        rigid = GetComponent<Rigidbody>();
+        //engineAudio = GetComponent<CarAudio>();
+        //carController = GetComponent<CarController>();
+        //carUserControl = GetComponent<CarUserControl>();
+        //rigid = GetComponent<Rigidbody>();
 
         rigid.isKinematic = false;
-        engineAudio.enabled = false;
-        carController.enabled = false;
-        carUserControl.enabled = true;
-        carUserControl.isDisabled = true;
 
-        if (player == null)
-            player = GameObject.FindGameObjectWithTag("Player");
+        if (!startInCar)
+        {
+            lowBeamsIndicator.enabled = false;
+            handBrakeIndicator.enabled = false;
+            if (dashboard) dashboard.gameObject.SetActive(false);
+
+            engineAudio.enabled = false;
+            carController.enabled = false;
+            carUserControl.enabled = true;
+            carUserControl.isDisabled = true;
+        }
+        else
+        {
+            lowBeamsIndicator.enabled = true;
+            handBrakeIndicator.enabled = true;
+
+            if (carUserControl.usingHandbrake)
+            {
+                temp = handBrakeIndicator.color;
+                temp.a = 1f;
+                handBrakeIndicator.color = temp;
+            }
+            else
+            {
+                temp = handBrakeIndicator.color;
+                temp.a = .05f;
+                handBrakeIndicator.color = temp;
+            }
+
+            headlights.SetActive(true);
+            if (headlights.activeSelf)
+                carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
+
+            temp = lowBeamsIndicator.color;
+
+            if (headlights.activeSelf)
+                temp.a = 1f;
+            else
+                temp.a = .05f;
+
+            lowBeamsIndicator.color = temp;
+            lowBeamsIndicator.enabled = true;
+            temp = lowBeamsIndicator.color;
+            temp.a = headlights.activeSelf ? 1f : .05f;
+            lowBeamsIndicator.color = temp;
+
+            handBrakeIndicator.enabled = true;
+            temp = handBrakeIndicator.color;
+            temp.a = carUserControl.usingHandbrake ? 1f : .05f;
+            handBrakeIndicator.color = temp;
+
+            isInside = true;
+        }
+
+        //if (player == null) player = GameObject.FindGameObjectWithTag("Player");
+
+        // todo remove this lock state, only for testing
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     IEnumerator WheelHack()
@@ -142,7 +201,7 @@ public class UnityVehicleController : MonoBehaviour
                 carMaterial.materials[headLightIndex].EnableKeyword("_EMISSION");
 
             // Handle horn
-            bool hornButtonPressed = Input.GetButtonDown("Toggle Perspective");
+            bool hornButtonPressed = Input.GetButtonDown("Y");
             if (hornButtonPressed && hornAudio != null) hornAudio.Play();
 
             // Handle headlights
@@ -206,8 +265,8 @@ public class UnityVehicleController : MonoBehaviour
                 isInside = false;
                 lowBeamsIndicator.enabled = false;
                 handBrakeIndicator.enabled = false;
-                player.GetComponent<UltimateCharacterLocomotionHandler>().enabled = true;
-                cam.GetComponent<CameraControllerHandler>().enabled = true;
+                loco.enabled = true;
+                cameraControllerHandler.enabled = true;
 
                 //TurnHeadlightsOff();
 
@@ -224,7 +283,7 @@ public class UnityVehicleController : MonoBehaviour
         {
             navStack.EnterVehicle();
             Debug.Log("Entering car");
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
 
             Debug.Log("Turning on engine audio");
             foreach (var sound in GetComponents<AudioSource>()) 
@@ -233,8 +292,6 @@ public class UnityVehicleController : MonoBehaviour
             isAtDoor = false;
             playerCam.enabled = false;
             
-            if (player == null) player = GameObject.FindGameObjectWithTag("Player");
-
             Debug.Log("Found player: " + player.name + " -- Turning off all scripts");
             foreach (MonoBehaviour v in player.GetComponents<MonoBehaviour>())
             {
@@ -242,11 +299,14 @@ public class UnityVehicleController : MonoBehaviour
                 v.enabled = false;
             }
 
-            player.SetActive(false);
+            loco.enabled = false;
+            player.transform.position = new Vector3(-50000f, -50000f, -50000f);
+
+            //player.SetActive(false);
             Debug.Log("Player turned off");
 
             orbitCam.focus = transform;
-            orbitCam.distance = carMaterial.GetComponent<MeshFilter>().mesh.bounds.size.z * 2f; 
+            orbitCam.distance = meshFilter.mesh.bounds.size.z * 2f; 
             orbitCam.focusRadius = .25f;
             orbitCam.focusCentering = 1f;
             orbitCam.rotationSpeed = 256f;
@@ -279,7 +339,7 @@ public class UnityVehicleController : MonoBehaviour
 
             Debug.Log("If camera main was null, find it again");
 
-            cam.GetComponent<CameraControllerHandler>().enabled = false;
+            cameraControllerHandler.enabled = false;
 
             Debug.Log("Turned on camera controller handler");
 

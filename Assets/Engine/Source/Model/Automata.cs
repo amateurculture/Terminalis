@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Author: Fiona Schultz
+/// Last Modified: July-26-2019
+/// </summary>
+
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Agent))]
@@ -475,11 +480,15 @@ public class Automata : MonoBehaviour
         * X 9) Wander
         */
 
+        /*
         if (agent.hunger == 0)
         {
             agent.vitality --;
         }
-        else if (aiStyle == Globals.AIType.Agressive && InRange(player.transform.position, chargeRange))
+        else 
+        */
+
+        if (aiStyle == Globals.AIType.Agressive && InRange(player.transform.position, chargeRange))
         {
             /*** todo figure out if checking raycast is worth it enough here
             RaycastHit hit;
@@ -584,13 +593,13 @@ public class Automata : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider collider) {
-        //if (collider.transform.tag == "Player" || collider.transform.name.Contains("Arrow")) 
-        //    agent.vitality = 0; 
+        if (collider.transform.name.Contains("Arrow")) 
+            agent.vitality = 0; 
     }
 
     private void OnCollisionEnter(Collision collision) {
-         //if (collision.transform.tag == "Player" || collision.transform.name.Contains("Arrow"))
-         //   agent.vitality = 0; 
+         if (collision.transform.name.Contains("Arrow"))
+            agent.vitality = 0; 
     }
 
     #endregion

@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using Opsive.UltimateCharacterController.Character;
 using System.Collections;
 
+/// <summary>
+/// Author: Fiona Schultz
+/// Last Modified: July-26-2019
+/// </summary>
+
 public class Agent : Container
 {
     #region public variables
@@ -71,6 +76,7 @@ public class Agent : Container
     {
         // TODO: calculate redution of stats based on enviro time
 
+        /*
         hunger += .01f;
         fatigue += .01f;
 
@@ -80,6 +86,7 @@ public class Agent : Container
 
         if (hunger == 100) base.vitality -= .01f;
         if (fatigue == 100) stress += .01f;
+        */
     }
 
     #endregion
