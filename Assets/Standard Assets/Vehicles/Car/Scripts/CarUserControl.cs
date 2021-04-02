@@ -27,20 +27,20 @@ namespace UnityStandardAssets.Vehicles.Car
             if (!isDisabled)
             {
                 h = CrossPlatformInputManager.GetAxis("Horizontal");
+                if (h == 0f)
+                {
+                    h = ((Input.GetKey(KeyCode.D) == true) ? 1 : 0) - ((Input.GetKey(KeyCode.A) == true) ? 1 : 0); 
+                }
 
                 unbiased = Input.GetAxis("Fire1") - Input.GetAxis("Fire2");
                 v = (unbiased > 0) ? unbiased : 0;
                 v2 = (unbiased < 0) ? unbiased : 0;
-
-
                 v = Input.GetAxis("Fire1");
                 v2 = Input.GetAxis("Fire2");
 
                 if (Input.GetKey(KeyCode.W)) v = 1;
                 if (Input.GetKey(KeyCode.S)) v = -1;
-
-                if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Toggle Perspective"))
-                    usingHandbrake = !usingHandbrake;
+                if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Toggle Perspective")) usingHandbrake = !usingHandbrake;
 
                 gearShift = 0;
                 if (Input.GetButtonDown("Equip Previous Item")) gearShift = -1;

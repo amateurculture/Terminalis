@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.VR;
+//using UnityEngine.VR;
 
 public class MirrorCameraScript : MonoBehaviour
 {
@@ -161,6 +161,7 @@ public class MirrorCameraScript : MonoBehaviour
 
 				Matrix4x4 worldToCameraMatrix = cameraLookingAtThisMirror.worldToCameraMatrix;
 
+                /*
 				if (VRMode)
                 {
 					if(cameraLookingAtThisMirror.stereoActiveEye == Camera.MonoOrStereoscopicEye.Left)
@@ -172,6 +173,7 @@ public class MirrorCameraScript : MonoBehaviour
 						worldToCameraMatrix[12] -= 0.011f;
 					}
 				}
+                */
 
 				worldToCameraMatrix *= reflectionMatrix;
 				cameraObject.worldToCameraMatrix = worldToCameraMatrix;
