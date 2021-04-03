@@ -1031,7 +1031,8 @@ public class SimpleLOD_MaterialPopup : EditorWindow {
 		}
 	}
 
-	private void ApplyChanges() {
+    [Obsolete]
+    private void ApplyChanges() {
 
 		// possibilities:
 		//	origMat == mat && origMat != atlasMat  - use our own material & use atlas
@@ -1087,6 +1088,7 @@ public class SimpleLOD_MaterialPopup : EditorWindow {
 
                                 TextureImporter tempImporter = (TextureImporter)TextureImporter.GetAtPath(localPath);
 								if(key == "_BumpMap" || key == "_DetailBumpMap") tempImporter.normalmap = true;
+
                                 tempImporter.maxTextureSize = Mathf.NextPowerOfTwo(Mathf.Max(atlasTex.width, atlasTex.height));
                                 AssetDatabase.ImportAsset(localPath);
                                 atlasTex = (Texture2D)AssetDatabase.LoadAssetAtPath(localPath, typeof(Texture2D));

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 public class WheelSkidmarks : MonoBehaviour {
 
-#pragma strict
+//#pragma strict
 
 //@script RequireComponent(WheelCollider)//We need a wheel collider
 

@@ -300,9 +300,9 @@ public class UnityVehicleController : MonoBehaviour
             }
 
             loco.enabled = false;
-            player.transform.position = new Vector3(-50000f, -50000f, -50000f);
+            //player.transform.position = new Vector3(-50000f, -50000f, -50000f);
 
-            //player.SetActive(false);
+            player.SetActive(false);
             Debug.Log("Player turned off");
 
             orbitCam.focus = transform;
@@ -343,8 +343,8 @@ public class UnityVehicleController : MonoBehaviour
 
             Debug.Log("Turned on camera controller handler");
 
-            rigid.isKinematic = true;
-            rigid.isKinematic = false;
+            //rigid.isKinematic = true;
+            //rigid.isKinematic = false;
         }
     }
 

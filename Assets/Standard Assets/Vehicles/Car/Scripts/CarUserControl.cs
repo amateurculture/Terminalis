@@ -27,11 +27,8 @@ namespace UnityStandardAssets.Vehicles.Car
             if (!isDisabled)
             {
                 h = CrossPlatformInputManager.GetAxis("Horizontal");
-                if (h == 0f)
-                {
-                    h = ((Input.GetKey(KeyCode.D) == true) ? 1 : 0) - ((Input.GetKey(KeyCode.A) == true) ? 1 : 0); 
-                }
-
+                h = (h == 0) ? ((Input.GetKey(KeyCode.D) == true) ? 1 : 0) - ((Input.GetKey(KeyCode.A) == true) ? 1 : 0) : h; 
+                
                 unbiased = Input.GetAxis("Fire1") - Input.GetAxis("Fire2");
                 v = (unbiased > 0) ? unbiased : 0;
                 v2 = (unbiased < 0) ? unbiased : 0;

@@ -32,6 +32,9 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             float roll = Input.GetAxis("Horizontal");
             float pitch = Input.GetAxis("Vertical");
 
+            roll = (roll == 0) ? ((Input.GetKey(KeyCode.D) ? 1 : 0) - (Input.GetKey(KeyCode.A) ? 1 : 0)) : roll;
+            pitch = (pitch == 0) ? ((Input.GetKey(KeyCode.W) ? 1 : 0) - (Input.GetKey(KeyCode.S) ? 1 : 0)) : pitch;
+
             if (Input.GetButtonDown("Toggle Perspective"))  
                 m_AirBrakes = !m_AirBrakes;
 

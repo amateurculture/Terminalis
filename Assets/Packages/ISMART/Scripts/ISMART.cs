@@ -101,7 +101,7 @@ public class ISMART : MonoBehaviour
 	[Range(0f, 50f)] public float NextWayDynamic;
 
 	[HideInInspector] public bool RotateNextWaypoint;
-	private float alt = 0;
+	//private float alt = 0;
 
 	[Header("Police Setting")]
 	[SerializeField] public PoliceAddons policeAddons;
@@ -122,7 +122,9 @@ public class ISMART : MonoBehaviour
 
 	[Header("Police Addons")]
 	[Header("Debug")]
-	private int i = 0;
+	//private int i = 0;
+
+	#pragma warning disable
 	private bool RayC;
 	private bool RayLF;
 	private bool RayLN;

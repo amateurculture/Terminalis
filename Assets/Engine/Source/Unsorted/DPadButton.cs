@@ -12,6 +12,9 @@ public class DPadButton : MonoBehaviour
         x = Input.GetAxisRaw("Dpad X");
         y = Input.GetAxisRaw("Dpad Y");
 
+        x = (x == 0) ? ((Input.GetKey(KeyCode.RightArrow) == true) ? 1 : 0) - ((Input.GetKey(KeyCode.LeftArrow) == true) ? 1 : 0) : x;
+        y = (y == 0) ? ((Input.GetKey(KeyCode.UpArrow) == true) ? 1 : 0) - ((Input.GetKey(KeyCode.DownArrow) == true) ? 1 : 0) : y;
+
         left = false;
         right = false;
         up = false;

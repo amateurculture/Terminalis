@@ -215,7 +215,7 @@ public class NavigationStack : Singleton<NavigationStack>
 
     private void Update()
     {
-        if (!inCar && !menuActive && player.activeSelf && Input.GetButtonDown("Start"))
+        if (!inCar && !menuActive && player.activeSelf && (Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Escape)))
         {
             godCam.enabled = !godCam.enabled;
             if (godCam.enabled) EnableGodCamera(); else DisableGodCamera();

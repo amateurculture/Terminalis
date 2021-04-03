@@ -63,7 +63,8 @@ namespace UMA
 			}
 		}
 
-		[PreferenceItem("UMA")]
+		//[PreferenceItem("UMA")]
+		[SettingsProvider]
         public static void PreferencesGUI()
         {
             // Preferences GUI
