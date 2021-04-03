@@ -17,7 +17,8 @@ class ToolISmart : EditorWindow
 		GetWindow(typeof(ToolISmart));
 	}
 
-	void OnGUI ()
+    [System.Obsolete]
+    void OnGUI ()
     {
 		EditorGUILayout.Space();
 		EditorGUILayout.Space();

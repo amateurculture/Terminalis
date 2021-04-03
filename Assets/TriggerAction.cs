@@ -24,7 +24,7 @@ public class TriggerAction : MonoBehaviour
     private void Update()
     {
         var button = Input.GetButtonDown("Jump");
-        Debug.Log("Action button state = " + button);
+        //Debug.Log("Action button state = " + button);
 
         if (isSelectable && button)
         {

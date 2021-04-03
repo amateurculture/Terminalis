@@ -232,7 +232,8 @@ public class SimpleLOD_MaterialPopup : EditorWindow {
 		base.Close();
 	}
 
-	void OnGUI() {
+    [Obsolete]
+    void OnGUI() {
 		if(go == null) Close();
 		GUIStyle windowTitleStyle = new GUIStyle(GUI.skin.label);
 		windowTitleStyle.fontSize = 18;
@@ -789,8 +790,10 @@ public class SimpleLOD_MaterialPopup : EditorWindow {
 		for(int i=0;i<submeshRows.Count;i++) {
 			Hashtable row = (Hashtable)submeshRows[i];
 			Material m = (Material)row["atlasMat"];
-			if(row["atlasMat"] == atlasMat || (m.HasProperty(masterTexKey) && m.GetTexture(masterTexKey) == masterTex)) {
-				atlasRows.Add(row);
+#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
+            if (row["atlasMat"] == atlasMat || (m.HasProperty(masterTexKey) && m.GetTexture(masterTexKey) == masterTex)) {
+#pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
+                atlasRows.Add(row);
 			}
 		}
 

@@ -93,8 +93,8 @@ namespace Opsive.UltimateCharacterController.Demo.UI
 
             // Give control back to the player and lock the cursor after a selection. It can be unlocked again by pressing escape.
             EventHandler.ExecuteEvent(m_ActiveCharacter, "OnEnableGameplayInput", true);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
         }
 
         /// <summary>

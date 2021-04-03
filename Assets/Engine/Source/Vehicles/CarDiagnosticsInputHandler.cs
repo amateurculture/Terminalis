@@ -5,8 +5,8 @@
 
             if (!diagnosticsPanel.activeSelf)
             {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                //Cursor.lockState = CursorLockMode.Locked;
+                //Cursor.visible = false;
                 Time.timeScale = 1.0f;
             }
             else
@@ -18,6 +18,6 @@
 
         if (Time.frameCount % 10 == 0 && diagnosticsPanel.activeSelf)
         {
-            Cursor.lockState = CursorLockMode.None;            Cursor.visible = true;
+            //Cursor.lockState = CursorLockMode.None;            //Cursor.visible = true;
         }
     }}

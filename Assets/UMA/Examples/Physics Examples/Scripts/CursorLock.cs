@@ -13,8 +13,10 @@ namespace UMA.Dynamics.Examples
 
 		void LockMouse()
 		{
+			/*
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
+			*/
 		}		
 	}
 }

@@ -137,7 +137,7 @@ public class UnityVehicleController : MonoBehaviour
         //if (player == null) player = GameObject.FindGameObjectWithTag("Player");
 
         // todo remove this lock state, only for testing
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     IEnumerator WheelHack()

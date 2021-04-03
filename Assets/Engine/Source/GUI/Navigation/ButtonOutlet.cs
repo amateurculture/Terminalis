@@ -19,4 +19,9 @@ public class ButtonOutlet : MonoBehaviour
     {
         NavigationStack.Instance.PushView(outlet);
     }
+
+    private void OnMouseOver()
+    {
+        
+    }
 }

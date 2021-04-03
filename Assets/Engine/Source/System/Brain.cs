@@ -143,8 +143,8 @@ public class Brain : MonoBehaviour
     }
 
     private void Update()
-    {
-        if (Time.frameCount % 3 == 0)
+    { 
+        if (Time.frameCount % 3 == 0) 
         {
             incrementer += Time.unscaledDeltaTime * .05f;
             incrementer = incrementer > 1f ? 0 : incrementer;
@@ -154,7 +154,7 @@ public class Brain : MonoBehaviour
             fastIncrementer = fastIncrementer > 1f ? 0 : fastIncrementer;
             colorCycle2 = colorGradient.Evaluate(fastIncrementer);
 
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
         }
     }
 

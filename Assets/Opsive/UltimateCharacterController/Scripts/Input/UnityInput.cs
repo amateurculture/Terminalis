@@ -38,6 +38,7 @@ namespace Opsive.UltimateCharacterController.Input
                     m_DisableCursor = false;
                 }
                 m_DisableCursor = value;
+                /*
                 if (m_DisableCursor && Cursor.visible) {
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
@@ -45,6 +46,7 @@ namespace Opsive.UltimateCharacterController.Input
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
                 }
+                */
             }
         }
         public bool EnableCursorWithEscape { get { return m_EnableCursorWithEscape; } set { m_EnableCursorWithEscape = value; } }
@@ -86,10 +88,12 @@ namespace Opsive.UltimateCharacterController.Input
         /// </summary>
         private void OnEnable()
         {
+            /*
             if (!m_UseVirtualInput && m_DisableCursor) {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+            */
         }
 
         /// <summary>
@@ -149,6 +153,7 @@ namespace Opsive.UltimateCharacterController.Input
                     }
                 }
 
+                /*
                 // Enable the cursor if the escape key is pressed. Disable the cursor if it is visbile but should be disabled upon press.
                 if (m_EnableCursorWithEscape && UnityEngine.Input.GetKeyDown(KeyCode.Escape)) {
                     Cursor.lockState = CursorLockMode.None;
@@ -165,13 +170,16 @@ namespace Opsive.UltimateCharacterController.Input
                         OnApplicationFocus(true);
                     }
                 }
+                */
 
 #if UNITY_EDITOR
                 // The cursor should be visible when the game is paused.
+                /*
                 if (!Cursor.visible && Time.deltaTime == 0) {
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
                 }
+                */
 #endif
             }
         }
@@ -285,10 +293,12 @@ namespace Opsive.UltimateCharacterController.Input
         {
             base.EnableGameplayInput(enable);
 
+            /*
             if (enable && m_DisableCursor) {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+            */
         }
 
         /// <summary>
@@ -299,10 +309,12 @@ namespace Opsive.UltimateCharacterController.Input
         {
             base.OnApplicationFocus(hasFocus);
 
+            /*
             if (hasFocus && m_DisableCursor) {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+            */
         }
     }
 }

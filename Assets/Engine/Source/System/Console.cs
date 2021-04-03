@@ -63,10 +63,12 @@ public class Console : MonoBehaviour
 
 			Time.timeScale = (show) ? 0 : 1;
 
+			/*
 			if (show) 
 				Cursor.lockState = CursorLockMode.None; 
 			else 
 				Cursor.lockState = CursorLockMode.Locked;
+			*/
 		}
 	}
 

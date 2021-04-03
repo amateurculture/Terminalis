@@ -241,8 +241,8 @@ namespace Opsive.UltimateCharacterController.Demo
             }
 
             // The cursor needs to be visible.
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            //Cursor.lockState = CursorLockMode.None;
+            //Cursor.visible = true;
 
             if (!selectStartingPerspective) {
                 return;
@@ -269,8 +269,8 @@ namespace Opsive.UltimateCharacterController.Demo
         /// </summary>
         private void Update()
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            //Cursor.lockState = CursorLockMode.None;
+            //Cursor.visible = true;
         }
 
         /// <summary>
@@ -426,8 +426,8 @@ namespace Opsive.UltimateCharacterController.Demo
             ActiveDemoZone(m_DemoZones[0], teleport);
 
             // The cursor should be hidden to start the demo.
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
             enabled = false;
 
             // The character and camera are ready to go - disable the perspective selection panel.

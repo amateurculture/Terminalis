@@ -192,7 +192,8 @@ namespace UMA.PoseTools
 				_livePopupEditor = liveUBPEditor;
 		}
 
-		public void OnEnable()
+        [Obsolete]
+        public void OnEnable()
 		{
 			if (treeState == null)
 				treeState = new TreeViewState();
@@ -215,7 +216,8 @@ namespace UMA.PoseTools
 //			}
 		}
 
-		public void OnDisable()
+        [Obsolete]
+        public void OnDisable()
 		{
 			SceneView.onSceneGUIDelegate -= this.OnSceneGUI;
 			EditorApplication.update -= this.OnUpdate;

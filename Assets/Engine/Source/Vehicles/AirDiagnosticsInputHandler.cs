@@ -20,8 +20,8 @@ public class AirDiagnosticsInputHandler : MonoBehaviour
 
             if (!diagnosticsPanel.activeSelf)
             {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                //Cursor.lockState = CursorLockMode.Locked;
+                //Cursor.visible = false;
                 Time.timeScale = 1.0f;
             }
             else
@@ -30,7 +30,7 @@ public class AirDiagnosticsInputHandler : MonoBehaviour
                 // Cursor lock recovery handled in UnityInput.cs LateUpdate()
             }
         }
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
     }
 }

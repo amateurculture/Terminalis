@@ -149,7 +149,7 @@ namespace UMA.CharacterSystem.Examples
 			}
 		}
 
-		public void TargetBody()
+		public new void TargetBody()
 		{
 			if (Orbitor != null)
 			{
@@ -158,7 +158,7 @@ namespace UMA.CharacterSystem.Examples
 			}
 		}
 
-		public void TargetFace()
+		public new void TargetFace()
 		{
 			if (Orbitor != null)
 			{

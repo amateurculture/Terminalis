@@ -139,7 +139,7 @@ public class NavigationStack : Singleton<NavigationStack>
         }
     }
 
-    internal void CloseMenu()
+    public void CloseMenu()
     {
         inTransition = true;
         menuActive = false;
@@ -220,10 +220,10 @@ public class NavigationStack : Singleton<NavigationStack>
             godCam.enabled = !godCam.enabled;
             if (godCam.enabled) EnableGodCamera(); else DisableGodCamera();
         }
-        else if (!inCar && !menuActive && !godCam.enabled && !inTransition && (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("Back")))
+        else if (!inCar && !menuActive && !godCam.enabled && !inTransition && (Input.GetKeyDown(KeyCode.Tab) || Input.GetButtonDown("Back")))
         {
             if (player.activeSelf && smartphone.activeSelf) CloseMenu(); else PushView(smartphone);
         }
-        else if (stack.Count > 0 && stack.Peek() != startMenu && (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("Back"))) CloseMenu();
+        else if (stack.Count > 0 && stack.Peek() != startMenu && (Input.GetKeyDown(KeyCode.Tab) || Input.GetButtonDown("Back"))) CloseMenu();
     }
 }

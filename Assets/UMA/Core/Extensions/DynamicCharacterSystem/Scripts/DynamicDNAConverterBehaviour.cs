@@ -301,11 +301,12 @@ namespace UMA.CharacterSystem
 			}
 		}
 
-		/// <summary>
-		/// Upgrades a DynamicDNAConverter Prefab to a new ConverterController asset and replaces any usage of the old asset. Stores the original asset in a relative 'Legacy' folder.
-		/// </summary>
-		/// <returns>Returns the path of the new converterController asset</returns>
-		public DynamicDNAConverterController DoUpgrade()
+        /// <summary>
+        /// Upgrades a DynamicDNAConverter Prefab to a new ConverterController asset and replaces any usage of the old asset. Stores the original asset in a relative 'Legacy' folder.
+        /// </summary>
+        /// <returns>Returns the path of the new converterController asset</returns>
+        [Obsolete]
+        public DynamicDNAConverterController DoUpgrade()
 		{
 			var DCBPath = AssetDatabase.GetAssetPath(this.gameObject);
 
@@ -414,11 +415,12 @@ namespace UMA.CharacterSystem
 			return _converterController;
 		}
 
-		/// <summary>
-		/// Replaces all references to this asset in RaceDatas and SlotDataAssets with a reference to the given DynamicDNAConverterController
-		/// </summary>
-		/// <param name="replacingAsset"></param>
-		public void FindAndReplaceUsage(DynamicDNAConverterController replacingAsset)
+        /// <summary>
+        /// Replaces all references to this asset in RaceDatas and SlotDataAssets with a reference to the given DynamicDNAConverterController
+        /// </summary>
+        /// <param name="replacingAsset"></param>
+        [Obsolete]
+        public void FindAndReplaceUsage(DynamicDNAConverterController replacingAsset)
 		{
 			if(replacingAsset == null)
 			{

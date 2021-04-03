@@ -45,7 +45,7 @@ public class FacePlayer : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(.2f);
+            yield return new WaitForSeconds(.02f);
             lookAtTransform = transform;
             lookAtTransform.LookAt(player.transform);
         }

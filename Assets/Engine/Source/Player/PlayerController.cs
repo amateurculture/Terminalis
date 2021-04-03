@@ -610,8 +610,9 @@ namespace AC_System
 
         private void InternalLockUpdate()
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            //Cursor.lockState = CursorLockMode.None;
+            //Cursor.visible = true;
+            
             /*
 
             if (Input.GetKeyUp(KeyCode.Escape)) m_cursorIsLocked = false;

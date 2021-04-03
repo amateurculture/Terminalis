@@ -114,8 +114,11 @@ namespace UMA.CharacterSystem.Editors
 			}
 		}
 
-		public override void OnInspectorGUI()
-		{
+        [Obsolete]
+#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
+        public override void OnInspectorGUI()
+#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
+        {
 
 			serializedObject.Update();
 
@@ -338,7 +341,8 @@ namespace UMA.CharacterSystem.Editors
 			}
 		}
 
-		private void DrawUpdateTools()
+        [Obsolete]
+        private void DrawUpdateTools()
 		{
 			var upgradeRect = EditorGUILayout.GetControlRect();
 
@@ -357,7 +361,8 @@ namespace UMA.CharacterSystem.Editors
 			GUIHelper.EndVerticalPadded(3);
 		}
 
-		private void DrawUpgradeTools()
+        [Obsolete]
+        private void DrawUpgradeTools()
 		{
 			if (converterControllerProp.objectReferenceValue == null)
 			{
@@ -412,7 +417,8 @@ namespace UMA.CharacterSystem.Editors
 			
 		}
 
-		private void DoUpgrade()
+        [Obsolete]
+        private void DoUpgrade()
 		{
 			var originalName = _target.gameObject.name;
 			DynamicDNAConverterController newController = _target.DoUpgrade();
