@@ -259,7 +259,22 @@ namespace Opsive.UltimateCharacterController.Input
         /// <returns>The value of the axis.</returns>
         protected override float GetAxisInternal(string name)
         {
-            return m_Input.GetAxis(name);
+            float val = m_Input.GetAxis(name);
+
+            if (name == "Horizontal")
+                if (UnityEngine.Input.GetKey(KeyCode.D))
+                    return 1f;
+                else if (UnityEngine.Input.GetKey(KeyCode.A))
+                    return -1f;
+
+            if (name == "Vertical")
+                if (UnityEngine.Input.GetKey(KeyCode.W))
+                    return 1f;
+                else if (UnityEngine.Input.GetKey(KeyCode.S))
+                    return -1f;
+
+            //return m_Input.GetAxis(name);
+            return val;
         }
 
         /// <summary>
@@ -269,7 +284,23 @@ namespace Opsive.UltimateCharacterController.Input
         /// <returns>The value of the raw axis.</returns>
         protected override float GetAxisRawInternal(string name)
         {
-            return m_Input.GetAxisRaw(name);
+            //return m_Input.GetAxisRaw(name);
+            float val = m_Input.GetAxis(name);
+
+            if (name == "Horizontal")
+                if (UnityEngine.Input.GetKey(KeyCode.D))
+                    return 1f;
+                else if (UnityEngine.Input.GetKey(KeyCode.A))
+                    return -1f;
+
+            if (name == "Vertical")
+                if (UnityEngine.Input.GetKey(KeyCode.W))
+                    return 1f;
+                else if (UnityEngine.Input.GetKey(KeyCode.S))
+                    return -1f;
+
+            //return m_Input.GetAxis(name);
+            return val;
         }
 
         /// <summary>

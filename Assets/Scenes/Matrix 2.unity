@@ -5526,12 +5526,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60481782}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &60637710 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2944084908424124323, guid: c4f4820b5009694419a0019347e25aba,
-    type: 3}
-  m_PrefabInstance: {fileID: 1440374852}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &61781399 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3683760379646926928, guid: 56b20ef3b3960bb4bb246fefc5142db7,
@@ -6680,6 +6674,11 @@ PrefabInstance:
     - target: {fileID: 135308597, guid: 9eb9a56b162c54b4ca8a18b6054bd477, type: 3}
       propertyPath: m_Intensity
       value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 638734805832684508, guid: 9eb9a56b162c54b4ca8a18b6054bd477,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 893102258800700195, guid: 9eb9a56b162c54b4ca8a18b6054bd477,
         type: 3}
@@ -19075,1004 +19074,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cc2851ce84498e47a812180b8f6f247, type: 3}
---- !u!1 &1134022260
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1134022261}
-  - component: {fileID: 1134022276}
-  - component: {fileID: 1134022275}
-  - component: {fileID: 1134022274}
-  - component: {fileID: 1134022273}
-  - component: {fileID: 1134022272}
-  - component: {fileID: 1134022271}
-  - component: {fileID: 1134022270}
-  - component: {fileID: 1134022269}
-  - component: {fileID: 1134022268}
-  - component: {fileID: 1134022267}
-  - component: {fileID: 1134022266}
-  - component: {fileID: 1134022265}
-  - component: {fileID: 1134022264}
-  - component: {fileID: 1134022263}
-  - component: {fileID: 1134022262}
-  m_Layer: 0
-  m_Name: Flashlight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1134022261
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2093094248}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1134022262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f6d480ccdb49194188daa8223df2f68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Ride
-    m_Preset: {fileID: 11400000, guid: 93b840e77b0f9574fa704bd7a82ec4ca, type: 2}
-    m_BlockList: []
-    m_Default: 0
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ID: 6
-  m_UseRate: 0.1
-  m_CanEquipEmptyItem: 1
-  m_FaceTarget: 0
-  m_StopUseAbilityDelay: 0
-  m_UseEvent:
-    m_WaitForAnimationEvent: 1
-    m_Duration: 0
-  m_UseCompleteEvent:
-    m_WaitForAnimationEvent: 1
-    m_Duration: 0.05
-  m_ForceRootMotionPosition: 1
-  m_ForceRootMotionRotation: 0
-  m_UseAttributeName: 
-  m_UseAttributeAmount: 0
-  m_DropWhenUseDepleted: 0
-  m_CharacterUseAttributeName: 
-  m_CharacterUseAttributeAmount: 0
-  m_PlayAudioOnStartUse: 1
-  m_UseAnimatorAudioStateSet:
-    m_AnimatorAudioStateSelectorData:
-      m_ObjectType: Opsive.UltimateCharacterController.Items.AnimatorAudioStates.Sequence
-      m_ValueHashes: 6dc4e8ab
-      m_ValuePositions: 00000000
-      m_Values: 000080bf
-      m_UnityObjects: []
-      m_Version: 2.1.9
-    m_States:
-    - m_States:
-      - m_Name: Default
-        m_Preset: {fileID: 0}
-        m_BlockList: []
-        m_Default: 1
-      m_Enabled: 1
-      m_AllowDuringMovement: 1
-      m_RequireGrounded: 0
-      m_StateName: 
-      m_ItemSubstateIndex: 2
-      m_AudioClipSet:
-        m_Delay: 0
-        m_AudioClips:
-        - {fileID: 8300000, guid: e01eb51db3fd966498eed474de852d3a, type: 3}
-        - {fileID: 8300000, guid: 3a87b6104e3e0e2438d2750034807556, type: 3}
-        - {fileID: 8300000, guid: d8dbc8a2525570f42adb5ce38a21fe74, type: 3}
-    - m_States:
-      - m_Name: Default
-        m_Preset: {fileID: 0}
-        m_BlockList: []
-        m_Default: 1
-      m_Enabled: 1
-      m_AllowDuringMovement: 1
-      m_RequireGrounded: 0
-      m_StateName: 
-      m_ItemSubstateIndex: 3
-      m_AudioClipSet:
-        m_Delay: 0
-        m_AudioClips:
-        - {fileID: 8300000, guid: e01eb51db3fd966498eed474de852d3a, type: 3}
-        - {fileID: 8300000, guid: 3a87b6104e3e0e2438d2750034807556, type: 3}
-        - {fileID: 8300000, guid: d8dbc8a2525570f42adb5ce38a21fe74, type: 3}
-  m_RequireInAirMeleeAbilityInAir: 1
-  m_RequireCounterAttackAbility: 0
-  m_ConsumableItemType: {fileID: 0}
-  m_AimItemSubstateIndexAddition: 100
-  m_MaxCollisionCount: 20
-  m_ForwardShieldSensitivity: -0.8
-  m_SingleHit: 0
-  m_MultiHitFrameCount: 3
-  m_CanHitDelay: 0.2
-  m_AllowAttackCombos: 1
-  m_ImpactLayers:
-    serializedVersion: 2
-    m_Bits: 3758096345
-  m_DamageAmount: 30
-  m_ImpactForce: 2
-  m_ImpactForceFrames: 15
-  m_ImpactStateName: 
-  m_ImpactStateDisableTimer: 10
-  m_SurfaceImpact: {fileID: 11400000, guid: c5ab4290ae28ad645a9e5b3483fc05cb, type: 2}
-  m_ApplyRecoil: 1
-  m_RecoilAnimatorAudioStateSet:
-    m_AnimatorAudioStateSelectorData:
-      m_ObjectType: Opsive.UltimateCharacterController.Items.AnimatorAudioStates.Sequence
-      m_ValueHashes: 6dc4e8ab
-      m_ValuePositions: 00000000
-      m_Values: 000080bf
-      m_UnityObjects: []
-      m_Version: 2.1.9
-    m_States:
-    - m_States:
-      - m_Name: Default
-        m_Preset: {fileID: 0}
-        m_BlockList: []
-        m_Default: 1
-      m_Enabled: 1
-      m_AllowDuringMovement: 1
-      m_RequireGrounded: 0
-      m_StateName: 
-      m_ItemSubstateIndex: 0
-      m_AudioClipSet:
-        m_Delay: 0
-        m_AudioClips: []
-  m_Trail: {fileID: 1913255639696654, guid: 19a85e5b5535519428b5a87dedebab1d, type: 3}
-  m_TrailVisibility: 0
-  m_TrailSpawnDelay: 0
-  m_AttackStopTrailEvent:
-    m_WaitForAnimationEvent: 0
-    m_Duration: 0.5
-  m_OnImpactEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1134022263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3990644bbd0c64742aaa4e0d6510fc96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ActionID: 6
-  m_Hitboxes:
-  - m_Collider: {fileID: 0}
-    m_DamageMultiplier: 1
-    m_ColliderObjectID: -1
-    m_MinimumYOffset: 0
-    m_MinimumZOffset: 0
-    m_SingleHit: 0
-    m_SurfaceImpact: {fileID: 0}
-  m_TrailLocation: {fileID: 0}
---- !u!114 &1134022264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 336c8468bb0567e40a4cde260cccde9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ActionID: 6
-  m_Hitboxes:
-  - m_Collider: {fileID: 979209642}
-    m_DamageMultiplier: 1
-    m_ColliderObjectID: -1
-    m_MinimumYOffset: 0
-    m_MinimumZOffset: 0
-    m_SingleHit: 0
-    m_SurfaceImpact: {fileID: 0}
-  m_TrailLocation: {fileID: 0}
---- !u!114 &1134022265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3990644bbd0c64742aaa4e0d6510fc96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ActionID: 5
-  m_Hitboxes:
-  - m_Collider: {fileID: 1689699463}
-    m_DamageMultiplier: 1
-    m_ColliderObjectID: -1
-    m_MinimumYOffset: 0
-    m_MinimumZOffset: 0
-    m_SingleHit: 0
-    m_SurfaceImpact: {fileID: 0}
-  m_TrailLocation: {fileID: 1374664140}
---- !u!114 &1134022266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 336c8468bb0567e40a4cde260cccde9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ActionID: 5
-  m_Hitboxes:
-  - m_Collider: {fileID: 979209642}
-    m_DamageMultiplier: 1
-    m_ColliderObjectID: -1
-    m_MinimumYOffset: 0
-    m_MinimumZOffset: 0
-    m_SingleHit: 0
-    m_SurfaceImpact: {fileID: 0}
-  m_TrailLocation: {fileID: 1365594088}
---- !u!114 &1134022267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f6d480ccdb49194188daa8223df2f68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ID: 5
-  m_UseRate: 0.1
-  m_CanEquipEmptyItem: 1
-  m_FaceTarget: 0
-  m_StopUseAbilityDelay: 0.25
-  m_UseEvent:
-    m_WaitForAnimationEvent: 1
-    m_Duration: 0.2
-  m_UseCompleteEvent:
-    m_WaitForAnimationEvent: 1
-    m_Duration: 0.05
-  m_ForceRootMotionPosition: 1
-  m_ForceRootMotionRotation: 0
-  m_UseAttributeName: 
-  m_UseAttributeAmount: 0
-  m_DropWhenUseDepleted: 0
-  m_CharacterUseAttributeName: 
-  m_CharacterUseAttributeAmount: 0
-  m_PlayAudioOnStartUse: 1
-  m_UseAnimatorAudioStateSet:
-    m_AnimatorAudioStateSelectorData:
-      m_ObjectType: Opsive.UltimateCharacterController.Items.AnimatorAudioStates.Sequence
-      m_ValueHashes: 6dc4e8ab
-      m_ValuePositions: 00000000
-      m_Values: 000080bf
-      m_UnityObjects: []
-      m_Version: 2.1
-    m_States:
-    - m_States:
-      - m_Name: Default
-        m_Preset: {fileID: 0}
-        m_BlockList: []
-        m_Default: 1
-      m_Enabled: 1
-      m_AllowDuringMovement: 1
-      m_RequireGrounded: 0
-      m_StateName: 
-      m_ItemSubstateIndex: 11
-      m_AudioClipSet:
-        m_Delay: 0
-        m_AudioClips:
-        - {fileID: 8300000, guid: 9d83f22e15eb3b942a702604f7f97e35, type: 3}
-  m_RequireInAirMeleeAbilityInAir: 1
-  m_RequireCounterAttackAbility: 0
-  m_ConsumableItemType: {fileID: 0}
-  m_AimItemSubstateIndexAddition: 100
-  m_MaxCollisionCount: 20
-  m_ForwardShieldSensitivity: -0.8
-  m_SingleHit: 0
-  m_MultiHitFrameCount: 3
-  m_CanHitDelay: 0.2
-  m_AllowAttackCombos: 0
-  m_ImpactLayers:
-    serializedVersion: 2
-    m_Bits: 3758096345
-  m_DamageAmount: 30
-  m_ImpactForce: 2
-  m_ImpactForceFrames: 15
-  m_ImpactStateName: 
-  m_ImpactStateDisableTimer: 10
-  m_SurfaceImpact: {fileID: 11400000, guid: fc2751a1c60c07f4e81e86df934c075e, type: 2}
-  m_ApplyRecoil: 0
-  m_RecoilAnimatorAudioStateSet:
-    m_AnimatorAudioStateSelectorData:
-      m_ObjectType: Opsive.UltimateCharacterController.Items.AnimatorAudioStates.MatchingRecoil
-      m_ValueHashes: ef376db3
-      m_ValuePositions: 00000000
-      m_Values: 00000000
-      m_UnityObjects: []
-      m_Version: 2.1
-    m_States:
-    - m_States:
-      - m_Name: Default
-        m_Preset: {fileID: 0}
-        m_BlockList: []
-        m_Default: 1
-      m_Enabled: 1
-      m_AllowDuringMovement: 1
-      m_RequireGrounded: 0
-      m_StateName: 
-      m_ItemSubstateIndex: 0
-      m_AudioClipSet:
-        m_Delay: 0
-        m_AudioClips: []
-  m_Trail: {fileID: 1913255639696654, guid: 193bb54cfe1bd924680c02a588b9b044, type: 3}
-  m_TrailVisibility: 0
-  m_TrailSpawnDelay: 0
-  m_AttackStopTrailEvent:
-    m_WaitForAnimationEvent: 0
-    m_Duration: 1.25
-  m_OnImpactEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1134022268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 336c8468bb0567e40a4cde260cccde9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ActionID: 2
-  m_Hitboxes:
-  - m_Collider: {fileID: 979209642}
-    m_DamageMultiplier: 1
-    m_ColliderObjectID: -1
-    m_MinimumYOffset: 0
-    m_MinimumZOffset: 0
-    m_SingleHit: 0
-    m_SurfaceImpact: {fileID: 0}
-  m_TrailLocation: {fileID: 1365594088}
---- !u!114 &1134022269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3990644bbd0c64742aaa4e0d6510fc96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ActionID: 2
-  m_Hitboxes:
-  - m_Collider: {fileID: 1689699463}
-    m_DamageMultiplier: 1
-    m_ColliderObjectID: -1
-    m_MinimumYOffset: 0
-    m_MinimumZOffset: 0
-    m_SingleHit: 0
-    m_SurfaceImpact: {fileID: 0}
-  m_TrailLocation: {fileID: 1374664140}
---- !u!114 &1134022270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f6d480ccdb49194188daa8223df2f68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ID: 2
-  m_UseRate: 0.1
-  m_CanEquipEmptyItem: 1
-  m_FaceTarget: 0
-  m_StopUseAbilityDelay: 0
-  m_UseEvent:
-    m_WaitForAnimationEvent: 1
-    m_Duration: 0
-  m_UseCompleteEvent:
-    m_WaitForAnimationEvent: 1
-    m_Duration: 0.05
-  m_ForceRootMotionPosition: 0
-  m_ForceRootMotionRotation: 0
-  m_UseAttributeName: 
-  m_UseAttributeAmount: 0
-  m_DropWhenUseDepleted: 0
-  m_CharacterUseAttributeName: 
-  m_CharacterUseAttributeAmount: 0
-  m_PlayAudioOnStartUse: 1
-  m_UseAnimatorAudioStateSet:
-    m_AnimatorAudioStateSelectorData:
-      m_ObjectType: Opsive.UltimateCharacterController.Items.AnimatorAudioStates.Random
-      m_ValueHashes: 
-      m_ValuePositions: 
-      m_Values: 
-      m_UnityObjects: []
-      m_Version: 2.0
-    m_States:
-    - m_States:
-      - m_Name: Default
-        m_Preset: {fileID: 0}
-        m_BlockList: []
-        m_Default: 1
-      m_Enabled: 1
-      m_AllowDuringMovement: 1
-      m_RequireGrounded: 0
-      m_StateName: 
-      m_ItemSubstateIndex: 10
-      m_AudioClipSet:
-        m_Delay: 0
-        m_AudioClips:
-        - {fileID: 8300000, guid: f5e54ede6765f0d42903e26f4202a447, type: 3}
-        - {fileID: 8300000, guid: bd24d61ababc6cf47adfeb4edc730ca6, type: 3}
-  m_RequireInAirMeleeAbilityInAir: 1
-  m_RequireCounterAttackAbility: 0
-  m_ConsumableItemType: {fileID: 0}
-  m_AimItemSubstateIndexAddition: 0
-  m_MaxCollisionCount: 20
-  m_ForwardShieldSensitivity: -0.8
-  m_SingleHit: 1
-  m_MultiHitFrameCount: 3
-  m_CanHitDelay: 0.2
-  m_AllowAttackCombos: 0
-  m_ImpactLayers:
-    serializedVersion: 2
-    m_Bits: 4294967289
-  m_DamageAmount: 50
-  m_ImpactForce: 2
-  m_ImpactForceFrames: 15
-  m_ImpactStateName: 
-  m_ImpactStateDisableTimer: 10
-  m_SurfaceImpact: {fileID: 0}
-  m_ApplyRecoil: 0
-  m_RecoilAnimatorAudioStateSet:
-    m_AnimatorAudioStateSelectorData:
-      m_ObjectType: Opsive.UltimateCharacterController.Items.AnimatorAudioStates.Random
-      m_ValueHashes: 
-      m_ValuePositions: 
-      m_Values: 
-      m_UnityObjects: []
-      m_Version: 2.0
-    m_States:
-    - m_States:
-      - m_Name: Default
-        m_Preset: {fileID: 0}
-        m_BlockList: []
-        m_Default: 1
-      m_Enabled: 1
-      m_AllowDuringMovement: 1
-      m_RequireGrounded: 0
-      m_StateName: 
-      m_ItemSubstateIndex: 0
-      m_AudioClipSet:
-        m_Delay: 0
-        m_AudioClips: []
-  m_Trail: {fileID: 1913255639696654, guid: 19a85e5b5535519428b5a87dedebab1d, type: 3}
-  m_TrailVisibility: 0
-  m_TrailSpawnDelay: 0.1
-  m_AttackStopTrailEvent:
-    m_WaitForAnimationEvent: 0
-    m_Duration: 0.5
-  m_OnImpactEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1134022271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 336c8468bb0567e40a4cde260cccde9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ActionID: 0
-  m_Hitboxes:
-  - m_Collider: {fileID: 979209642}
-    m_DamageMultiplier: 1
-    m_ColliderObjectID: -1
-    m_MinimumYOffset: 0
-    m_MinimumZOffset: 0
-    m_SingleHit: 0
-    m_SurfaceImpact: {fileID: 0}
-  m_TrailLocation: {fileID: 1365594088}
---- !u!114 &1134022272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3990644bbd0c64742aaa4e0d6510fc96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ActionID: 0
-  m_Hitboxes:
-  - m_Collider: {fileID: 1689699463}
-    m_DamageMultiplier: 1
-    m_ColliderObjectID: -1
-    m_MinimumYOffset: 0
-    m_MinimumZOffset: 0
-    m_SingleHit: 0
-    m_SurfaceImpact: {fileID: 0}
-  m_TrailLocation: {fileID: 1374664140}
---- !u!114 &1134022273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f6d480ccdb49194188daa8223df2f68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Ride
-    m_Preset: {fileID: 11400000, guid: 93b840e77b0f9574fa704bd7a82ec4ca, type: 2}
-    m_BlockList: []
-    m_Default: 0
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ID: 0
-  m_UseRate: 0.1
-  m_CanEquipEmptyItem: 1
-  m_FaceTarget: 0
-  m_StopUseAbilityDelay: 0
-  m_UseEvent:
-    m_WaitForAnimationEvent: 1
-    m_Duration: 0
-  m_UseCompleteEvent:
-    m_WaitForAnimationEvent: 1
-    m_Duration: 0.05
-  m_ForceRootMotionPosition: 1
-  m_ForceRootMotionRotation: 0
-  m_UseAttributeName: 
-  m_UseAttributeAmount: 0
-  m_DropWhenUseDepleted: 0
-  m_CharacterUseAttributeName: 
-  m_CharacterUseAttributeAmount: 0
-  m_PlayAudioOnStartUse: 1
-  m_UseAnimatorAudioStateSet:
-    m_AnimatorAudioStateSelectorData:
-      m_ObjectType: Opsive.UltimateCharacterController.Items.AnimatorAudioStates.Sequence
-      m_ValueHashes: 
-      m_ValuePositions: 
-      m_Values: 
-      m_UnityObjects: []
-      m_Version: 2.0
-    m_States:
-    - m_States:
-      - m_Name: Default
-        m_Preset: {fileID: 0}
-        m_BlockList: []
-        m_Default: 1
-      m_Enabled: 1
-      m_AllowDuringMovement: 1
-      m_RequireGrounded: 0
-      m_StateName: 
-      m_ItemSubstateIndex: 2
-      m_AudioClipSet:
-        m_Delay: 0
-        m_AudioClips:
-        - {fileID: 8300000, guid: e01eb51db3fd966498eed474de852d3a, type: 3}
-        - {fileID: 8300000, guid: 3a87b6104e3e0e2438d2750034807556, type: 3}
-        - {fileID: 8300000, guid: d8dbc8a2525570f42adb5ce38a21fe74, type: 3}
-    - m_States:
-      - m_Name: Default
-        m_Preset: {fileID: 0}
-        m_BlockList: []
-        m_Default: 1
-      m_Enabled: 1
-      m_AllowDuringMovement: 1
-      m_RequireGrounded: 0
-      m_StateName: 
-      m_ItemSubstateIndex: 3
-      m_AudioClipSet:
-        m_Delay: 0
-        m_AudioClips:
-        - {fileID: 8300000, guid: e01eb51db3fd966498eed474de852d3a, type: 3}
-        - {fileID: 8300000, guid: 3a87b6104e3e0e2438d2750034807556, type: 3}
-        - {fileID: 8300000, guid: d8dbc8a2525570f42adb5ce38a21fe74, type: 3}
-  m_RequireInAirMeleeAbilityInAir: 1
-  m_RequireCounterAttackAbility: 0
-  m_ConsumableItemType: {fileID: 0}
-  m_AimItemSubstateIndexAddition: 100
-  m_MaxCollisionCount: 20
-  m_ForwardShieldSensitivity: -0.8
-  m_SingleHit: 0
-  m_MultiHitFrameCount: 3
-  m_CanHitDelay: 0.2
-  m_AllowAttackCombos: 1
-  m_ImpactLayers:
-    serializedVersion: 2
-    m_Bits: 3758096345
-  m_DamageAmount: 20
-  m_ImpactForce: 2
-  m_ImpactForceFrames: 15
-  m_ImpactStateName: 
-  m_ImpactStateDisableTimer: 10
-  m_SurfaceImpact: {fileID: 11400000, guid: c5ab4290ae28ad645a9e5b3483fc05cb, type: 2}
-  m_ApplyRecoil: 1
-  m_RecoilAnimatorAudioStateSet:
-    m_AnimatorAudioStateSelectorData:
-      m_ObjectType: Opsive.UltimateCharacterController.Items.AnimatorAudioStates.RandomRecoil
-      m_ValueHashes: ef376db3
-      m_ValuePositions: 00000000
-      m_Values: 14000000
-      m_UnityObjects: []
-      m_Version: 2.0
-    m_States:
-    - m_States:
-      - m_Name: Default
-        m_Preset: {fileID: 0}
-        m_BlockList: []
-        m_Default: 1
-      m_Enabled: 1
-      m_AllowDuringMovement: 1
-      m_RequireGrounded: 0
-      m_StateName: 
-      m_ItemSubstateIndex: 0
-      m_AudioClipSet:
-        m_Delay: 0
-        m_AudioClips: []
-  m_Trail: {fileID: 1913255639696654, guid: 19a85e5b5535519428b5a87dedebab1d, type: 3}
-  m_TrailVisibility: 0
-  m_TrailSpawnDelay: 0
-  m_AttackStopTrailEvent:
-    m_WaitForAnimationEvent: 0
-    m_Duration: 0.5
-  m_OnImpactEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1134022274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5b5dc98af0593b4589b67fcfc5b4c85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_Object: {fileID: 979209640}
-  m_LocalSpawnPosition: {x: 0, y: 0, z: 0}
-  m_LocalSpawnRotation: {x: 0, y: 0, z: 0}
-  m_UseParentHumanoidBone: 1
-  m_ParentHumanoidBone: 18
-  m_NonDominantHandIKTarget: {fileID: 0}
-  m_NonDominantHandIKTargetHint: {fileID: 0}
-  m_HolsterTarget: {fileID: 0}
-  m_HolsterID: -1
---- !u!114 &1134022275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5476160779b6bb145b4eb7245c6888d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: CrazyCowboy
-    m_Preset: {fileID: 11400000, guid: 29399015b5c638646ae4e0c9dde3f774, type: 2}
-    m_BlockList: []
-    m_Default: 0
-  - m_Name: OldSchool
-    m_Preset: {fileID: 11400000, guid: 1c368bfbdff99054aabd6a2b2355fe6f, type: 2}
-    m_BlockList: []
-    m_Default: 0
-  - m_Name: SpringsOff
-    m_Preset: {fileID: 11400000, guid: 22f602dad67abdd40ada756e49ff182e, type: 2}
-    m_BlockList: []
-    m_Default: 0
-  - m_Name: Run
-    m_Preset: {fileID: 11400000, guid: 2bff6f498d508074b88910ee37b302c5, type: 2}
-    m_BlockList: []
-    m_Default: 0
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_Object: {fileID: 60637710}
-  m_LocalSpawnPosition: {x: 0, y: 0, z: 0}
-  m_LocalSpawnRotation: {x: 0, y: 0, z: 0}
-  m_FirstPersonBaseObjectID: 0
-  m_VisibleItem: {fileID: 1689699462}
-  m_AdditionalControlObjects: []
-  m_PositionSpring:
-    m_Stiffness: 0.2
-    m_Damping: 0.25
-    m_VelocityFadeInLength: 1
-    m_MaxSoftForceFrames: 120
-    m_MinVelocity: 0.00001
-    m_MaxVelocity: 10000
-    m_MinValue: {x: -10000, y: -10000, z: -10000}
-    m_MaxValue: {x: 10000, y: 10000, z: 10000}
-  m_PositionOffset: {x: -0.02, y: -0.02, z: -0.06}
-  m_PositionExitOffset: {x: 0, y: -0.2, z: 0}
-  m_PositionFallImpact: 0.2
-  m_PositionFallImpactSoftness: 10
-  m_PositionFallRetract: 2
-  m_PositionMoveSlide: {x: 0.5, y: 1, z: 0.5}
-  m_PositionPlatformSlide: {x: 0.5, y: 0.5, z: 0}
-  m_PositionInputVelocityScale: 1
-  m_PositionMaxInputVelocity: 25
-  m_RotationSpring:
-    m_Stiffness: 0.5
-    m_Damping: 0.2
-    m_VelocityFadeInLength: 1
-    m_MaxSoftForceFrames: 120
-    m_MinVelocity: 0.00001
-    m_MaxVelocity: 10000
-    m_MinValue: {x: -10000, y: -10000, z: -10000}
-    m_MaxValue: {x: 10000, y: 10000, z: 10000}
-  m_RotationOffset: {x: 0, y: 0, z: 0}
-  m_RotationExitOffset: {x: 30, y: 0, z: 0}
-  m_RotationFallImpact: 10
-  m_RotationFallImpactSoftness: 5
-  m_RotationLookSway: {x: 20, y: 60, z: 0}
-  m_RotationStrafeSway: {x: 0, y: 1, z: 0}
-  m_RotationVerticalSway: {x: -200, y: 0, z: 0}
-  m_RotationPlatformSway: {x: 0, y: 0, z: 0}
-  m_RotationGroundSwayMultiplier: 0.5
-  m_RotationInputVelocityScale: 1
-  m_RotationMaxInputVelocity: 15
-  m_PivotPositionSpring:
-    m_Stiffness: 0.2
-    m_Damping: 0.25
-    m_VelocityFadeInLength: 1
-    m_MaxSoftForceFrames: 120
-    m_MinVelocity: 0.00001
-    m_MaxVelocity: 10000
-    m_MinValue: {x: -10000, y: -10000, z: -10000}
-    m_MaxValue: {x: 10000, y: 10000, z: 10000}
-  m_PivotPositionOffset: {x: 0, y: 0, z: 0}
-  m_PivotRotationSpring:
-    m_Stiffness: 0.05
-    m_Damping: 0.2
-    m_VelocityFadeInLength: 1
-    m_MaxSoftForceFrames: 120
-    m_MinVelocity: 0.00001
-    m_MaxVelocity: 10000
-    m_MinValue: {x: -10000, y: -10000, z: -10000}
-    m_MaxValue: {x: 10000, y: 10000, z: 10000}
-  m_PivotRotationOffset: {x: 0, y: 0, z: 0}
-  m_ShakeSpeed: 0.15
-  m_ShakeAmplitude: {x: 4, y: 2, z: 1}
-  m_BobPositionalRate: {x: 0.8, y: 1.6, z: 0}
-  m_BobPositionalAmplitude: {x: 1.5, y: 2.1, z: 0}
-  m_BobRotationalRate: {x: 0.8, y: 0, z: 0}
-  m_BobRotationalAmplitude: {x: 400, y: 0, z: 0}
-  m_BobInputVelocityScale: 1
-  m_BobMaxInputVelocity: 100
-  m_BobRequireGroundContact: 1
-  m_StepMinVelocity: 5
-  m_StepSoftness: 4
-  m_StepPositionForce: {x: 0, y: -0.0012, z: 0}
-  m_StepRotationForce: {x: 0, y: 0, z: -0.0012}
-  m_StepForceScale: 1
-  m_StepPositionBalance: 0
-  m_StepRotationBalance: 0
---- !u!114 &1134022276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134022260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e73d2e6c883c6804c87c5da983c35d7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_States:
-  - m_Name: FirstPerson
-    m_Preset: {fileID: 11400000, guid: ab1c3f5328061a34c82576ed0e161233, type: 2}
-    m_BlockList: []
-    m_Default: 0
-  - m_Name: Default
-    m_Preset: {fileID: 0}
-    m_BlockList: []
-    m_Default: 1
-  m_ItemType: {fileID: -6065076577479180107, guid: 5481010ef14c32f4cb7b6661b0c59fb4,
-    type: 2}
-  m_SlotID: 0
-  m_AnimatorItemID: 23
-  m_AnimatorMovementSetID: 1
-  m_DominantItem: 1
-  m_AllowCameraZoom: 0
-  m_DropPrefab: {fileID: 1964786882248276, guid: 0c483e65ca05aac4e98efdaa2af21edf,
-    type: 3}
-  m_EquipEvent:
-    m_WaitForAnimationEvent: 1
-    m_Duration: 0.3
-  m_EquipCompleteEvent:
-    m_WaitForAnimationEvent: 0
-    m_Duration: 0.15
-  m_EquipAnimatorAudioStateSet:
-    m_AnimatorAudioStateSelectorData:
-      m_ObjectType: Opsive.UltimateCharacterController.Items.AnimatorAudioStates.Sequence
-      m_ValueHashes: 6dc4e8ab
-      m_ValuePositions: 00000000
-      m_Values: 000080bf
-      m_UnityObjects: []
-      m_Version: 2.1.9
-    m_States:
-    - m_States:
-      - m_Name: Default
-        m_Preset: {fileID: 0}
-        m_BlockList: []
-        m_Default: 1
-      m_Enabled: 1
-      m_AllowDuringMovement: 1
-      m_RequireGrounded: 0
-      m_StateName: 
-      m_ItemSubstateIndex: 0
-      m_AudioClipSet:
-        m_Delay: 0
-        m_AudioClips:
-        - {fileID: 8300000, guid: 49d25372d8b2d834c85b2ca4e392f7f3, type: 3}
-  m_UnequipEvent:
-    m_WaitForAnimationEvent: 1
-    m_Duration: 0.3
-  m_UnequipCompleteEvent:
-    m_WaitForAnimationEvent: 0
-    m_Duration: 0.1
-  m_UnequipAnimatorAudioStateSet:
-    m_AnimatorAudioStateSelectorData:
-      m_ObjectType: Opsive.UltimateCharacterController.Items.AnimatorAudioStates.Sequence
-      m_ValueHashes: 6dc4e8ab
-      m_ValuePositions: 00000000
-      m_Values: 000080bf
-      m_UnityObjects: []
-      m_Version: 2.1.9
-    m_States:
-    - m_States:
-      - m_Name: Default
-        m_Preset: {fileID: 0}
-        m_BlockList: []
-        m_Default: 1
-      m_Enabled: 1
-      m_AllowDuringMovement: 1
-      m_RequireGrounded: 0
-      m_StateName: 
-      m_ItemSubstateIndex: 0
-      m_AudioClipSet:
-        m_Delay: 0
-        m_AudioClips:
-        - {fileID: 8300000, guid: 67adc643ac1cbda49a68d1e37d49f309, type: 3}
-  m_UIMonitorID: 0
-  m_Icon: {fileID: 0}
-  m_ShowCrosshairsOnAim: 1
-  m_CenterCrosshairs: {fileID: 21300054, guid: 5fb67c614ba76ca45a811c8e1f7be476, type: 3}
-  m_QuadrantOffset: 5
-  m_MaxQuadrantSpread: 10
-  m_QuadrantSpreadDamping: 0.05
-  m_LeftCrosshairs: {fileID: 0}
-  m_TopCrosshairs: {fileID: 0}
-  m_RightCrosshairs: {fileID: 0}
-  m_BottomCrosshairs: {fileID: 0}
-  m_ShowFullScreenUI: 0
-  m_FullScreenUIID: -1
-  m_PickupItemEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_EquipItemEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_UnequipItemEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DropItemEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1138413509 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8759064808192985234, guid: 2dddbf04beb8f3b4b93a16144e6592a5,
@@ -26968,12 +25969,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360569666}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1365594088 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2944084907592891429, guid: c4f4820b5009694419a0019347e25aba,
-    type: 3}
-  m_PrefabInstance: {fileID: 1440374852}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1365652949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27128,12 +26123,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cc2851ce84498e47a812180b8f6f247, type: 3}
---- !u!4 &1374664140 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2944084909023855345, guid: c4f4820b5009694419a0019347e25aba,
-    type: 3}
-  m_PrefabInstance: {fileID: 1440374852}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1380975710
 GameObject:
   m_ObjectHideFlags: 0
@@ -27904,6 +26893,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5710771207696010, guid: c4f4820b5009694419a0019347e25aba, type: 3}
+      propertyPath: m_Hitboxes.Array.data[0].m_Collider
+      value: 
+      objectReference: {fileID: 1689699463}
     - target: {fileID: 168004789039580508, guid: c4f4820b5009694419a0019347e25aba,
         type: 3}
       propertyPath: m_Hitboxes.Array.data[0].m_Collider
@@ -27919,6 +26912,21 @@ PrefabInstance:
       propertyPath: m_Hitboxes.Array.data[0].m_Collider
       value: 
       objectReference: {fileID: 2004133104}
+    - target: {fileID: 1904763621409990426, guid: c4f4820b5009694419a0019347e25aba,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725070572762115419, guid: c4f4820b5009694419a0019347e25aba,
+        type: 3}
+      propertyPath: m_Object
+      value: 
+      objectReference: {fileID: 979209640}
+    - target: {fileID: 2830224375949668463, guid: c4f4820b5009694419a0019347e25aba,
+        type: 3}
+      propertyPath: m_Hitboxes.Array.data[0].m_Collider
+      value: 
+      objectReference: {fileID: 979209642}
     - target: {fileID: 2944084908188260767, guid: c4f4820b5009694419a0019347e25aba,
         type: 3}
       propertyPath: m_Enabled
@@ -27944,15 +26952,35 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3399178651018622214, guid: c4f4820b5009694419a0019347e25aba,
+        type: 3}
+      propertyPath: m_Hitboxes.Array.data[0].m_Collider
+      value: 
+      objectReference: {fileID: 979209642}
     - target: {fileID: 3486018708494098282, guid: c4f4820b5009694419a0019347e25aba,
         type: 3}
       propertyPath: m_Hitboxes.Array.data[0].m_Collider
       value: 
       objectReference: {fileID: 2004133104}
+    - target: {fileID: 3609132929866184661, guid: c4f4820b5009694419a0019347e25aba,
+        type: 3}
+      propertyPath: m_Hitboxes.Array.data[0].m_Collider
+      value: 
+      objectReference: {fileID: 1689699463}
+    - target: {fileID: 3720372882521982049, guid: c4f4820b5009694419a0019347e25aba,
+        type: 3}
+      propertyPath: m_Hitboxes.Array.data[0].m_Collider
+      value: 
+      objectReference: {fileID: 1689699463}
     - target: {fileID: 4889081865129590031, guid: c4f4820b5009694419a0019347e25aba,
         type: 3}
       propertyPath: m_Name
       value: O3N Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4889081865129590031, guid: c4f4820b5009694419a0019347e25aba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4889081865129590032, guid: c4f4820b5009694419a0019347e25aba,
         type: 3}
@@ -28138,6 +27166,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5042158832636399821, guid: c4f4820b5009694419a0019347e25aba,
+        type: 3}
+      propertyPath: m_Hitboxes.Array.data[0].m_Collider
+      value: 
+      objectReference: {fileID: 979209642}
     - target: {fileID: 5369387835016197835, guid: c4f4820b5009694419a0019347e25aba,
         type: 3}
       propertyPath: m_Hitboxes.Array.data[0].m_Collider
@@ -28183,6 +27216,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6540893919672499504, guid: c4f4820b5009694419a0019347e25aba,
+        type: 3}
+      propertyPath: m_Hitboxes.Array.data[0].m_Collider
+      value: 
+      objectReference: {fileID: 979209642}
     - target: {fileID: 6641968832567415637, guid: c4f4820b5009694419a0019347e25aba,
         type: 3}
       propertyPath: m_Type
@@ -28203,6 +27241,11 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 2147483648
       objectReference: {fileID: 0}
+    - target: {fileID: 6703754283579757756, guid: c4f4820b5009694419a0019347e25aba,
+        type: 3}
+      propertyPath: m_Hitboxes.Array.data[0].m_Collider
+      value: 
+      objectReference: {fileID: 1689699463}
     - target: {fileID: 6751673207724282217, guid: c4f4820b5009694419a0019347e25aba,
         type: 3}
       propertyPath: m_ItemType
@@ -28300,6 +27343,11 @@ PrefabInstance:
       propertyPath: m_UnequipAnimatorAudioStateSet.m_AnimatorAudioStateSelectorData.m_ValuePositions.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7783445452345352028, guid: c4f4820b5009694419a0019347e25aba,
+        type: 3}
+      propertyPath: m_VisibleItem
+      value: 
+      objectReference: {fileID: 1689699462}
     - target: {fileID: 7793788153547346309, guid: c4f4820b5009694419a0019347e25aba,
         type: 3}
       propertyPath: m_Hitboxes.Array.data[0].m_Collider
@@ -28342,7 +27390,7 @@ MonoBehaviour:
     m_Default: 1
   m_ActionID: 6
   m_Hitboxes:
-  - m_Collider: {fileID: 0}
+  - m_Collider: {fileID: 2004133104}
     m_DamageMultiplier: 1
     m_ColliderObjectID: -1
     m_MinimumYOffset: 0
@@ -28369,7 +27417,7 @@ MonoBehaviour:
     m_Default: 1
   m_ActionID: 6
   m_Hitboxes:
-  - m_Collider: {fileID: 0}
+  - m_Collider: {fileID: 1960411368}
     m_DamageMultiplier: 1
     m_ColliderObjectID: -1
     m_MinimumYOffset: 0
@@ -31032,25 +30080,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &1758818927 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2968634749515618526, guid: 9eb9a56b162c54b4ca8a18b6054bd477,
-    type: 3}
-  m_PrefabInstance: {fileID: 717638503}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1758818931
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758818927}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.010000001, z: 0.010000002}
-  m_Center: {x: 0, y: 0.0000000020954758, z: 6.9849193e-10}
 --- !u!1 &1759106935
 GameObject:
   m_ObjectHideFlags: 0
@@ -33817,12 +32846,6 @@ Transform:
   m_Father: {fileID: 686534659}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &2093094248 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2944084908159415415, guid: c4f4820b5009694419a0019347e25aba,
-    type: 3}
-  m_PrefabInstance: {fileID: 1440374852}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2104883673
 GameObject:
   m_ObjectHideFlags: 0
