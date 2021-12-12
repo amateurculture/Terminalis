@@ -15,6 +15,11 @@ public class SpeedometerScript : MonoBehaviour
     public TextMeshProUGUI gearText;
     CarController carController;
 
+    private void Reset()
+    {
+        objectVelocity = transform.parent.parent.GetComponent<BlackBox>();
+    }
+
     private void Start() 
     {
         maximumDegrees *= 0.01f;

@@ -7,10 +7,11 @@ using UnityEngine.UI;
 public class ButtonList : MonoBehaviour
 {
     public DPadButton dpad;
-    List<Button> buttonList = new List<Button>();
-    Button currentButton;
-    int index;
     public bool preselect;
+
+    List<Pressable> pressableList = new List<Pressable>();
+    Pressable currentPressable;
+    int index;
 
     private void Reset()
     {
@@ -19,30 +20,40 @@ public class ButtonList : MonoBehaviour
      
     void OnEnable()
     {
-        foreach (Button button in GetComponentsInChildren<Button>()) buttonList.Add(button);
-        currentButton = buttonList.ToArray()[0];
+        /*
+        foreach (Pressable pressable in GetComponentsInChildren<Pressable>()) 
+            pressableList.Add(pressable);
+
+        currentPressable = pressableList.ToArray()[0];
         index = -1;
-        if (preselect) SelectButton(index = 0);
+
+        if (preselect) 
+            SelectPressable(index = 0);
+        */
     }
 
-    void SelectButton(int index)
+    void SelectPressable(int index)
     {
-        currentButton = buttonList[index];
-        currentButton.Select();
-        currentButton.OnSelect(null);
+        currentPressable = pressableList[index];
+        // currentPressable.Select();
+        // currentPressable.OnSelect(null);
     }
 
     void Update()
     {
         if (dpad.up)
         {
-            if (--index < 0) index = buttonList.Count - 1;
-            SelectButton(index);
+            if (--index < 0) 
+                index = pressableList.Count - 1;
+
+            SelectPressable(index);
         }
         else if (dpad.down)
         {
-            if (++index >= buttonList.Count) index = 0;
-            SelectButton(index);
+            if (++index >= pressableList.Count) 
+                index = 0;
+
+            SelectPressable(index);
         }
     }
 }

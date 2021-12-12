@@ -143,9 +143,10 @@ public class NavigationStack : Singleton<NavigationStack>
     {
         inTransition = true;
         menuActive = false;
+        hudActive = false;
         hud.SetActive(previousHud);
         god.SetActive(previousGod);
-        hudActive = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         foreach (GameObject view in viewControllers) 
         {
@@ -193,11 +194,12 @@ public class NavigationStack : Singleton<NavigationStack>
             godCam.GetComponent<CameraController>().enabled = true;
             godCam.GetComponent<CameraControllerHandler>().enabled = true;
         }
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void EnableGodCamera()
     {
-        CloseMenu();
+        CloseMenu(); 
         usingOrbitCam = godCam.GetComponent<OrbitCam>().enabled;
         QualitySettings.SetQualityLevel(0);
         hud.SetActive(false);
@@ -211,19 +213,37 @@ public class NavigationStack : Singleton<NavigationStack>
         t.x -= godCam.height / 2;
         godCam.transform.position = t;
         godCam.transform.eulerAngles = new Vector3(65, 90, 0);
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    bool DidToggleGod()
+    {
+        return !inCar && !menuActive && player.activeSelf && Input.GetButtonDown("Start");
+    }
+
+    bool DidToggleSmartphone()
+    {
+        return !inCar && !menuActive && !godCam.enabled && !inTransition && Input.GetButtonDown("Back");
+    }
+
+    bool DidClosePanel()
+    {
+        return stack.Count > 0 && stack.Peek() != startMenu && Input.GetButtonDown("Back");
     }
 
     private void Update()
     {
-        if (!inCar && !menuActive && player.activeSelf && (Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Escape)))
+        if (DidToggleGod())
         {
-            godCam.enabled = !godCam.enabled;
-            if (godCam.enabled) EnableGodCamera(); else DisableGodCamera();
+            if (godCam.enabled = !godCam.enabled) EnableGodCamera(); else DisableGodCamera();
         }
-        else if (!inCar && !menuActive && !godCam.enabled && !inTransition && (Input.GetKeyDown(KeyCode.Tab) || Input.GetButtonDown("Back")))
+        else if (DidToggleSmartphone())
         {
             if (player.activeSelf && smartphone.activeSelf) CloseMenu(); else PushView(smartphone);
         }
-        else if (stack.Count > 0 && stack.Peek() != startMenu && (Input.GetKeyDown(KeyCode.Tab) || Input.GetButtonDown("Back"))) CloseMenu();
+        else if (DidClosePanel()) 
+        {
+            CloseMenu(); 
+        }
     }
 }

@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuClose : MonoBehaviour
+public class MenuClose : Outlet
 {
     void Start()
     {
         transform.GetComponent<Button>()?.onClick.AddListener(Action);
     }
 
-    void Action()
+    public override void Action()
     {
         NavigationStack.Instance.CloseMenu();
     }

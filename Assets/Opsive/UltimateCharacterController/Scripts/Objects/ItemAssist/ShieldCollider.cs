@@ -35,7 +35,10 @@ namespace Opsive.UltimateCharacterController.Objects.ItemAssist
             m_Collider.enabled = false;
 
             //m_Character = m_Shield.gameObject.GetComponentInParent<Character.UltimateCharacterLocomotion>().gameObject;
-            m_Character = gameObject.GetComponentInParent<Character.UltimateCharacterLocomotion>().gameObject;
+
+            //m_Character = gameObject.GetComponentInParent<Character.UltimateCharacterLocomotion>().gameObject;
+            m_Character = GameObject.FindGameObjectWithTag("Player");
+
             EventHandler.RegisterEvent<bool>(m_Character, "OnCharacterChangePerspectives", OnChangePerspectives);
         }
 

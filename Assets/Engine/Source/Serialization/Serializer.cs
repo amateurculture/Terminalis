@@ -15,10 +15,13 @@ public static class Serializer
         game.SerializeAgentList(Brain.instance.automataList);
         game.sceneName = Brain.instance.sceneName;
         game.isSavedGame = true;
-        Serializer.savedGames.Add(game);
+        savedGames.Add(game);
+
+
+
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/savedGames.gd");
-        bf.Serialize(file, Serializer.savedGames);
+        bf.Serialize(file, savedGames);
         file.Close();
     }
 
@@ -28,7 +31,7 @@ public static class Serializer
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/savedGames.gd", FileMode.Open);
-            Serializer.savedGames = (List<Game>)bf.Deserialize(file);
+            savedGames = (List<Game>)bf.Deserialize(file);
             file.Close();
 
             var game = Serializer.savedGames[Serializer.savedGames.Count-1];

@@ -1,4 +1,23 @@
-﻿using UnityEngine;public class CarDiagnosticsInputHandler : MonoBehaviour{    public GameObject diagnosticsPanel;    public UnityVehicleController vehicleController;    private void Start()    {        diagnosticsPanel.SetActive(false);        vehicleController = GetComponent<UnityVehicleController>();    }    void Update()    {
+﻿using UnityEngine;
+
+public class CarDiagnosticsInputHandler : MonoBehaviour
+{
+    public GameObject diagnosticsPanel;
+    public UnityVehicleController vehicleController;
+
+    private void Reset()
+    {
+        vehicleController = transform.parent.parent.GetComponent<UnityVehicleController>();
+    }
+
+    private void Start()
+    {
+        diagnosticsPanel.SetActive(false);
+        vehicleController = GetComponent<UnityVehicleController>();
+    }
+
+    void Update()
+    {
         if (Input.GetKeyDown(KeyCode.F2))
         {
             diagnosticsPanel.SetActive(!diagnosticsPanel.activeSelf);
@@ -18,6 +37,8 @@
 
         if (Time.frameCount % 10 == 0 && diagnosticsPanel.activeSelf)
         {
-            //Cursor.lockState = CursorLockMode.None;            //Cursor.visible = true;
+            //Cursor.lockState = CursorLockMode.None;
+            //Cursor.visible = true;
         }
-    }}
+    }
+}

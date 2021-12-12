@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuExit : MonoBehaviour
+public class MenuExit : Outlet
 {
     void Start()
     {
         transform.GetComponent<Button>()?.onClick.AddListener(Action);
     }
 
-    void Action()
+    public override void Action()
     {
         Debug.Break();
         Application.Quit();
